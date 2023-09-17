@@ -1,0 +1,443 @@
+.Main {
+  overflow: hidden;
+}
+.Main__Brown {
+  background: var(--BgColor);
+}
+.Main__White {
+  background: var(--White);
+}
+
+/* ESTILOS PARA LAS SECCIONES */
+.Main__Presentation,
+.Main__Advantages,
+.Main__Services,
+.Main__Message {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__Standards,
+.Main__ContactMessage,
+.Main__Footer {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+}
+.Main__Advantages,
+.Main__Services,
+.Main__Message,
+.Main__Standards,
+.Main__ContactMessage,
+.Main__Footer {
+  gap: 20px;
+  padding: 40px 20px;
+}
+.Main__Footer {
+  justify-content: flex-end;
+  align-items: center;
+}
+/* ESTILOS PARA EL HEADER */
+.Main__Header {
+  position: fixed;
+  width: 100%;
+  max-width: 1440px;
+  top: 0;
+  background: var(--Black);
+  height: 75px;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Main__Header--Picture {
+  min-width: 75px;
+  width: 75px;
+
+  display: flex;
+  align-items: center;
+}
+.Main__Header--Picture--Img {
+  width: 100%;
+  background-color: var(--BgColor);
+}
+.Main__Header--Menu {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  gap: 20px;
+  padding: 20px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.Main__Header--Menu--Item--Link {
+  padding: 10px 20px;
+  background: var(--White);
+  border-radius: var(--BorderRadius);
+  border: 2px solid transparent;
+  font-weight: bold;
+  color: var(--Black);
+
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+}
+.Main__Header--Menu--Item--Link:hover {
+  background-color: var(--Black);
+  color: var(--White);
+  border-color: var(--White);
+}
+.Main__Header--Button {
+  height: 100%;
+  width: 75px;
+  border: none;
+  background: none;
+  color: var(--White);
+  display: none;
+  cursor: pointer;
+}
+
+/* ESTILOS PARA EL CONTENIDO DE LA PRESENTACIÓN */
+.Main__Presentation__Content {
+  display: flex;
+  margin-top: 75px;
+}
+.Main__Presentation__Content--Text {
+  width: 100%;
+  padding: 40px 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.Main__Presentation__Content--Text--Title {
+  font-size: 65px;
+}
+.Main__Presentation__Content--Text--SubTitle {
+  font-size: 35px;
+}
+.Main__Presentation__Content--Text--Button {
+  position: relative;
+  border: 3px solid var(--Black);
+  font-size: 25px;
+  color: var(--Black);
+  width: 250px;
+  height: 60px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Main__Presentation__Content--Text--Button--Text {
+  z-index: 1;
+}
+.Main__Presentation__Content--Text--Button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  height: 1px;
+  width: 1px;
+  background: var(--White);
+  z-index: 0;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__Presentation__Content--Text--Button:hover::after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.Main__Presentation__Content--Image {
+  width: 100%;
+  background-image: url("./Presentation.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ESTILOS PARA EL CONTENIDO DE LAS VENTAJAS */
+.Main__Advantages--Title,
+.Main__Advantages--Title--Text {
+  margin: auto;
+  max-width: 60%;
+  text-align: center;
+}
+.Main__Advantages--Title {
+  font-size: 65px;
+}
+.Main__Advantages--Title--Text {
+  font-size: 25px;
+}
+
+/* ESTILOS PARA EL CONTENIDO DE LOS SERVICIOS */
+.Main__Services--Title {
+  margin: auto;
+  max-width: 60%;
+  text-align: center;
+  font-size: 65px;
+}
+.Main__Services--Content {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.Main__Services--Content--Article {
+  position: relative;
+  background: var(--White);
+  grid-column: span 1;
+  min-height: 500px;
+  height: auto;
+  padding: 80px 20px;
+}
+.Main__Services--Content--Article--Picture {
+  position: absolute;
+  top: -60px;
+  left: calc(50% - 60px);
+  width: 120px;
+  height: 120px;
+  padding: 20px;
+  border-radius: 50%;
+  background: var(--Black);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__Services--Content--Article--Picture img {
+  width: 100%;
+}
+.Main__Services--Content--Article--Title {
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+}
+.Main__Services--Content--Article--Details {
+  margin-top: 40px;
+  font-size: 25px;
+  text-align: center;
+}
+
+/* ESTILOS PARA EL MENSAJE */
+.Main__Message--Title {
+  text-align: center;
+  font-size: 65px;
+}
+.Main__Message--Picture {
+  height: 400px;
+  background-image: url("./Mensaje.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ESTILOS PARA ESTÁNDARES Y EL MENSAJE PARA CONTACTAR */
+.Main__Standards--Picture,
+.Main__ContactMessage--Picture {
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Main__Standards--Picture {
+  background-image: url("./Estandares.jpg");
+}
+.Main__ContactMessage--Picture {
+  background-image: url("./Contacto.jpg");
+}
+.Main__Standards--Details,
+.Main__ContactMessage--Details {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.Main__Standards--Details--Title {
+  text-align: center;
+  font-size: 65px;
+  max-width: 80%;
+  margin: auto;
+}
+.Main__Standards--Details--Details,
+.Main__ContactMessage--Details--Text {
+  font-size: 25px;
+  text-align: center;
+}
+
+/* ESTILOS PARA EL FOOTER */
+.Main__Footer--Text {
+  text-align: center;
+  font-size: 25px;
+}
+.Main__Footer--Link {
+  display: flex;
+  gap: 20px;
+}
+.Main__Footer--Link a ion-icon {
+  transform: translateY(3px);
+  color: var(--Black);
+  transition: 0.3s ease-in-out all;
+}
+.Main__Footer--Link a:hover ion-icon {
+  transform: translateY(-5px);
+}
+/* DISEÑO PARA CELULARES */
+@media (width <= 1440px) {
+  .Main__Presentation,
+  .Main__Advantages,
+  .Main__Services,
+  .Main__Message,
+  .Main__Standards,
+  .Main__ContactMessage,
+  .Main__Footer {
+    width: 100%;
+  }
+}
+@media (width <= 1337px) {
+  .Main__Header--Menu--Item--Link {
+    font-size: 14px;
+  }
+  .Main__Presentation__Content--Text--Title,
+  .Main__Advantages--Title,
+  .Main__Services--Title,
+  .Main__Message--Title,
+  .Main__Standards--Details--Title {
+    font-size: 55px;
+  }
+  .Main__Presentation__Content--Text--SubTitle,
+  .Main__Services--Content--Article--Title {
+    font-size: 30px;
+  }
+  .Main__Presentation__Content--Text--Button {
+    font-size: 20px;
+    width: 200px;
+  }
+  .Main__Advantages--Title--Text,
+  .Main__Services--Content--Article--Details,
+  .Main__Standards--Details--Details,
+  .Main__ContactMessage--Details--Text,
+  .Main__Footer--Text {
+    font-size: 20px;
+  }
+}
+@media (width <= 1233px) {
+  .Main__Header--Menu {
+    display: none;
+  }
+  .Main__Header--Button {
+    display: block;
+  }
+}
+@media (width <= 1024px) {
+  .Main__Presentation__Content--Text--Title,
+  .Main__Advantages--Title,
+  .Main__Services--Title,
+  .Main__Message--Title,
+  .Main__Standards--Details--Title {
+    font-size: 45px;
+  }
+  .Main__Presentation__Content--Text--SubTitle {
+    font-size: 25px;
+  }
+  .Main__Presentation__Content--Text--Button {
+    font-size: 18px;
+    width: 150px;
+  }
+  .Main__Advantages--Title--Text,
+  .Main__Services--Content--Article--Details,
+  .Main__Standards--Details--Details,
+  .Main__ContactMessage--Details--Text,
+  .Main__Footer--Text {
+    font-size: 18px;
+  }
+  .Main__Advantages--Title,
+  .Main__Advantages--Title--Text,
+  .Main__Services--Title,
+  .Main__Standards--Details--Title {
+    max-width: 100%;
+  }
+  .Main__Services--Content {
+    grid-template-columns: 1fr;
+    gap: 120px;
+  }
+  .Main__Services--Content--Article {
+    min-height: 100px;
+  }
+  .Main__Message--Picture {
+    height: 300px;
+  }
+}
+@media (width <= 768px) {
+  .Main__Presentation__Content,
+  .Main__Standards {
+    flex-direction: column-reverse;
+  }
+  .Main__Presentation__Content--Image {
+    height: 400px;
+  }
+  .Main__Services--Content {
+    gap: 100px;
+  }
+  .Main__Services--Content--Article--Picture {
+    top: -50px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+  }
+  .Main__Message--Picture,
+  .Main__Standards--Picture,
+  .Main__ContactMessage--Picture {
+    height: 200px;
+  }
+  .Main__ContactMessage {
+    flex-direction: column;
+  }
+  .Main__Footer {
+    flex-direction: column;
+  }
+}
+@media (width <= 500px) {
+  .Main__Presentation__Content--Image {
+    height: 300px;
+  }
+  .Main__Presentation__Content--Text--Title,
+  .Main__Advantages--Title,
+  .Main__Services--Title,
+  .Main__Message--Title,
+  .Main__Standards--Details--Title {
+    font-size: 35px;
+  }
+  .Main__Presentation__Content--Text--SubTitle,
+  .Main__Services--Content--Article--Title {
+    font-size: 20px;
+  }
+  .Main__Presentation__Content--Text--Button {
+    font-size: 16px;
+    height: 50px;
+  }
+  .Main__Advantages--Title--Text,
+  .Main__Services--Content--Article--Details,
+  .Main__Standards--Details--Details,
+  .Main__ContactMessage--Details--Text {
+    font-size: 16px;
+  }
+}
+@media (width <= 378px) {
+  .Main__Presentation__Content--Text--Title,
+  .Main__Advantages--Title,
+  .Main__Services--Title,
+  .Main__Message--Title,
+  .Main__Standards--Details--Title {
+    font-size: 30px;
+  }
+}

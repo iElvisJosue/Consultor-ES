@@ -1,0 +1,322 @@
+.Main__About {
+  overflow: hidden;
+}
+.Main__About__Brown {
+  background: var(--BgColor);
+}
+.Main__About__White {
+  background: var(--White);
+}
+
+/* ESTILOS PARA LAS SECCIONES */
+.Main__About__Presentation,
+.Main__About__Business,
+.Main__About--Advantages,
+.Main__About__Costs,
+.Main__About__Information {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__About__Business,
+.Main__About__Costs,
+.Main__About__Information {
+  flex-direction: row;
+}
+.Main__About__Business,
+.Main__About--Advantages,
+.Main__About__Costs,
+.Main__About__Information {
+  gap: 20px;
+  padding: 40px 20px;
+}
+.Main__About__Costs,
+.Main__About__Information {
+  align-items: center;
+}
+.Main__About__Information.Two {
+  flex-direction: row-reverse;
+}
+/* ESTILOS PARA EL CONTENIDO DE LA PRESENTACIÓN */
+.Main__About__Presentation__Content {
+  display: flex;
+  gap: 20px;
+  margin-top: 75px;
+  padding: 40px 20px;
+}
+.Main__About__Presentation__Content--Text {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.Main__About__Presentation__Content--Text--Title {
+  font-size: 65px;
+}
+.Main__About__Presentation__Content--Text--SubTitle {
+  font-size: 35px;
+}
+.Main__About__Presentation__Content--Image {
+  width: 100%;
+  height: 500px;
+  background-image: url("./AboutPresentation.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ESTILO PARA EL CONTENIDO DE LOS NEGOCIOS */
+.Main__About__Business--Picture--Left,
+.Main__About__Business--Picture--Right {
+  min-width: 150px;
+  background-image: url("./AboutBusiness.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+}
+.Main__About__Business--Picture--Right {
+  background-position: right;
+}
+.Main__About__Business--Content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.Main__About__Business--Title {
+  font-size: 65px;
+}
+.Main__About__Business--Title--Text {
+  font-size: 25px;
+}
+
+/* ESTILOS PARA EL CONTENIDO DE LAS VENTAJAS  */
+.Main__About--Advantages--Title {
+  margin: auto;
+  max-width: 80%;
+  text-align: center;
+  font-size: 65px;
+}
+.Main__About--Advantages--Content {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.Main__About--Advantages--Content--Article {
+  position: relative;
+  background: var(--White);
+  grid-column: span 1;
+  min-height: 200px;
+  height: auto;
+  padding: 80px 20px;
+}
+.Main__About--Advantages--Content--Article--Picture {
+  position: absolute;
+  top: -60px;
+  left: calc(50% - 60px);
+  width: 120px;
+  height: 120px;
+  padding: 20px;
+  border-radius: 50%;
+  background: var(--Black);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__About--Advantages--Content--Article--Picture img {
+  width: 100%;
+}
+.Main__About--Advantages--Content--Article--Title {
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+}
+.Main__About--Advantages--Content--Article--Details {
+  margin-top: 40px;
+  font-size: 25px;
+  text-align: center;
+}
+
+/* ESTILOS PARA LA SECCIÓN DE COSTOS */
+.Main__About__Costs--Picture {
+  min-width: 300px;
+  height: 500px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Main__About__Costs--Picture {
+  background-image: url("./AboutCosts.jpg");
+}
+.Main__About__Costs--Details {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.Main__About__Costs--Details--Title {
+  text-align: center;
+  font-size: 65px;
+  max-width: 80%;
+  margin: auto;
+}
+.Main__About__Costs--Details--Details {
+  font-size: 25px;
+  text-align: center;
+}
+
+/* ESTILOS PARA ESTÁNDARES Y EL MENSAJE PARA CONTACTAR */
+.Main__About__Information--Picture {
+  width: 100%;
+  min-height: 500px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Main__About__Information.One .Main__About__Information--Picture {
+  background-image: url("./AboutInformation.jpg");
+}
+.Main__About__Information.Two .Main__About__Information--Picture {
+  background-image: url("./Contacto.jpg");
+}
+.Main__About__Information--Details {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.Main__About__Information--Details--Text {
+  font-size: 25px;
+  text-align: center;
+}
+
+/* DISEÑO PARA CELULARES */
+@media (width <= 1440px) {
+  .Main__About__Presentation,
+  .Main__About__Business,
+  .Main__About--Advantages,
+  .Main__About__Costs,
+  .Main__About__Information {
+    width: 100%;
+  }
+}
+@media (width <= 1337px) {
+  .Main__About__Presentation__Content--Text--Title,
+  .Main__About__Business--Title,
+  .Main__About--Advantages--Title,
+  .Main__About__Costs--Details--Title {
+    font-size: 55px;
+  }
+  .Main__About__Presentation__Content--Text--SubTitle,
+  .Main__About--Advantages--Content--Article--Title {
+    font-size: 30px;
+  }
+  .Main__About__Business--Title--Text,
+  .Main__About--Advantages--Content--Article--Details,
+  .Main__About__Costs--Details--Details,
+  .Main__About__Information--Details--Text {
+    font-size: 20px;
+  }
+}
+@media (width <= 1024px) {
+  .Main__About__Presentation__Content--Text--Title,
+  .Main__About__Business--Title,
+  .Main__About--Advantages--Title,
+  .Main__About__Costs--Details--Title {
+    font-size: 45px;
+  }
+  .Main__About__Presentation__Content--Text--SubTitle {
+    font-size: 25px;
+  }
+  .Main__About__Business--Title--Text,
+  .Main__About--Advantages--Content--Article--Details,
+  .Main__About__Costs--Details--Details,
+  .Main__About__Information--Details--Text {
+    font-size: 18px;
+  }
+  .Main__About--Advantages--Content {
+    grid-template-columns: 1fr;
+    gap: 120px;
+  }
+}
+@media (width <= 768px) {
+  .Main__About__Presentation__Content {
+    flex-direction: column-reverse;
+  }
+  .Main__About__Business--Picture--Left,
+  .Main__About__Business--Picture--Right {
+    width: 100%;
+    height: 100px;
+  }
+  .Main__About__Business--Picture--Left {
+    background-position: top;
+  }
+  .Main__About__Business--Picture--Right {
+    background-position: bottom;
+  }
+  .Main__About__Business {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+  .Main__About__Presentation__Content--Image {
+    height: 400px;
+  }
+  .Main__About--Advantages--Content--Article--Picture {
+    top: -50px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+  }
+  .Main__About--Advantages--Content {
+    gap: 100px;
+  }
+  .Main__About__Costs {
+    flex-direction: column;
+  }
+  .Main__About__Costs--Picture {
+    width: 100%;
+    height: 200px;
+  }
+  .Main__About__Information {
+    flex-direction: column !important;
+  }
+  .Main__About__Information--Picture {
+    min-height: 200px;
+  }
+}
+@media (width <= 500px) {
+  .Main__About__Presentation__Content--Image {
+    height: 300px;
+  }
+  .Main__About__Presentation__Content--Text--Title,
+  .Main__About__Business--Title,
+  .Main__About--Advantages--Title,
+  .Main__About__Costs--Details--Title {
+    font-size: 35px;
+  }
+  .Main__About__Presentation__Content--Text--SubTitle,
+  .Main__About--Advantages--Content--Article--Title {
+    font-size: 20px;
+  }
+  .Main__About__Business--Title--Text,
+  .Main__About--Advantages--Content--Article--Details,
+  .Main__About__Costs--Details--Details,
+  .Main__About__Information--Details--Text {
+    font-size: 16px;
+  }
+}
+@media (width <= 378px) {
+  .Main__About__Presentation__Content--Text--Title,
+  .Main__About__Business--Title,
+  .Main__About--Advantages--Title,
+  .Main__About__Costs--Details--Title {
+    font-size: 30px;
+  }
+}

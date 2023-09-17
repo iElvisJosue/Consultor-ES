@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Raleway";
+  src: url("../public/Raleway.ttf") format("truetype");
+}
+:root {
+  --Black: #222222;
+  --White: #ffffff;
+  --BgColor: #e7dfd8;
+  --BorderRadius: 20px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  outline: none;
+}
+a {
+  text-decoration: none;
+}
+ion-icon {
+  font-size: 25px;
+}
