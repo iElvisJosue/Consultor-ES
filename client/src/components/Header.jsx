@@ -35,7 +35,7 @@ export default function Header() {
           </a>
         </li>
         <li className="Main__Header--Menu--Item">
-          <a href="/login" className="Main__Header--Menu--Item--Link">
+          <a href="/prueba" className="Main__Header--Menu--Item--Link">
             Iniciar sesión
           </a>
         </li>
