@@ -17,7 +17,10 @@ import { validateData } from "../middlewares/validateData.js";
 // IMPORTAMOS LOS VALIDADORES DE DATOS
 import { emailVerificationCode } from "../validators/data.validator.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VALIDAR EL CORREO VERIFICADO
-import { emailIsNotVerified } from "../middlewares/checkEmailVerified.js";
+import {
+  emailIsNotVerified,
+  emailIsVerified,
+} from "../middlewares/checkEmailVerified.js";
 // IMPORTAMOS EL VALIDADOR DE DATOS
 import { dataUser, dataLogin } from "../validators/data.validator.js";
 // ALMACENAMOS EL ENRUTADOR
@@ -40,7 +43,13 @@ router.put(
 );
 
 // RUTA PARA ACTUALIZAR LA INFORMACIÓN DEL USUARIO
-router.put("/updateUser", authRequired, validateData(dataUser), updateUser);
+router.put(
+  "/updateUser",
+  authRequired,
+  emailIsVerified,
+  validateData(dataUser),
+  updateUser
+);
 
 // RUTA PARA OBTENER LOS DATOS DEL USUARIO
 router.get("/getUserProfile", authRequired, getUserProfile);

@@ -19,6 +19,8 @@ export default function ConsultantRegisterData() {
     ACTIVO:
       "¡Este usuario ya tiene una cuenta activa, por favor inicie sesión.",
     TYC: "¡Debe aceptar los términos y condiciones!",
+    NO_VERIFICADO:
+      "Está acción no se puede completar porque tu correo no ha sido verificado. Verifica tu correo e intenta de nuevo.",
     SERVER_ERROR:
       "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
   };
@@ -43,6 +45,16 @@ export default function ConsultantRegisterData() {
       case "TYC":
         toast.error(ERROR_MESSAGES.TYC);
         break;
+      case "SIN VERIFICAR":
+        toast.error(ERROR_MESSAGES.NO_VERIFICADO, {
+          action: {
+            label: "Verificar",
+            onClick: () => {
+              navigate("/ConsultantCodeVerification");
+            },
+          },
+        });
+        break;
       default:
         toast.error(ERROR_MESSAGES.SERVER_ERROR);
         break;
@@ -64,6 +76,7 @@ export default function ConsultantRegisterData() {
 
   const registerConsultantData = async (data) => {
     const res = await registerConsultant(data);
+    console.log(res);
     if (res.data) {
       handleSuccessResponse();
     } else if (res.response) {

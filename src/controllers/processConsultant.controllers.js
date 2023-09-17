@@ -1,5 +1,7 @@
 // IMPORTAMOS EL MODELO DE LOS DATOS DEL CONSULTOR
 import consultantProfileModel from "../models/consultants/consultant.model.js";
+// IMPORTAMOS EL MODELO DE LOS USUARIOS
+import userModel from "../models/users.model.js";
 
 export const registerDataConsultant = async (req, res) => {
   // TODO: EN EL FRONT AGREGAREMOS LOS TYC

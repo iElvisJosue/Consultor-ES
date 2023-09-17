@@ -19,7 +19,6 @@ export const registerDataClient = async (req, res) => {
   const userFound = await clientProfileModel.findOne({
     ownerID: req.user.id,
   });
-
   if (!RFCFound) {
     if (!userFound) {
       // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
