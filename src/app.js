@@ -19,6 +19,7 @@ import cors from "cors";
 const app = express();
 
 const allowedOrigins = [
+  "https://consultor-es.vercel.app/",
   "http://localhost:5173",
   "https://zx2tvfh9-5173.usw3.devtunnels.ms",
 ];
