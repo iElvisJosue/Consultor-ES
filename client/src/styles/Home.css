@@ -158,7 +158,7 @@
 }
 .Main__Presentation__Content--Image {
   width: 100%;
-  background-image: url("./Presentation.jpg");
+  background-image: url("../../public/Presentation.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -234,7 +234,7 @@
 }
 .Main__Message--Picture {
   height: 400px;
-  background-image: url("./Mensaje.jpg");
+  background-image: url("../../public/Mensaje.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -249,10 +249,10 @@
   background-position: center;
 }
 .Main__Standards--Picture {
-  background-image: url("./Estandares.jpg");
+  background-image: url("../../public/Estandares.jpg");
 }
 .Main__ContactMessage--Picture {
-  background-image: url("./Contacto.jpg");
+  background-image: url("../../public/Contacto.jpg");
 }
 .Main__Standards--Details,
 .Main__ContactMessage--Details {
