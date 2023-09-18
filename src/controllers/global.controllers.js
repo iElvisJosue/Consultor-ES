@@ -196,8 +196,6 @@ export const login = async (req, res) => {
   // OBTENEMOS LOS DATOS INGRESAMOS POR EL USUARIO
   const { yourUserName, yourPassword } = req.body;
 
-  console.log({ yourUserName, yourPassword });
-
   // BUSCAMOS SI EL USUARIO EXISTE
   const userFound = await userModel.findOne({
     userName: yourUserName,
@@ -214,7 +212,10 @@ export const login = async (req, res) => {
         });
 
         // ALMACENAMOS EL TOKEN EN UN COOKIE
-        res.cookie("accessToken", accessToken);
+        res.cookie("accessToken", accessToken, {
+          sameSite: "none",
+          secure: true,
+        });
 
         // VEMOS LOS DATOS
         res.send(accessToken);

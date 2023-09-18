@@ -1,10 +1,7 @@
 import axios from "./axios";
 
 // PETICIÓN PARA INICIAR SESIÓN
-export const loginUser = (data) =>
-  axios.post("/global/login", data, {
-    withCredentials: true,
-  });
+export const loginUser = (data) => axios.post("/global/login", data);
 
 // PETICIÓN PARA ENVIAR EL CORREO DE VERIFICACIÓN
 export const sendEmailVerificationCode = (email) =>
