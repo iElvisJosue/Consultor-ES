@@ -211,10 +211,9 @@ export const login = async (req, res) => {
           id: userFound._id,
         });
         // ALMACENAMOS EL TOKEN EN UN COOKIE
-        const infinity = new Date("9999-12-31");
         res.cookie("accessToken", accessToken, {
           sameSite: "none",
-          expires: infinity,
+          domain: "consultor-es.vercel.app",
         });
 
         console.log("LLEGUE HASTA AQUI EN PRODUCCION");
