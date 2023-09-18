@@ -76,7 +76,6 @@ export default function ConsultantRegisterData() {
 
   const registerConsultantData = async (data) => {
     const res = await registerConsultant(data);
-    console.log(res);
     if (res.data) {
       handleSuccessResponse();
     } else if (res.response) {

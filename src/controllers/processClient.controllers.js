@@ -17,7 +17,7 @@ export const registerDataClient = async (req, res) => {
   // VERIFICAMOS SI EXISTEN LOS DATOS ÚNICOS (RFC/USUARIO)
   const RFCFound = await clientProfileModel.findOne({ RFC });
   const userFound = await clientProfileModel.findOne({
-    ownerID: req.user.id,
+    ownerID: req.user._id,
   });
   if (!RFCFound) {
     if (!userFound) {
@@ -30,7 +30,7 @@ export const registerDataClient = async (req, res) => {
         number,
         businessName,
         serviceArea,
-        ownerID: req.user.id,
+        ownerID: req.user._id,
       });
 
       // LO ALMACENAMOS EN LA BD

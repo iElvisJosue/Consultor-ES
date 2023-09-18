@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const setSuccess = (res) => {
-    const { _id } = res.data;
+    const { _id } = res;
     setUser(_id);
     setHasCookie(true);
     setIsAuthenticated(true);
@@ -57,12 +57,11 @@ export const AuthProvider = ({ children }) => {
       }
       try {
         const res = await verifyToken(cookies.accessToken);
-        console.log(res);
         if (!res.data) {
           setError();
           return;
         }
-        return setSuccess(res);
+        return setSuccess(res.data);
       } catch (error) {
         console.log(error);
         setError();
@@ -72,14 +71,16 @@ export const AuthProvider = ({ children }) => {
     checkCookie();
   }, []);
 
-  const registerConsultantEmail = async (data) => {
+  const registerEmail = async (data) => {
     try {
       const res = await sendEmailVerificationCode(data);
       if (!res.data) {
         return setError();
       }
-      return setSuccess(res);
+      Cookies.set("accessToken", res.data.accessToken);
+      return setSuccess(res.data.user);
     } catch (error) {
+      console.log(error);
       setError();
       return error;
     }
@@ -136,8 +137,8 @@ export const AuthProvider = ({ children }) => {
       if (!res.data) {
         return setError();
       }
-      Cookies.set("accessToken", res.data);
-      return setSuccess(res);
+      Cookies.set("accessToken", res.data.accessToken);
+      return setSuccess(res.data.user);
     } catch (error) {
       setError();
       return error;
@@ -150,7 +151,7 @@ export const AuthProvider = ({ children }) => {
       if (!res.data) {
         return setError();
       }
-      return setSuccess(res);
+      return res;
     } catch (error) {
       setError();
       return error;
@@ -165,7 +166,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        registerConsultantEmail,
+        registerEmail,
         checkVerificationCode,
         registerConsultant,
         updateUser,

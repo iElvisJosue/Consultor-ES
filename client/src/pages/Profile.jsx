@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 export default function Profile() {
   const [loading, setLoading] = useState(true);
   const { getUserProfile, logout } = useAuth();
+
   const userProfile = useRef(null);
 
   const profiles = {

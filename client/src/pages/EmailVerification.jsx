@@ -5,7 +5,7 @@ import { Toaster, toast } from "sonner";
 // eslint-disable-next-line react/prop-types
 export default function ConsultantEmailVerification({ title, role }) {
   const { register, handleSubmit } = useForm();
-  const { registerConsultantEmail } = useAuth();
+  const { registerEmail } = useAuth();
   const navigate = useNavigate();
 
   const ERROR_MESSAGES = {
@@ -36,9 +36,9 @@ export default function ConsultantEmailVerification({ title, role }) {
   const sendEmail = handleSubmit(async (data) => {
     try {
       data.role = role;
-      const res = await registerConsultantEmail(data);
+      const res = await registerEmail(data);
 
-      if (res.data) {
+      if (res._id) {
         return handleSuccessResponse();
       } else if (res.response) {
         return handleErrorResponse(res.response.data[0]);

@@ -72,16 +72,23 @@ const registerAndSendVerificationCode = async (res, email, role) => {
 
   // CREAMOS EL ID EN UN TOKEN
   const accessToken = await createAccessToken({
-    id: newUserModelSaved._id,
+    _id: newUserModelSaved._id,
   });
 
   // ALMACENAMOS EL TOKEN EN UN COOKIE
   res.cookie("accessToken", accessToken, {
     maxAge: 24 * 60 * 60 * 1000, // UN DIA
+    secure: true,
+    sameSite: "none",
   });
 
+  const responseObject = {
+    accessToken: accessToken,
+    user: newUserModelSaved,
+  };
+
   // VEMOS LOS DATOS
-  res.send(newUserModelSaved);
+  res.send(responseObject);
 
   // ENVIAMOS EL CORREO DEPENDIENDO EL ROLE
   sendEmail(newUserModelSaved.email, code, role);
@@ -121,11 +128,11 @@ export const sendEmailVerificationCode = async (req, res) => {
 
 export const emailVerification = async (req, res) => {
   const { codeEntered } = req.body;
-  const { emailCode } = await userModel.findById(req.user.id);
+  const { emailCode } = await userModel.findById(req.user._id);
 
   if (codeEntered === emailCode) {
     const updatedEmailVerification = await userModel.findByIdAndUpdate(
-      req.user.id,
+      req.user._id,
       { emailVerified: true },
       {
         new: true,
@@ -134,7 +141,7 @@ export const emailVerification = async (req, res) => {
 
     // CREAMOS EL ID EN UN TOKEN
     const accessToken = await createAccessToken({
-      id: updatedEmailVerification._id,
+      _id: updatedEmailVerification._id,
     });
 
     // ALMACENAMOS EL TOKEN EN UN COOKIE
@@ -152,7 +159,7 @@ export const updateUser = async (req, res) => {
   const { userName, password } = req.body;
 
   const userFound = await userModel.findOne({
-    $and: [{ userName }, { _id: { $ne: req.user.id } }],
+    $and: [{ userName }, { _id: { $ne: req.user._id } }],
   });
 
   if (!userFound) {
@@ -161,7 +168,7 @@ export const updateUser = async (req, res) => {
       const encryptedPassword = await bcrypt.hash(password, 10);
 
       await userModel.findByIdAndUpdate(
-        req.user.id,
+        req.user._id,
         {
           userName,
           password: encryptedPassword,
@@ -212,7 +219,7 @@ export const login = async (req, res) => {
       if (isMatch) {
         // CREAMOS EL ID EN UN TOKEN DEL USUARIO ENCONTRADO
         const accessToken = await createAccessToken({
-          id: userFound._id,
+          _id: userFound._id,
         });
         // ALMACENAMOS EL TOKEN EN UN COOKIE
         res.cookie("accessToken", accessToken, {
@@ -221,8 +228,13 @@ export const login = async (req, res) => {
           sameSite: "none",
         });
 
+        const responseObject = {
+          accessToken: accessToken,
+          user: userFound,
+        };
+
         // VEMOS LOS DATOS
-        res.send(accessToken);
+        res.send(responseObject);
       } else {
         res.status(400).json(["INEXISTENTE"]);
       }
@@ -235,8 +247,9 @@ export const login = async (req, res) => {
 };
 
 export const getUserProfile = async (req, res) => {
+  console.log(req.user._id);
   try {
-    const userRoleFound = await userModel.findById(req.user.id);
+    const userRoleFound = await userModel.findById(req.user._id);
     const { role } = userRoleFound;
 
     res.send({ role });

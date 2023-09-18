@@ -11,7 +11,7 @@ export const registerDataConsultant = async (req, res) => {
   // VERIFICAMOS SI EXISTEN LOS DATOS ÚNICOS (RFC/USUARIO)
   const RFCFound = await consultantProfileModel.findOne({ RFC });
   const userFound = await consultantProfileModel.findOne({
-    ownerID: req.user.id,
+    ownerID: req.user._id,
   });
 
   if (!RFCFound) {
@@ -24,7 +24,7 @@ export const registerDataConsultant = async (req, res) => {
         RFC,
         number,
         LinkedIn,
-        ownerID: req.user.id,
+        ownerID: req.user._id,
       });
 
       // LO ALMACENAMOS EN LA BD
