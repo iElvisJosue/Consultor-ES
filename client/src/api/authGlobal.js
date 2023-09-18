@@ -4,7 +4,7 @@ import axios from "./axios";
 // export const loginUser = (data) => axios.post("/global/login", data);
 export const loginUser = (data) => {
   console.log({ data });
-  return fetch("http://localhost:4000/api/global/login", {
+  return fetch("https://consultor-es.onrender.com/api/global/login", {
     method: "POST",
     credentials: "include",
     headers: {
