@@ -1,23 +1,11 @@
 import axios from "./axios";
 
 // PETICIÓN PARA INICIAR SESIÓN
-// export const loginUser = (data) => axios.post("/global/login", data);
-export const loginUser = (data) => {
-  console.log({ data });
-  return fetch("https://consultor-es.onrender.com/api/global/login", {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      yourUserName: data.yourUserName,
-      yourPassword: data.yourPassword,
-    }),
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
-};
+export const loginUser = (data) =>
+  axios.post("/global/login", data, {
+    withCredentials: true,
+  });
+
 // PETICIÓN PARA ENVIAR EL CORREO DE VERIFICACIÓN
 export const sendEmailVerificationCode = (email) =>
   axios.post("/global/sendEmailVerificationCode", email);
