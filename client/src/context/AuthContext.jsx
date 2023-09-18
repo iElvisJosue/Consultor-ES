@@ -135,10 +135,10 @@ export const AuthProvider = ({ children }) => {
   const login = async (data) => {
     try {
       const res = await loginUser(data);
-      console.log(res);
       if (!res.data) {
         return setError();
       }
+      console.log(res.data);
       // console.log(res.data);
       // Cookies.set("accessToken", res.data);
       return setSuccess(res);

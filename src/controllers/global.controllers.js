@@ -210,11 +210,11 @@ export const login = async (req, res) => {
         const accessToken = await createAccessToken({
           id: userFound._id,
         });
-
         // ALMACENAMOS EL TOKEN EN UN COOKIE
-        res.cookie("accessToken", accessToken, {
+        const infinity = new Date("9999-12-31");
+        res.cookie("probando", accessToken, {
           sameSite: "none",
-          secure: true,
+          expires: infinity,
         });
 
         // VEMOS LOS DATOS
