@@ -38,8 +38,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const setSuccess = (res) => {
-    // const { _id, email, emailVerified, role } = res.data;
-    // setUser({ id: _id, email, emailVerified, role });
     const { _id } = res.data;
     setUser(_id);
     setHasCookie(true);
@@ -138,8 +136,6 @@ export const AuthProvider = ({ children }) => {
       if (!res.data) {
         return setError();
       }
-      console.log(res.data);
-      // console.log(res.data);
       Cookies.set("accessToken", res.data);
       return setSuccess(res);
     } catch (error) {
