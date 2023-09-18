@@ -137,8 +137,7 @@ export const AuthProvider = ({ children }) => {
       if (!res.data) {
         return setError();
       }
-      console.log(res);
-      Cookies.set("accessToken");
+      Cookies.set("accessToken", res.data);
       return setSuccess(res);
     } catch (error) {
       setError();
