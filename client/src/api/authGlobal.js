@@ -14,7 +14,9 @@ export const loginUser = (data) => {
       yourUserName: data.yourUserName,
       yourPassword: data.yourPassword,
     }),
-  });
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 };
 // PETICIÓN PARA ENVIAR EL CORREO DE VERIFICACIÓN
 export const sendEmailVerificationCode = (email) =>
