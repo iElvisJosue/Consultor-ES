@@ -184,10 +184,14 @@ export const updateUser = async (req, res) => {
 export const verifyToken = async (req, res) => {
   const { accessToken } = req.cookies;
 
+  console.log("MI TOKEN DE ACCESO ES:", accessToken);
+
   jwt.verify(accessToken, TOKEN_SECRET, async (err, user) => {
     if (err) {
+      console.log("HUBO UN ERROR Y ES:", err);
       return res.status(400).json(["TU TOKEN NO ESTA AUTORIZADO"]);
     }
+    console.log("NO HUBO ERROR");
     return res.json(user);
   });
 };
@@ -212,11 +216,10 @@ export const login = async (req, res) => {
         });
         // ALMACENAMOS EL TOKEN EN UN COOKIE
         res.cookie("accessToken", accessToken, {
+          maxAge: 24 * 60 * 60 * 1000, // UN DIA
+          secure: true,
           sameSite: "none",
-          domain: "consultor-es.vercel.app",
         });
-
-        console.log("LLEGUE HASTA AQUI EN PRODUCCION");
 
         // VEMOS LOS DATOS
         res.send(accessToken);

@@ -16,10 +16,10 @@ export default function Login() {
 
   const handleSuccessResponse = () => {
     toast.success("¡Bienvenido!");
-    // setTimeout(() => {
-    //   navigate("/Profile");
-    // }, 3000);
-    // return;
+    setTimeout(() => {
+      navigate("/Profile");
+    }, 3000);
+    return;
   };
 
   const handleErrorResponse = (status) => {
