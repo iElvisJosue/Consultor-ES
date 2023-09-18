@@ -217,6 +217,8 @@ export const login = async (req, res) => {
           expires: infinity,
         });
 
+        console.log("LLEGUE HASTA AQUI EN PRODUCCION");
+
         // VEMOS LOS DATOS
         res.send(accessToken);
       } else {
