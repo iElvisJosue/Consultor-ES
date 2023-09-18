@@ -196,6 +196,8 @@ export const login = async (req, res) => {
   // OBTENEMOS LOS DATOS INGRESAMOS POR EL USUARIO
   const { yourUserName, yourPassword } = req.body;
 
+  console.log({ yourUserName, yourPassword });
+
   // BUSCAMOS SI EL USUARIO EXISTE
   const userFound = await userModel.findOne({
     userName: yourUserName,
