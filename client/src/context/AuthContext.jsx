@@ -48,31 +48,31 @@ export const AuthProvider = ({ children }) => {
     return res;
   };
 
-  //COMPROBAR SI TIENE UN COOKIE
-  // useEffect(() => {
-  //   async function checkCookie() {
-  //     const cookies = Cookies.get();
-  //     if (!cookies.accessToken) {
-  //       console.log("NO HAY COOKIE");
-  //       setError();
-  //       return;
-  //     }
-  //     try {
-  //       const res = await verifyToken(cookies.accessToken);
-  //       console.log(res);
-  //       if (!res.data) {
-  //         setError();
-  //         return;
-  //       }
-  //       return setSuccess(res);
-  //     } catch (error) {
-  //       console.log(error);
-  //       setError();
-  //       return;
-  //     }
-  //   }
-  //   checkCookie();
-  // }, []);
+  // COMPROBAR SI TIENE UN COOKIE
+  useEffect(() => {
+    async function checkCookie() {
+      const cookies = Cookies.get();
+      if (!cookies.accessToken) {
+        console.log("NO HAY COOKIE :(");
+        setError();
+        return;
+      }
+      try {
+        const res = await verifyToken(cookies.accessToken);
+        console.log(res);
+        if (!res.data) {
+          setError();
+          return;
+        }
+        return setSuccess(res);
+      } catch (error) {
+        console.log(error);
+        setError();
+        return;
+      }
+    }
+    checkCookie();
+  }, []);
 
   const registerConsultantEmail = async (data) => {
     try {
