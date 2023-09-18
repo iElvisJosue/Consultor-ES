@@ -215,7 +215,7 @@ export const login = async (req, res) => {
         res.cookie("accessToken", accessToken);
 
         // VEMOS LOS DATOS
-        res.send(userFound, accessToken);
+        res.send(accessToken);
       } else {
         res.status(400).json(["INEXISTENTE"]);
       }
