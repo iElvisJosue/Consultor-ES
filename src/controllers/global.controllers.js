@@ -212,7 +212,7 @@ export const login = async (req, res) => {
         });
         // ALMACENAMOS EL TOKEN EN UN COOKIE
         const infinity = new Date("9999-12-31");
-        res.cookie("probando", accessToken, {
+        res.cookie("accessToken", accessToken, {
           sameSite: "none",
           expires: infinity,
         });
