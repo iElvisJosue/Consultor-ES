@@ -14,8 +14,8 @@ export default function Login() {
       "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
   };
 
-  const handleSuccessResponse = (res) => {
-    toast.success(`¡Bienvenido ${res.data.userName}!`);
+  const handleSuccessResponse = () => {
+    toast.success("¡Bienvenido!");
     setTimeout(() => {
       navigate("/Profile");
     }, 3000);
@@ -38,7 +38,7 @@ export default function Login() {
   const checkDataLogin = handleSubmit(async (data) => {
     const res = await login(data);
     if (res.data) {
-      return handleSuccessResponse(res);
+      return handleSuccessResponse();
     } else if (res.response) {
       return handleErrorResponse(res.response.data[0]);
     } else {

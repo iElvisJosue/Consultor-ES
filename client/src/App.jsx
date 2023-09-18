@@ -18,8 +18,8 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/About" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/About" element={<About />} />
           <Route path="/Login" element={<Login />} />
           <Route
             path="/ConsultantEmailVerification"
