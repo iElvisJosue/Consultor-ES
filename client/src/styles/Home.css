@@ -1,4 +1,5 @@
 .Main {
+  position: relative;
   overflow: hidden;
 }
 .Main__Brown {
@@ -100,6 +101,32 @@
   color: var(--White);
   display: none;
   cursor: pointer;
+}
+
+/* ESTILOS PARA EL MENÚ */
+.Main__Header--Navbar {
+  position: fixed;
+  top: 0;
+  right: -150%;
+  width: 100%;
+  height: 100vh;
+  background: var(--Black);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 1000;
+
+  transition: 0.5s ease-in-out all;
+}
+.Main__Header--Navbar a {
+  font-size: 25px;
+  color: var(--White);
+}
+.Main__Header--Navbar.Show {
+  right: 0;
 }
 
 /* ESTILOS PARA EL CONTENIDO DE LA PRESENTACIÓN */
