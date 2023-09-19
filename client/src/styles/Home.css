@@ -34,7 +34,7 @@
 .Main__ContactMessage,
 .Main__Footer {
   gap: 20px;
-  padding: 40px 20px;
+  padding: 40px 0px;
 }
 .Main__Footer {
   justify-content: flex-end;
@@ -109,7 +109,7 @@
 }
 .Main__Presentation__Content--Text {
   width: 100%;
-  padding: 40px 20px;
+  padding: 40px 0;
 
   display: flex;
   flex-direction: column;
@@ -301,6 +301,15 @@
   .Main__ContactMessage,
   .Main__Footer {
     width: 100%;
+  }
+  .Main__Advantages,
+  .Main__Services,
+  .Main__Message,
+  .Main__Standards,
+  .Main__ContactMessage,
+  .Main__Footer,
+  .Main__Presentation__Content--Text {
+    padding: 40px 20px;
   }
 }
 @media (width <= 1337px) {

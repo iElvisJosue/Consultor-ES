@@ -10,7 +10,7 @@ export default function Header() {
       </a>
       <ul className="Main__Header--Menu">
         <li className="Main__Header--Menu--Item">
-          <a href="#" className="Main__Header--Menu--Item--Link">
+          <a href="/WhyConsultant" className="Main__Header--Menu--Item--Link">
             ¿Para qué un consultor?
           </a>
         </li>
