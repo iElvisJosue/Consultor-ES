@@ -84,7 +84,7 @@
 .Main__WhyConsultant__Help--Title {
   font-size: 65px;
 }
-.Main__WhyConsultant__Message--Title--Text {
+.Main__WhyConsultant__Help--Title--Text {
   font-size: 25px;
 }
 /* ESTILOS PARA EL CONTENIDO DEL MENSAJE  */
@@ -194,7 +194,8 @@
   }
   .Main__WhyConsultant__Message--Title--Text,
   .Main__WhyConsultant__Advantages--Details--Details,
-  .Main__WhyConsultant__Innovation--Details--Text {
+  .Main__WhyConsultant__Innovation--Details--Text´,
+  .Main__WhyConsultant__Help--Title--Text {
     font-size: 20px;
   }
 }
@@ -213,6 +214,7 @@
     font-size: 25px;
   }
   .Main__WhyConsultant__Message--Title--Text,
+  .Main__WhyConsultant__Help--Title--Text,
   .Main__WhyConsultant__Advantages--Details--Details,
   .Main__WhyConsultant__Innovation--Details--Text {
     font-size: 18px;
@@ -264,6 +266,7 @@
     font-size: 20px;
   }
   .Main__WhyConsultant__Message--Title--Text,
+  .Main__WhyConsultant__Help--Title--Text,
   .Main__WhyConsultant__Advantages--Details--Details,
   .Main__WhyConsultant__Innovation--Details--Text {
     font-size: 16px;
