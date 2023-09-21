@@ -111,8 +111,8 @@ const saveExperience = async (req, res) => {
     experienceYearEnd,
   } = req.body;
 
-  const startDate = `${experienceMonthStart} - ${experienceYearStart}`;
-  const endDate = `${experienceMonthEnd} - ${experienceYearEnd}`;
+  const startDate = `${experienceMonthStart} ${experienceYearStart}`;
+  const endDate = `${experienceMonthEnd} ${experienceYearEnd}`;
   // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
   const newExperienceCV = new consultantExperienceCVModel({
     position,
@@ -143,8 +143,8 @@ const saveEducation = async (req, res) => {
     studiesYearEnd,
   } = req.body;
 
-  const startDate = `${studiesMonthStart} - ${studiesYearStart}`;
-  const endDate = `${studiesMonthEnd} - ${studiesYearEnd}`;
+  const startDate = `${studiesMonthStart} ${studiesYearStart}`;
+  const endDate = `${studiesMonthEnd} ${studiesYearEnd}`;
 
   const newEducationCV = new consultantStudyCVModel({
     institution,
