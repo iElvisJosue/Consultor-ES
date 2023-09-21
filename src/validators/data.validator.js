@@ -69,3 +69,12 @@ export const dataLogin = z.object({
     required_error: "LA CONTRASEÑA ES REQUERIDA",
   }),
 });
+
+export const dataResumeCV = z.object({
+  profession: z.string({
+    required_error: "LA PROFESIÓN ES REQUERIDA",
+  }),
+  description: z.string({
+    required_error: "LA DESCRIPCIÓN ES REQUERIDA",
+  }),
+});

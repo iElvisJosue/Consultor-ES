@@ -70,10 +70,17 @@ const registerAndSendVerificationCode = async (res, email, role) => {
   // GUARDAMOS EL CORREO EN LA BD Y LO ALMACENAMOS EN UNA CONSTANTE
   const newUserModelSaved = await newUserModel.save();
 
-  // CREAMOS EL ID EN UN TOKEN
-  const accessToken = await createAccessToken({
+  const user = {
     _id: newUserModelSaved._id,
-  });
+    email: newUserModelSaved.email,
+    userName: newUserModelSaved.userName,
+    role: newUserModelSaved.role,
+    knowUs: newUserModelSaved.knowUs,
+    online: newUserModelSaved.online,
+  };
+
+  // CREAMOS EL ID EN UN TOKEN
+  const accessToken = await createAccessToken(user);
 
   // ALMACENAMOS EL TOKEN EN UN COOKIE
   res.cookie("accessToken", accessToken, {
@@ -84,7 +91,7 @@ const registerAndSendVerificationCode = async (res, email, role) => {
 
   const responseObject = {
     accessToken: accessToken,
-    user: newUserModelSaved,
+    user,
   };
 
   // VEMOS LOS DATOS
@@ -139,17 +146,24 @@ export const emailVerification = async (req, res) => {
       }
     );
 
-    // CREAMOS EL ID EN UN TOKEN
-    const accessToken = await createAccessToken({
+    const userData = {
       _id: updatedEmailVerification._id,
-    });
+      email: updatedEmailVerification.email,
+      userName: updatedEmailVerification.userName,
+      role: updatedEmailVerification.role,
+      knowUs: updatedEmailVerification.knowUs,
+      online: updatedEmailVerification.online,
+    };
+
+    // CREAMOS EL ID EN UN TOKEN
+    const accessToken = await createAccessToken(userData);
 
     // ALMACENAMOS EL TOKEN EN UN COOKIE
     res.cookie("accessToken", accessToken, {
       maxAge: 24 * 60 * 60 * 1000, // UN DIA
     });
 
-    res.send(updatedEmailVerification);
+    res.send(userData);
   } else {
     res.status(400).json(["INCORRECTO"]);
   }
@@ -191,14 +205,11 @@ export const updateUser = async (req, res) => {
 export const verifyToken = async (req, res) => {
   const { accessToken } = req.cookies;
 
-  console.log("MI TOKEN DE ACCESO ES:", accessToken);
-
   jwt.verify(accessToken, TOKEN_SECRET, async (err, user) => {
     if (err) {
       console.log("HUBO UN ERROR Y ES:", err);
       return res.status(400).json(["TU TOKEN NO ESTA AUTORIZADO"]);
     }
-    console.log("NO HUBO ERROR");
     return res.json(user);
   });
 };
@@ -217,20 +228,19 @@ export const login = async (req, res) => {
       // COMPARAMOS EL NOMBRE ENCRIPTADO CON EL NOMBRE DEL USUARIO
       const isMatch = await bcrypt.compare(yourPassword, userFound.password);
       if (isMatch) {
+        const userSessionInfo = await startSession(req, res, userFound._id);
+
         // CREAMOS EL ID EN UN TOKEN DEL USUARIO ENCONTRADO
-        const accessToken = await createAccessToken({
-          _id: userFound._id,
-        });
+        const accessToken = await createAccessToken(userSessionInfo);
         // ALMACENAMOS EL TOKEN EN UN COOKIE
         res.cookie("accessToken", accessToken, {
-          maxAge: 24 * 60 * 60 * 1000, // UN DIA
           secure: true,
           sameSite: "none",
         });
 
         const responseObject = {
           accessToken: accessToken,
-          user: userFound,
+          user: userSessionInfo,
         };
 
         // VEMOS LOS DATOS
@@ -239,6 +249,7 @@ export const login = async (req, res) => {
         res.status(400).json(["INEXISTENTE"]);
       }
     } catch (error) {
+      console.log(error);
       res.status(500).json(["ERROR"]);
     }
   } else {
@@ -246,23 +257,62 @@ export const login = async (req, res) => {
   }
 };
 
-export const getUserProfile = async (req, res) => {
-  console.log(req.user._id);
+const startSession = async (req, res, id) => {
   try {
-    const userRoleFound = await userModel.findById(req.user._id);
-    const { role } = userRoleFound;
+    const userSession = await userModel.findByIdAndUpdate(
+      id,
+      {
+        online: true,
+      },
+      {
+        new: true,
+      }
+    );
 
-    res.send({ role });
+    return {
+      _id: userSession._id,
+      email: userSession.email,
+      userName: userSession.userName,
+      role: userSession.role,
+      knowUs: userSession.knowUs,
+      online: userSession.online,
+    };
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL ACTUALIZAR LA SESIÓN"]);
+  }
+};
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const userInformation = await userModel.findById(req.user._id);
+
+    res.send({
+      _id: userInformation._id,
+      email: userInformation.email,
+      userName: userInformation.userName,
+      role: userInformation.role,
+      knowUs: userInformation.knowUs,
+      online: userInformation.online,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR"]);
   }
 };
 
-export const logout = (req, res) => {
-  // ELIMINAMOS EL TOKEN
-  res.cookie("accessToken", "", {
-    expires: new Date(0),
-  });
-  return res.sendStatus(200);
+export const logout = async (req, res) => {
+  try {
+    await userModel.findByIdAndUpdate(req.body.id, {
+      online: false,
+    });
+    // ELIMINAMOS EL TOKEN
+    res.cookie("accessToken", "", {
+      expires: new Date(0),
+    });
+    res.send("SESIÓN FINALIZADA");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL ACTUALIZAR LA SESIÓN"]);
+  }
 };

@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
 export default function Login() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -14,8 +18,8 @@ export default function Login() {
       "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
   };
 
-  const handleSuccessResponse = () => {
-    toast.success("¡Bienvenido!");
+  const handleSuccessResponse = (res) => {
+    toast.success(`¡Bienvenido ${res.userName}!`);
     setTimeout(() => {
       navigate("/Profile");
     }, 3000);
@@ -38,7 +42,7 @@ export default function Login() {
   const checkDataLogin = handleSubmit(async (data) => {
     const res = await login(data);
     if (res._id) {
-      return handleSuccessResponse();
+      return handleSuccessResponse(res);
     } else if (res.response) {
       return handleErrorResponse(res.response.data[0]);
     } else {
@@ -51,11 +55,29 @@ export default function Login() {
       <form onSubmit={checkDataLogin}>
         <p>Ingresa tu nombre de usuario:</p>
         <input type="text" {...register("yourUserName", { required: true })} />
+        {errors.yourUserName && (
+          <p
+            style={{
+              color: "red",
+            }}
+          >
+            El nombre de usuario es requerido.
+          </p>
+        )}
         <p>Ingresa tu contraseña:</p>
         <input
           type="password"
           {...register("yourPassword", { required: true })}
         />
+        {errors.yourPassword && (
+          <p
+            style={{
+              color: "red",
+            }}
+          >
+            La contraseña es requerida.
+          </p>
+        )}
         <br />
         <button type="submit">Iniciar sesión</button>
       </form>

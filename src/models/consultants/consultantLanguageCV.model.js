@@ -1,12 +1,7 @@
 import mongoose from "mongoose";
 
 // CREAMOS EL MODELO
-const consultLanguageModel = new mongoose.Schema({
-  consultantID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "emailVerificationModel",
-    required: true,
-  },
+const consultLanguageCVModel = new mongoose.Schema({
   language: {
     type: String,
     required: true,
@@ -17,11 +12,16 @@ const consultLanguageModel = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  ownerID: {
+    type: String,
+    required: true,
+    trim: true,
+  },
 });
 
 // EXPORTAMOS EL MODELO
 export default mongoose.model(
   "consultLanguage",
-  consultLanguageModel,
+  consultLanguageCVModel,
   "consultLanguage"
 );

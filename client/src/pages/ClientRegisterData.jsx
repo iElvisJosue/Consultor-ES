@@ -8,9 +8,11 @@ import Cookies from "js-cookie";
 export default function ConsultantRegisterData() {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
-  const { registerClient, updateUser } = useAuth();
+  const { registerClient, updateUser, user } = useAuth();
   const [termsAccepted, setTermsAccepted] = useState(false);
   const navigate = useNavigate();
+
+  console.log(user);
 
   const cookieName = "accessToken";
   const ERROR_MESSAGES = {

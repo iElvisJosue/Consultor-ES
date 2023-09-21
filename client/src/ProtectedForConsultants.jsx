@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
 export default function ProtectedForClients() {
-  const { loading, getUserProfile } = useAuth();
+  const { loading, getUserProfile, isLogin } = useAuth();
   const [role, setRole] = useState(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function ProtectedForClients() {
 
   if (role) {
     if (loading) return <h1>Loading...</h1>;
-    if (!loading && role === "Consultant") {
+    if (!loading && !isLogin && role === "Consultant") {
       return <Outlet />;
     }
     return <Navigate to="/Login" replace />;

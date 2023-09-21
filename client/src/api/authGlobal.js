@@ -12,8 +12,7 @@ export const emailVerification = (codeEntered) =>
   axios.put("/global/emailVerification", codeEntered);
 
 // PETICIÓN PARA OBTENER EL PERFIL DEL USUARIO LOGUEADO
-export const getProfile = (userID) =>
-  axios.get("/global/getUserProfile", userID);
+export const getProfile = () => axios.get("/global/getUserProfile");
 
 // PETICIÓN PARA ACTUALIZAR LOS DE USUARIO DEL CONSULTOR
 export const registerUserUpdate = (data) =>
@@ -23,4 +22,4 @@ export const registerUserUpdate = (data) =>
 export const verifyToken = () => axios.get("/global/verifyToken");
 
 // PETICIÓN PARA CERRAR SESIÓN
-export const logoutUser = () => axios.post("/global/logout");
+export const logoutUser = (id) => axios.put("/global/logout", id);

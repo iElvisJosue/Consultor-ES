@@ -58,7 +58,7 @@ router.get("/getUserProfile", authRequired, getUserProfile);
 router.post("/login", validateData(dataLogin), login);
 
 // RUTA PARA CERRAR SESIÓN
-router.post("/logout", logout);
+router.put("/logout", logout);
 
 // RUTA PARA VERIFICAR EL TOKEN DEL CONSULTOR
 router.get("/verifyToken", verifyToken);

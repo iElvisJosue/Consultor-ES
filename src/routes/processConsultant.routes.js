@@ -3,7 +3,13 @@ import { Router } from "express";
 // ALMACENAMOS EL ENRUTADOR
 const router = Router();
 // IMPORTAMOS LOS CONTROLADORES
-import { registerDataConsultant } from "../controllers/processConsultant.controllers.js";
+import {
+  registerDataConsultant,
+  getInformationConsultant,
+  createResumeCV,
+  updateCVIsDone,
+  getConsultantCV,
+} from "../controllers/processConsultant.controllers.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VERIFICAR QUE TENGAS UN TOKEN DE ACCESO
 import { authRequired } from "../middlewares/validateToken.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VERIFICAR EL FORMATO DE LOS DATOS
@@ -11,7 +17,7 @@ import { validateData } from "../middlewares/validateData.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VALIDAR EL CORREO VERIFICADO
 import { emailIsVerified } from "../middlewares/checkEmailVerified.js";
 // IMPORTAMOS LOS VALIDADORES DE DATOS
-import { dataConsultant, dataUser } from "../validators/data.validator.js";
+import { dataConsultant, dataResumeCV } from "../validators/data.validator.js";
 
 // RUTA PARA REGISTRAR LOS DATOS DEL CONSULTOR
 router.post(
@@ -22,11 +28,22 @@ router.post(
   registerDataConsultant
 );
 
-// RUTA PARA CREAR SU CV
-router.post("/createCV");
+// RUTA PARA OBTENER LOS DATOS DEL USUARIO
+router.get("/getInformationConsultant", authRequired, getInformationConsultant);
 
-// RUTA PARA ACTUALIZAR CV
-router.put("/updateCV/:id");
+// RUTA PARA CREAR EL RESUMEN DE TU CV
+router.post(
+  "/createResumeCV",
+  authRequired,
+  validateData(dataResumeCV),
+  createResumeCV
+);
+
+// RUTA PARA ACTUALIZAR QUE TIENE UN CV CREADO
+router.put("/updateCVIsDone", authRequired, updateCVIsDone);
+
+// RUTA PARA OBTENER LOS DATOS DEL CV
+router.get("/getConsultantCV", authRequired, getConsultantCV);
 
 // RUTA PARA REGISTRAR SUS DATOS BANCARIOS
 router.post("/registerDataBank");

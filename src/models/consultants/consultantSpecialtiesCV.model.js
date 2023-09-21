@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 // CREAMOS EL MODELO
-const consultantSpecialtiesModel = new mongoose.Schema({
-  consultantID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "emailVerificationModel",
-    required: true,
-  },
+const consultantSpecialtiesCVModel = new mongoose.Schema({
   specialty: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  ownerID: {
     type: String,
     required: true,
     trim: true,
@@ -17,6 +17,6 @@ const consultantSpecialtiesModel = new mongoose.Schema({
 // EXPORTAMOS EL MODELO
 export default mongoose.model(
   "consultantSpecialties",
-  consultantSpecialtiesModel,
+  consultantSpecialtiesCVModel,
   "consultantSpecialties"
 );

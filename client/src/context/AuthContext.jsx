@@ -9,7 +9,13 @@ import {
   logoutUser,
 } from "../api/authGlobal";
 import { registerDataClient } from "../api/authClient";
-import { registerDataConsultant } from "../api/authConsultant";
+import {
+  registerDataConsultant,
+  getConsultant,
+  addResumeCV,
+  updateCV,
+  getCV,
+} from "../api/authConsultant";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -26,23 +32,21 @@ export const useAuth = () => {
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [hasCookie, setHasCookie] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const setError = () => {
     setUser(null);
-    setIsAuthenticated(false);
+    setIsLogin(false);
     setHasCookie(false);
     setLoading(false);
   };
 
   const setSuccess = (res) => {
-    const { _id } = res;
-    setUser(_id);
-    setHasCookie(true);
-    setIsAuthenticated(true);
+    setUser(res);
     setLoading(false);
+    setHasCookie(true);
     return res;
   };
 
@@ -61,7 +65,11 @@ export const AuthProvider = ({ children }) => {
           setError();
           return;
         }
-        return setSuccess(res.data);
+        setSuccess(res.data);
+        if (res.data.online) {
+          setIsLogin(true);
+        }
+        return;
       } catch (error) {
         console.log(error);
         setError();
@@ -82,6 +90,18 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
       setError();
+      return error;
+    }
+  };
+
+  const getUserProfile = async () => {
+    try {
+      const res = await getProfile();
+      if (!res.data) {
+        return setError();
+      }
+      return setSuccess(res);
+    } catch (error) {
       return error;
     }
   };
@@ -145,9 +165,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getUserProfile = async () => {
+  const getConsultantProfile = async () => {
     try {
-      const res = await getProfile();
+      const res = await getConsultant();
       if (!res.data) {
         return setError();
       }
@@ -158,9 +178,49 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    logoutUser();
-    setError();
+  const createResumeCV = async (data) => {
+    try {
+      const res = await addResumeCV(data);
+      if (!res.data) {
+        return setError();
+      }
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
+  const updateStatusCV = async () => {
+    try {
+      const res = await updateCV();
+      console.log(res);
+      if (!res.data) {
+        return setError();
+      }
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
+  const getConsultantCV = async () => {
+    try {
+      const res = await getCV();
+      if (!res.data) {
+        return setError();
+      }
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
+  const logout = async (id) => {
+    await logoutUser(id);
+    return setError();
   };
 
   return (
@@ -168,15 +228,19 @@ export const AuthProvider = ({ children }) => {
       value={{
         registerEmail,
         checkVerificationCode,
+        getUserProfile,
         registerConsultant,
         updateUser,
-        login,
-        getUserProfile,
         registerClient,
+        getConsultantProfile,
+        login,
+        createResumeCV,
+        updateStatusCV,
+        getConsultantCV,
         logout,
         user,
         loading,
-        isAuthenticated,
+        isLogin,
         hasCookie,
       }}
     >

@@ -32,6 +32,7 @@ export default function App() {
             element={<EmailVerification title="Cliente" role="Client" />}
           />
 
+          {/* TODO: CORREGIR QUE SE PUEDA ACCEDER SOLO CON TOKEN */}
           <Route element={<ProtectedByCookies />}>
             <Route element={<ProtectedForConsultants />}>
               <Route
@@ -53,6 +54,7 @@ export default function App() {
                 element={<ClientRegisterData />}
               />
             </Route>
+            {/* TODO: CORREGIR QUE SE PUEDA ACCEDER SOLO CON TOKEN */}
             <Route path="/Profile" element={<Profile />} />
           </Route>
         </Routes>

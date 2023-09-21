@@ -30,6 +30,15 @@ const usersModel = new mongoose.Schema({
   role: {
     type: String,
   },
+  knowUs: {
+    type: String,
+    trim: true,
+    default: "",
+  },
+  online: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // EXPORTAMOS EL MODELO

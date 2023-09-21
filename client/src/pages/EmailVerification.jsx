@@ -16,7 +16,10 @@ export default function ConsultantEmailVerification({ title, role }) {
   };
 
   const handleSuccessResponse = () => {
-    navigate(`/${role}CodeVerification`);
+    toast.success("¡El correo se ha enviado correctamente!");
+    setTimeout(() => {
+      return navigate(`/${role}CodeVerification`);
+    }, 1500);
   };
 
   const handleErrorResponse = (status) => {

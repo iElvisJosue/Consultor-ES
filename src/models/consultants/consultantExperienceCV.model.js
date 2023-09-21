@@ -1,13 +1,8 @@
 import mongoose from "mongoose";
 
 // CREAMOS EL MODELO
-const consultantExperience = new mongoose.Schema(
+const consultantExperienceCVModel = new mongoose.Schema(
   {
-    consultantID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "emailVerificationModel",
-      required: true,
-    },
     position: {
       type: String,
       required: true,
@@ -33,6 +28,11 @@ const consultantExperience = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    ownerID: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   {
     timestamps: true,
@@ -41,7 +41,7 @@ const consultantExperience = new mongoose.Schema(
 
 // EXPORTAMOS EL MODELO
 export default mongoose.model(
-  "consultantExperience",
-  consultantExperience,
-  "consultantExperience"
+  "consultantExperienceCV",
+  consultantExperienceCVModel,
+  "consultantExperienceCV"
 );
