@@ -8,6 +8,9 @@ import {
   getInformationConsultant,
   createResumeCV,
   updateCVIsDone,
+  addNewExperience,
+  addNewStudy,
+  addNewArea,
 } from "../controllers/processConsultant.controllers.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VERIFICAR QUE TENGAS UN TOKEN DE ACCESO
 import { authRequired } from "../middlewares/validateToken.js";
@@ -40,6 +43,15 @@ router.post(
 
 // RUTA PARA ACTUALIZAR QUE TIENE UN CV CREADO
 router.put("/updateCVIsDone", authRequired, updateCVIsDone);
+
+// RUTA PARA AGREGAR UNA NUEVA EXPERIENCIA
+router.put("/addNewExperience", authRequired, addNewExperience);
+
+// RUTA PARA AGREGAR UN NUEVO ESTUDIO
+router.put("/addNewStudy", authRequired, addNewStudy);
+
+// RUTA PARA AGREGAR UNA NUEVA AREA
+router.put("/addNewArea", authRequired, addNewArea);
 
 // RUTA PARA REGISTRAR SUS DATOS BANCARIOS
 router.post("/registerDataBank");

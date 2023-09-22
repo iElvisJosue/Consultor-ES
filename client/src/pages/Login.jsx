@@ -79,8 +79,16 @@ export default function Login() {
           </p>
         )}
         <br />
+        <br />
         <button type="submit">Iniciar sesión</button>
       </form>
+      <br />
+      <p>¿No tienes cuenta?</p>
+      <br />
+      <a href="/ConsultantEmailVerification">Registraste como consultor</a>
+      <br />
+      <p>ó</p>
+      <a href="/ClientEmailVerification">Registraste como cliente</a>
       <Toaster richColors position="top-right" />
     </main>
   );

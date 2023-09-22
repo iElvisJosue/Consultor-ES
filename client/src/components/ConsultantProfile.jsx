@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import ConsultantAddCV from "./Consultant/ConsultantAddCV";
 import ConsultantInformationCV from "./Consultant/ConsultantInformationCV";
+import Loader from "./Loader";
 
 export default function ConsultantProfile({ user }) {
   const [consultantInformation, setConsultantInformation] = useState(false);
@@ -27,7 +28,7 @@ export default function ConsultantProfile({ user }) {
   }, [checkCV]);
 
   if (cvIsDone.current === null) {
-    return <h1>Obteniendo datos...</h1>;
+    return <Loader />;
   }
 
   return (
@@ -36,9 +37,11 @@ export default function ConsultantProfile({ user }) {
         <ConsultantInformationCV
           email={email}
           consultantInformation={consultantInformation}
+          setCheckCV={setCheckCV}
+          checkCV={checkCV}
         />
       ) : (
-        <ConsultantAddCV setCheckCV={setCheckCV} />
+        <ConsultantAddCV setCheckCV={setCheckCV} checkCV={checkCV} />
       )}
     </section>
   );

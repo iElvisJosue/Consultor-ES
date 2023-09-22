@@ -5,6 +5,7 @@ import AdminProfile from "../components/AdminProfile";
 import { useAuth } from "../context/AuthContext";
 import { Toaster, toast } from "sonner";
 import Cookies from "js-cookie";
+import Loader from "../components/Loader";
 
 export default function Profile() {
   const [loading, setLoading] = useState(true);
@@ -45,11 +46,7 @@ export default function Profile() {
         <button onClick={closingSession}>Cerrar sesión</button>
       </header>
       <br />
-      {loading ? (
-        <h1>Cargando...Normalmente esto no tarda más de un minuto</h1>
-      ) : (
-        profiles[user.role]
-      )}
+      {loading ? <Loader /> : profiles[user.role]}
       <Toaster richColors position="top-right" />
     </main>
   );

@@ -14,6 +14,9 @@ import {
   getConsultant,
   addResumeCV,
   updateCV,
+  addNewExperience,
+  addNewStudy,
+  addNewArea,
 } from "../api/authConsultant";
 import Cookies from "js-cookie";
 
@@ -193,10 +196,50 @@ export const AuthProvider = ({ children }) => {
   const updateStatusCV = async () => {
     try {
       const res = await updateCV();
-      console.log(res);
       if (!res.data) {
         return setError();
       }
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
+  const addExperience = async (data) => {
+    try {
+      const res = await addNewExperience(data);
+      if (!res.data) {
+        return setError();
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
+  const addStudy = async (data) => {
+    try {
+      const res = await addNewStudy(data);
+      if (!res.data) {
+        return setError();
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+  const addArea = async (data) => {
+    try {
+      const res = await addNewArea(data);
+      if (!res.data) {
+        return setError();
+      }
+      console.log(res);
       return res;
     } catch (error) {
       setError();
@@ -222,6 +265,9 @@ export const AuthProvider = ({ children }) => {
         login,
         createResumeCV,
         updateStatusCV,
+        addExperience,
+        addStudy,
+        addArea,
         logout,
         user,
         loading,

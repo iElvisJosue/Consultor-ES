@@ -14,3 +14,13 @@ export const addResumeCV = (data) =>
 
 // PETICIÓN PARA ACTUALIZAR EL QUE YA TIENE UN CV ACTIVO
 export const updateCV = () => axios.put("/consultant/updateCVIsDone");
+
+// PETICIÓN PARA AGREGAR UNA EXPERIENCIA
+export const addNewExperience = (data) =>
+  axios.put("/consultant/addNewExperience", data);
+
+// PETICIÓN PARA AGREGAR UN ESTUDIO
+export const addNewStudy = (data) => axios.put("/consultant/addNewStudy", data);
+
+// PETICIÓN PARA AGREGAR UN AREA
+export const addNewArea = (data) => axios.put("/consultant/addNewArea", data);

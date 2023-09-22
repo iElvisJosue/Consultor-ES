@@ -74,6 +74,10 @@ export const createResumeCV = async (req, res) => {
     nameArea,
   } = req.body;
 
+  const keyExperience = `experience${position}On${company}`.replace(/\s+/g, "");
+  const keyEducation = `education${area}On${institution}`.replace(/\s+/g, "");
+  const keyArea = `area${nameArea}`.replace(/\s+/g, "");
+
   try {
     await consultantProfileModel.findOneAndUpdate(
       { ownerID: req.user._id },
@@ -83,23 +87,28 @@ export const createResumeCV = async (req, res) => {
           description: description,
         },
         experienceCV: {
-          experience1: {
+          [keyExperience]: {
+            _id: keyExperience,
             position: position,
             company: company,
             resume: resume,
+            startDate: `${experienceMonthStart} ${experienceYearStart}`,
+            endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
+          },
+        },
+        educationCV: {
+          [keyEducation]: {
+            _id: keyEducation,
+            institution: institution,
+            educationLevel: educationLevel,
+            area: area,
             startDate: `${studiesMonthStart} ${studiesYearStart}`,
             endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
           },
         },
-        educationCV: {
-          institution: institution,
-          educationLevel: educationLevel,
-          area: area,
-          startDate: `${experienceMonthStart} ${experienceYearStart}`,
-          endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
-        },
         areasCV: {
-          area1: {
+          [keyArea]: {
+            _id: keyArea,
             nameArea: nameArea,
           },
         },
@@ -123,6 +132,105 @@ export const updateCVIsDone = async (req, res) => {
     res.send(cvIsUpdated);
   } catch (error) {
     console.log(error);
+    res.status(500).json(["ERROR"]);
+  }
+};
+export const addNewExperience = async (req, res) => {
+  const {
+    position,
+    company,
+    resume,
+    experienceMonthStart,
+    experienceYearStart,
+    experienceMonthEnd,
+    experienceYearEnd,
+  } = req.body;
+
+  const keyExperience = `experience${position}On${company}`.replace(/\s+/g, "");
+
+  const newExperienceData = {
+    _id: keyExperience,
+    position: position,
+    company: company,
+    resume: resume,
+    startDate: `${experienceMonthStart} ${experienceYearStart}`,
+    endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
+  };
+
+  try {
+    await consultantProfileModel.updateOne(
+      { ownerID: req.user._id },
+      {
+        $set: {
+          [`experienceCV.${keyExperience}`]: newExperienceData,
+        },
+      }
+    );
+
+    res.send(["AGREGADO"]);
+  } catch (error) {
+    res.status(500).json(["ERROR"]);
+  }
+};
+export const addNewStudy = async (req, res) => {
+  const {
+    institution,
+    educationLevel,
+    area,
+    studiesMonthStart,
+    studiesYearStart,
+    studiesMonthEnd,
+    studiesYearEnd,
+  } = req.body;
+
+  const keyEducation = `education${area}On${institution}`.replace(/\s+/g, "");
+
+  const newStudyData = {
+    _id: keyEducation,
+    institution: institution,
+    educationLevel: educationLevel,
+    area: area,
+    startDate: `${studiesMonthStart} ${studiesYearStart}`,
+    endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
+  };
+
+  try {
+    await consultantProfileModel.updateOne(
+      { ownerID: req.user._id },
+      {
+        $set: {
+          [`educationCV.${keyEducation}`]: newStudyData,
+        },
+      }
+    );
+
+    res.send(["AGREGADO"]);
+  } catch (error) {
+    res.status(500).json(["ERROR"]);
+  }
+};
+export const addNewArea = async (req, res) => {
+  const { nameArea } = req.body;
+
+  const keyArea = `area${nameArea}`.replace(/\s+/g, "");
+
+  const newAreaData = {
+    _id: keyArea,
+    nameArea: nameArea,
+  };
+
+  try {
+    await consultantProfileModel.updateOne(
+      { ownerID: req.user._id },
+      {
+        $set: {
+          [`areasCV.${keyArea}`]: newAreaData,
+        },
+      }
+    );
+
+    res.send(["AGREGADO"]);
+  } catch (error) {
     res.status(500).json(["ERROR"]);
   }
 };
