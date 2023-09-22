@@ -103,7 +103,9 @@ export default function ConsultantAddCV({ setCheckCV }) {
     try {
       await updateStatusCV();
       toast.success("¡Resumen de tu perfil profesional creado!");
-      setCheckCV(true);
+      setTimeout(() => {
+        setCheckCV(true);
+      }, 1500);
     } catch (error) {
       console.log(error);
       toast.error(ERROR_MESSAGES.SERVER_ERROR);

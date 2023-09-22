@@ -14,7 +14,6 @@ import {
   getConsultant,
   addResumeCV,
   updateCV,
-  getCV,
 } from "../api/authConsultant";
 import Cookies from "js-cookie";
 
@@ -205,19 +204,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getConsultantCV = async () => {
-    try {
-      const res = await getCV();
-      if (!res.data) {
-        return setError();
-      }
-      return res;
-    } catch (error) {
-      setError();
-      return error;
-    }
-  };
-
   const logout = async (id) => {
     await logoutUser(id);
     return setError();
@@ -236,7 +222,6 @@ export const AuthProvider = ({ children }) => {
         login,
         createResumeCV,
         updateStatusCV,
-        getConsultantCV,
         logout,
         user,
         loading,

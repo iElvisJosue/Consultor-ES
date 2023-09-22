@@ -14,6 +14,3 @@ export const addResumeCV = (data) =>
 
 // PETICIÓN PARA ACTUALIZAR EL QUE YA TIENE UN CV ACTIVO
 export const updateCV = () => axios.put("/consultant/updateCVIsDone");
-
-// PETICIÓN PARA OBTENER LOS DATOS DEL CV
-export const getCV = () => axios.get("/consultant/getConsultantCV");

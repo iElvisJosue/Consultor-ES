@@ -38,6 +38,30 @@ const consultantProfileModel = new mongoose.Schema(
       trim: true,
       default: "",
     },
+    resumeCV: {
+      type: Object,
+      default: {},
+    },
+    experienceCV: {
+      type: Object,
+      default: {},
+    },
+    educationCV: {
+      type: Object,
+      default: {},
+    },
+    areasCV: {
+      type: Object,
+      default: {},
+    },
+    languagesCV: {
+      type: Object,
+      default: {},
+    },
+    skillsCV: {
+      type: Object,
+      default: {},
+    },
     cvIsDone: {
       type: Boolean,
       default: false,
