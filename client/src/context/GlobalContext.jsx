@@ -8,31 +8,20 @@ import {
   verifyToken,
   logoutUser,
 } from "../api/authGlobal";
-import { registerDataClient } from "../api/authClient";
-import {
-  registerDataConsultant,
-  getConsultant,
-  addResumeCV,
-  updateCV,
-  addNewExperience,
-  addNewStudy,
-  addNewArea,
-} from "../api/authConsultant";
 import Cookies from "js-cookie";
 
-export const AuthContext = createContext();
-// TODO: VERIFICAR SI SE CREA LA COOKIE EN EL NAVEGADOR
+export const GlobalContext = createContext();
 // eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => {
-  const context = useContext(AuthContext);
+export const useGlobal = () => {
+  const context = useContext(GlobalContext);
   if (!context) {
-    throw new Error("useAuth debería ser usado dentro de AuthProvider");
+    throw new Error("useGlobal debería ser usado dentro de GlobalProvider");
   }
   return context;
 };
 
 // eslint-disable-next-line react/prop-types
-export const AuthProvider = ({ children }) => {
+export const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
   const [hasCookie, setHasCookie] = useState(false);
@@ -95,7 +84,6 @@ export const AuthProvider = ({ children }) => {
       return error;
     }
   };
-
   const getUserProfile = async () => {
     try {
       const res = await getProfile();
@@ -107,7 +95,6 @@ export const AuthProvider = ({ children }) => {
       return error;
     }
   };
-
   const checkVerificationCode = async (codeEntered) => {
     try {
       const res = await emailVerification(codeEntered);
@@ -119,7 +106,6 @@ export const AuthProvider = ({ children }) => {
       return error;
     }
   };
-
   const updateUser = async (data) => {
     try {
       const res = await registerUserUpdate(data);
@@ -128,31 +114,6 @@ export const AuthProvider = ({ children }) => {
       return error;
     }
   };
-
-  const registerConsultant = async (data) => {
-    try {
-      const res = await registerDataConsultant(data);
-      if (!res.data) {
-        return console.log("HUBO UN ERROR EN EL REGISTRO");
-      }
-      return res;
-    } catch (error) {
-      return error;
-    }
-  };
-
-  const registerClient = async (data) => {
-    try {
-      const res = await registerDataClient(data);
-      if (!res.data) {
-        return console.log("HUBO UN ERROR EN EL REGISTRO");
-      }
-      return res;
-    } catch (error) {
-      return error;
-    }
-  };
-
   const login = async (data) => {
     try {
       const res = await loginUser(data);
@@ -166,108 +127,19 @@ export const AuthProvider = ({ children }) => {
       return error;
     }
   };
-
-  const getConsultantProfile = async () => {
-    try {
-      const res = await getConsultant();
-      if (!res.data) {
-        return setError();
-      }
-      return res;
-    } catch (error) {
-      setError();
-      return error;
-    }
-  };
-
-  const createResumeCV = async (data) => {
-    try {
-      const res = await addResumeCV(data);
-      if (!res.data) {
-        return setError();
-      }
-      return res;
-    } catch (error) {
-      setError();
-      return error;
-    }
-  };
-
-  const updateStatusCV = async () => {
-    try {
-      const res = await updateCV();
-      if (!res.data) {
-        return setError();
-      }
-      return res;
-    } catch (error) {
-      setError();
-      return error;
-    }
-  };
-
-  const addExperience = async (data) => {
-    try {
-      const res = await addNewExperience(data);
-      if (!res.data) {
-        return setError();
-      }
-      console.log(res);
-      return res;
-    } catch (error) {
-      setError();
-      return error;
-    }
-  };
-
-  const addStudy = async (data) => {
-    try {
-      const res = await addNewStudy(data);
-      if (!res.data) {
-        return setError();
-      }
-      console.log(res);
-      return res;
-    } catch (error) {
-      setError();
-      return error;
-    }
-  };
-  const addArea = async (data) => {
-    try {
-      const res = await addNewArea(data);
-      if (!res.data) {
-        return setError();
-      }
-      console.log(res);
-      return res;
-    } catch (error) {
-      setError();
-      return error;
-    }
-  };
-
   const logout = async (id) => {
     await logoutUser(id);
     return setError();
   };
 
   return (
-    <AuthContext.Provider
+    <GlobalContext.Provider
       value={{
         registerEmail,
         checkVerificationCode,
         getUserProfile,
-        registerConsultant,
         updateUser,
-        registerClient,
-        getConsultantProfile,
         login,
-        createResumeCV,
-        updateStatusCV,
-        addExperience,
-        addStudy,
-        addArea,
         logout,
         user,
         loading,
@@ -276,6 +148,6 @@ export const AuthProvider = ({ children }) => {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </GlobalContext.Provider>
   );
 };

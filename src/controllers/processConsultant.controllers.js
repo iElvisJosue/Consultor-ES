@@ -2,43 +2,47 @@
 import consultantProfileModel from "../models/consultants/consultant.model.js";
 
 export const registerDataConsultant = async (req, res) => {
-  // TODO: EN EL FRONT AGREGAREMOS LOS TYC
-  // OBTENEMOS LOS DATOS A ALMACENAR
-  const { name, lastName, motherLastName, RFC, number, LinkedIn } = req.body;
+  try {
+    // OBTENEMOS LOS DATOS A ALMACENAR
+    const { name, lastName, motherLastName, RFC, number, LinkedIn } = req.body;
 
-  // VERIFICAMOS SI EXISTEN LOS DATOS ÚNICOS (RFC/USUARIO)
-  const RFCFound = await consultantProfileModel.findOne({ RFC });
-  const userFound = await consultantProfileModel.findOne({
-    ownerID: req.user._id,
-  });
+    // VERIFICAMOS SI EXISTEN LOS DATOS ÚNICOS (RFC/USUARIO)
+    const RFCFound = await consultantProfileModel.findOne({ RFC });
+    const userFound = await consultantProfileModel.findOne({
+      ownerID: req.user._id,
+    });
 
-  if (!RFCFound) {
-    if (!userFound) {
-      // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
-      const newConsultantProfile = new consultantProfileModel({
-        name,
-        lastName,
-        motherLastName,
-        RFC,
-        number,
-        LinkedIn,
-        ownerID: req.user._id,
-      });
+    if (!RFCFound) {
+      if (!userFound) {
+        // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
+        const newConsultantProfile = new consultantProfileModel({
+          name,
+          lastName,
+          motherLastName,
+          RFC,
+          number,
+          LinkedIn,
+          ownerID: req.user._id,
+        });
 
-      // LO ALMACENAMOS EN LA BD
-      const consultantProfileModelSaved = await newConsultantProfile.save();
+        // LO ALMACENAMOS EN LA BD
+        const consultantProfileModelSaved = await newConsultantProfile.save();
 
-      // ELIMINAMOS EL TOKEN
-      res.cookie("accessToken", "", {
-        expires: new Date(0),
-      });
+        // ELIMINAMOS EL TOKEN
+        res.cookie("accessToken", "", {
+          expires: new Date(0),
+        });
 
-      res.send(consultantProfileModelSaved);
+        res.send(consultantProfileModelSaved);
+      } else {
+        res.status(400).json(["ACTIVO"]);
+      }
     } else {
-      res.status(400).json(["ACTIVO"]);
+      res.status(400).json(["RFC"]);
     }
-  } else {
-    res.status(400).json(["RFC"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR EN REGISTRO DE DATOS DEL CONSULTOR"]);
   }
 };
 export const getInformationConsultant = async (req, res) => {
@@ -50,35 +54,38 @@ export const getInformationConsultant = async (req, res) => {
     res.send(consultantInformation);
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR"]);
+    res.status(500).json(["ERROR AL OBTENER LA INFORMACIÓN DEL CONSULTOR"]);
   }
 };
 export const createResumeCV = async (req, res) => {
-  const {
-    profession,
-    description,
-    position,
-    company,
-    resume,
-    experienceMonthStart,
-    experienceYearStart,
-    experienceMonthEnd,
-    experienceYearEnd,
-    institution,
-    educationLevel,
-    area,
-    studiesMonthStart,
-    studiesYearStart,
-    studiesMonthEnd,
-    studiesYearEnd,
-    nameArea,
-  } = req.body;
-
-  const keyExperience = `experience${position}On${company}`.replace(/\s+/g, "");
-  const keyEducation = `education${area}On${institution}`.replace(/\s+/g, "");
-  const keyArea = `area${nameArea}`.replace(/\s+/g, "");
-
   try {
+    const {
+      profession,
+      description,
+      position,
+      company,
+      resume,
+      experienceMonthStart,
+      experienceYearStart,
+      experienceMonthEnd,
+      experienceYearEnd,
+      institution,
+      educationLevel,
+      area,
+      studiesMonthStart,
+      studiesYearStart,
+      studiesMonthEnd,
+      studiesYearEnd,
+      nameArea,
+    } = req.body;
+
+    const keyExperience = `experience${position}On${company}`.replace(
+      /\s+/g,
+      ""
+    );
+    const keyEducation = `education${area}On${institution}`.replace(/\s+/g, "");
+    const keyArea = `area${nameArea}`.replace(/\s+/g, "");
+
     await consultantProfileModel.findOneAndUpdate(
       { ownerID: req.user._id },
       {
@@ -117,7 +124,7 @@ export const createResumeCV = async (req, res) => {
     res.status(200).json(["CREADO"]);
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR"]);
+    res.status(500).json(["ERROR AL CREAR EL CV DEL CONSULTOR"]);
   }
 };
 export const updateCVIsDone = async (req, res) => {
@@ -132,32 +139,35 @@ export const updateCVIsDone = async (req, res) => {
     res.send(cvIsUpdated);
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR"]);
+    res.status(500).json(["ERROR AL ACTUALIZAR EL CV DEL CONSULTOR"]);
   }
 };
 export const addNewExperience = async (req, res) => {
-  const {
-    position,
-    company,
-    resume,
-    experienceMonthStart,
-    experienceYearStart,
-    experienceMonthEnd,
-    experienceYearEnd,
-  } = req.body;
-
-  const keyExperience = `experience${position}On${company}`.replace(/\s+/g, "");
-
-  const newExperienceData = {
-    _id: keyExperience,
-    position: position,
-    company: company,
-    resume: resume,
-    startDate: `${experienceMonthStart} ${experienceYearStart}`,
-    endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
-  };
-
   try {
+    const {
+      position,
+      company,
+      resume,
+      experienceMonthStart,
+      experienceYearStart,
+      experienceMonthEnd,
+      experienceYearEnd,
+    } = req.body;
+
+    const keyExperience = `experience${position}On${company}`.replace(
+      /\s+/g,
+      ""
+    );
+
+    const newExperienceData = {
+      _id: keyExperience,
+      position: position,
+      company: company,
+      resume: resume,
+      startDate: `${experienceMonthStart} ${experienceYearStart}`,
+      endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
+    };
+
     await consultantProfileModel.updateOne(
       { ownerID: req.user._id },
       {
@@ -169,32 +179,33 @@ export const addNewExperience = async (req, res) => {
 
     res.send(["AGREGADO"]);
   } catch (error) {
-    res.status(500).json(["ERROR"]);
+    console.log(error);
+    res.status(500).json(["ERROR AL AGREGAR LA EXPERIENCIA"]);
   }
 };
 export const addNewStudy = async (req, res) => {
-  const {
-    institution,
-    educationLevel,
-    area,
-    studiesMonthStart,
-    studiesYearStart,
-    studiesMonthEnd,
-    studiesYearEnd,
-  } = req.body;
-
-  const keyEducation = `education${area}On${institution}`.replace(/\s+/g, "");
-
-  const newStudyData = {
-    _id: keyEducation,
-    institution: institution,
-    educationLevel: educationLevel,
-    area: area,
-    startDate: `${studiesMonthStart} ${studiesYearStart}`,
-    endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
-  };
-
   try {
+    const {
+      institution,
+      educationLevel,
+      area,
+      studiesMonthStart,
+      studiesYearStart,
+      studiesMonthEnd,
+      studiesYearEnd,
+    } = req.body;
+
+    const keyEducation = `education${area}On${institution}`.replace(/\s+/g, "");
+
+    const newStudyData = {
+      _id: keyEducation,
+      institution: institution,
+      educationLevel: educationLevel,
+      area: area,
+      startDate: `${studiesMonthStart} ${studiesYearStart}`,
+      endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
+    };
+
     await consultantProfileModel.updateOne(
       { ownerID: req.user._id },
       {
@@ -206,20 +217,21 @@ export const addNewStudy = async (req, res) => {
 
     res.send(["AGREGADO"]);
   } catch (error) {
-    res.status(500).json(["ERROR"]);
+    console.log(error);
+    res.status(500).json(["ERROR AL AGREGAR LA EDUCACIÓN"]);
   }
 };
 export const addNewArea = async (req, res) => {
-  const { nameArea } = req.body;
-
-  const keyArea = `area${nameArea}`.replace(/\s+/g, "");
-
-  const newAreaData = {
-    _id: keyArea,
-    nameArea: nameArea,
-  };
-
   try {
+    const { nameArea } = req.body;
+
+    const keyArea = `area${nameArea}`.replace(/\s+/g, "");
+
+    const newAreaData = {
+      _id: keyArea,
+      nameArea: nameArea,
+    };
+
     await consultantProfileModel.updateOne(
       { ownerID: req.user._id },
       {
@@ -231,6 +243,7 @@ export const addNewArea = async (req, res) => {
 
     res.send(["AGREGADO"]);
   } catch (error) {
-    res.status(500).json(["ERROR"]);
+    console.log(error);
+    res.status(500).json(["ERROR AL AGREGAR LA ÁREA"]);
   }
 };

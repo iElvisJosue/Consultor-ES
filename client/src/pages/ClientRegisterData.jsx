@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/AuthContext";
+import { useGlobal } from "../context/GlobalContext";
+import { useClient } from "../context/ClientContext";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { useState } from "react";
@@ -8,7 +9,8 @@ import Cookies from "js-cookie";
 export default function ConsultantRegisterData() {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
-  const { registerClient, updateUser } = useAuth();
+  const { updateUser } = useGlobal();
+  const { registerClient } = useClient();
   const [termsAccepted, setTermsAccepted] = useState(false);
   const navigate = useNavigate();
 

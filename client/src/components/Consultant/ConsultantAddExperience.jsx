@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import { listOfMonths, listOfYears } from "../../global/globalFunctions";
-import { useAuth } from "../../context/AuthContext";
+import { useConsultant } from "../../context/ConsultantContext";
 import { Toaster, toast } from "sonner";
 
 export default function ConsultantAddExperience({
@@ -11,7 +11,7 @@ export default function ConsultantAddExperience({
 }) {
   const { register, handleSubmit, reset } = useForm();
 
-  const { addExperience } = useAuth();
+  const { addExperience } = useConsultant();
 
   const addNewExperience = handleSubmit(async (data) => {
     try {

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useRef } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useConsultant } from "../context/ConsultantContext";
 import ConsultantAddCV from "./Consultant/ConsultantAddCV";
 import ConsultantInformationCV from "./Consultant/ConsultantInformationCV";
 import Loader from "./Loader";
@@ -11,7 +11,7 @@ export default function ConsultantProfile({ user }) {
   const cvIsDone = useRef(null);
 
   const { email } = user;
-  const { getConsultantProfile } = useAuth();
+  const { getConsultantProfile } = useConsultant();
 
   useEffect(() => {
     async function getConsultantInformation() {

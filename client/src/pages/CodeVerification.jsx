@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/AuthContext";
+import { useGlobal } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
 // eslint-disable-next-line react/prop-types
 export default function ConsultantCodeVerification({ role }) {
   const { register, handleSubmit } = useForm();
-  const { checkVerificationCode } = useAuth();
+  const { checkVerificationCode } = useGlobal();
   const navigate = useNavigate();
 
   const ERROR_MESSAGES = {

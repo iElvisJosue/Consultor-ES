@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/AuthContext";
+import { useConsultant } from "../../context/ConsultantContext";
 import { listOfMonths, listOfYears } from "../../global/globalFunctions";
 import { Toaster, toast } from "sonner";
 
@@ -16,7 +16,7 @@ export default function ConsultantAddStudy({
     formState: { errors },
   } = useForm();
 
-  const { addStudy } = useAuth();
+  const { addStudy } = useConsultant();
 
   const addNewStudy = handleSubmit(async (data) => {
     try {

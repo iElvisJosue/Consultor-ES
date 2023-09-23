@@ -14,13 +14,23 @@ export default function ConsultantInformationCV({
   const [seeForm, setSeeForm] = useState(false);
   const [addForm, setAddForm] = useState(null);
 
+  const deleteExperience = (id) => {
+    console.log(id);
+  };
+  const deleteEducation = (id) => {
+    console.log(id);
+  };
+  const deleteArea = (id) => {
+    console.log(id);
+  };
+
   const classForm = seeForm
     ? "Main__Consultant__Profile--CV--FormLayout Show"
     : "Main__Consultant__Profile--CV--FormLayout";
 
   const experience = consultantInformation.data.experienceCV
     ? Object.values(consultantInformation.data.experienceCV).map(
-        ({ position, company, resume, startDate, endDate }, index) => {
+        ({ _id, position, company, resume, startDate, endDate }, index) => {
           return (
             <div
               key={index}
@@ -34,6 +44,13 @@ export default function ConsultantInformationCV({
               <p>
                 {startDate} - {endDate}
               </p>
+              <button
+                onClick={() => {
+                  deleteExperience(_id);
+                }}
+              >
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
             </div>
           );
         }
@@ -42,7 +59,10 @@ export default function ConsultantInformationCV({
 
   const education = consultantInformation.data.educationCV
     ? Object.values(consultantInformation.data.educationCV).map(
-        ({ institution, educationLevel, area, startDate, endDate }, index) => {
+        (
+          { _id, institution, educationLevel, area, startDate, endDate },
+          index
+        ) => {
           return (
             <div
               key={index}
@@ -56,6 +76,13 @@ export default function ConsultantInformationCV({
               <p>
                 {startDate} - {endDate}
               </p>
+              <button
+                onClick={() => {
+                  deleteEducation(_id);
+                }}
+              >
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
             </div>
           );
         }
@@ -64,13 +91,20 @@ export default function ConsultantInformationCV({
 
   const areas = consultantInformation.data.areasCV
     ? Object.values(consultantInformation.data.areasCV).map(
-        ({ nameArea }, index) => {
+        ({ _id, nameArea }, index) => {
           return (
             <span
               style={{ backgroundColor: "lightblue", marginRight: "10px" }}
               key={index}
             >
               {nameArea}
+              <button
+                onClick={() => {
+                  deleteArea(_id);
+                }}
+              >
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
             </span>
           );
         }

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/AuthContext";
+import { useConsultant } from "../../context/ConsultantContext";
 import { Toaster, toast } from "sonner";
 import {
   listOfMonths,
@@ -10,7 +10,7 @@ import {
 // eslint-disable-next-line react/prop-types
 export default function ConsultantAddCV({ setCheckCV, checkCV }) {
   const { register, handleSubmit } = useForm();
-  const { createResumeCV, updateStatusCV } = useAuth();
+  const { createResumeCV, updateStatusCV } = useConsultant();
 
   const ERROR_MESSAGES = {
     EXISTENTE: "Ya has creado un resumen de tu perfil profesional.",

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/AuthContext";
+import { useGlobal } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
@@ -9,7 +9,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { login } = useAuth();
+  const { login } = useGlobal();
   const navigate = useNavigate();
 
   const ERROR_MESSAGES = {

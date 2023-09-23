@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import ConsultantProfile from "../components/ConsultantProfile";
 import ClientProfile from "../components/ClientProfile";
 import AdminProfile from "../components/AdminProfile";
-import { useAuth } from "../context/AuthContext";
+import { useGlobal } from "../context/GlobalContext";
 import { Toaster, toast } from "sonner";
 import Cookies from "js-cookie";
 import Loader from "../components/Loader";
 
 export default function Profile() {
   const [loading, setLoading] = useState(true);
-  const { user, logout } = useAuth();
+  const { user, logout } = useGlobal();
 
   const profiles = {
     Consultant: <ConsultantProfile user={user} />,

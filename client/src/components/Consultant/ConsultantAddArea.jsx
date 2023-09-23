@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { listOfSpecialtiesAreas } from "../../global/globalFunctions";
-import { useAuth } from "../../context/AuthContext";
+import { useConsultant } from "../../context/ConsultantContext";
 import { Toaster, toast } from "sonner";
 
 // eslint-disable-next-line react/prop-types
 export default function ConsultantAddArea({ setCheckCV, checkCV, setSeeForm }) {
   const { register, handleSubmit, reset } = useForm();
 
-  const { addArea } = useAuth();
+  const { addArea } = useConsultant();
 
   const addNewStudy = handleSubmit(async (data) => {
     try {

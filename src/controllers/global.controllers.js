@@ -58,126 +58,136 @@ const sendEmail = async (toEmail, code, role) => {
 };
 
 const registerAndSendVerificationCode = async (res, email, role) => {
-  // OBTENEMOS UN CÓDIGO DE VERIFICACIÓN
-  const code = generateCode();
-  // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
-  const newUserModel = new userModel({
-    email,
-    emailCode: code,
-    role,
-  });
+  try {
+    // OBTENEMOS UN CÓDIGO DE VERIFICACIÓN
+    const code = generateCode();
+    // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
+    const newUserModel = new userModel({
+      email,
+      emailCode: code,
+      role,
+    });
 
-  // GUARDAMOS EL CORREO EN LA BD Y LO ALMACENAMOS EN UNA CONSTANTE
-  const newUserModelSaved = await newUserModel.save();
+    // GUARDAMOS EL CORREO EN LA BD Y LO ALMACENAMOS EN UNA CONSTANTE
+    const newUserModelSaved = await newUserModel.save();
 
-  const user = {
-    _id: newUserModelSaved._id,
-    email: newUserModelSaved.email,
-    userName: newUserModelSaved.userName,
-    role: newUserModelSaved.role,
-    knowUs: newUserModelSaved.knowUs,
-    online: newUserModelSaved.online,
-  };
-
-  // CREAMOS EL ID EN UN TOKEN
-  const accessToken = await createAccessToken(user);
-
-  // ALMACENAMOS EL TOKEN EN UN COOKIE
-  res.cookie("accessToken", accessToken, {
-    maxAge: 24 * 60 * 60 * 1000, // UN DIA
-    secure: true,
-    sameSite: "none",
-  });
-
-  const responseObject = {
-    accessToken: accessToken,
-    user,
-  };
-
-  // VEMOS LOS DATOS
-  res.send(responseObject);
-
-  // ENVIAMOS EL CORREO DEPENDIENDO EL ROLE
-  sendEmail(newUserModelSaved.email, code, role);
-};
-
-export const sendEmailVerificationCode = async (req, res) => {
-  const { email, role } = req.body;
-
-  // VERIFICAMOS SI EXISTE EL CORREO
-  const emailFound = await userModel.findOne({ email });
-
-  if (!emailFound) {
-    try {
-      registerAndSendVerificationCode(res, email, role);
-    } catch (error) {
-      // TODO: SOLUCIONAR ESTO
-      res.status(500).json(["ERROR"]);
-    }
-  } else if (
-    emailFound &&
-    emailFound.emailVerified === true &&
-    emailFound.userName !== ""
-  ) {
-    res.status(400).json(["VERIFICADO"]);
-  } else if (
-    emailFound &&
-    emailFound.emailVerified === true &&
-    emailFound.userName === ""
-  ) {
-    await userModel.deleteOne({ email });
-    registerAndSendVerificationCode(res, email, role);
-  } else if (emailFound && emailFound.emailVerified === false) {
-    await userModel.deleteOne({ email });
-    registerAndSendVerificationCode(res, email, role);
-  }
-};
-
-export const emailVerification = async (req, res) => {
-  const { codeEntered } = req.body;
-  const { emailCode } = await userModel.findById(req.user._id);
-
-  if (codeEntered === emailCode) {
-    const updatedEmailVerification = await userModel.findByIdAndUpdate(
-      req.user._id,
-      { emailVerified: true },
-      {
-        new: true,
-      }
-    );
-
-    const userData = {
-      _id: updatedEmailVerification._id,
-      email: updatedEmailVerification.email,
-      userName: updatedEmailVerification.userName,
-      role: updatedEmailVerification.role,
-      knowUs: updatedEmailVerification.knowUs,
-      online: updatedEmailVerification.online,
+    const user = {
+      _id: newUserModelSaved._id,
+      email: newUserModelSaved.email,
+      userName: newUserModelSaved.userName,
+      role: newUserModelSaved.role,
+      knowUs: newUserModelSaved.knowUs,
+      online: newUserModelSaved.online,
     };
 
     // CREAMOS EL ID EN UN TOKEN
-    const accessToken = await createAccessToken(userData);
+    const accessToken = await createAccessToken(user);
 
     // ALMACENAMOS EL TOKEN EN UN COOKIE
     res.cookie("accessToken", accessToken, {
       maxAge: 24 * 60 * 60 * 1000, // UN DIA
+      secure: true,
+      sameSite: "none",
     });
 
-    res.send(userData);
-  } else {
-    res.status(400).json(["INCORRECTO"]);
+    const responseObject = {
+      accessToken: accessToken,
+      user,
+    };
+
+    // VEMOS LOS DATOS
+    res.send(responseObject);
+
+    // ENVIAMOS EL CORREO DEPENDIENDO EL ROLE
+    sendEmail(newUserModelSaved.email, code, role);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL REGISTRAR EL USUARIO"]);
+  }
+};
+
+export const sendEmailVerificationCode = async (req, res) => {
+  try {
+    const { email, role } = req.body;
+
+    // VERIFICAMOS SI EXISTE EL CORREO
+    const emailFound = await userModel.findOne({ email });
+
+    if (!emailFound) {
+      registerAndSendVerificationCode(res, email, role);
+    } else if (
+      emailFound &&
+      emailFound.emailVerified === true &&
+      emailFound.userName !== ""
+    ) {
+      res.status(400).json(["VERIFICADO"]);
+    } else if (
+      emailFound &&
+      emailFound.emailVerified === true &&
+      emailFound.userName === ""
+    ) {
+      await userModel.deleteOne({ email });
+      registerAndSendVerificationCode(res, email, role);
+    } else if (emailFound && emailFound.emailVerified === false) {
+      await userModel.deleteOne({ email });
+      registerAndSendVerificationCode(res, email, role);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(["ERROR AL ENVIAR EL CORREO"]);
+  }
+};
+
+export const emailVerification = async (req, res) => {
+  try {
+    const { codeEntered } = req.body;
+    const { emailCode } = await userModel.findById(req.user._id);
+
+    if (codeEntered === emailCode) {
+      const updatedEmailVerification = await userModel.findByIdAndUpdate(
+        req.user._id,
+        { emailVerified: true },
+        {
+          new: true,
+        }
+      );
+
+      const userData = {
+        _id: updatedEmailVerification._id,
+        email: updatedEmailVerification.email,
+        userName: updatedEmailVerification.userName,
+        role: updatedEmailVerification.role,
+        knowUs: updatedEmailVerification.knowUs,
+        online: updatedEmailVerification.online,
+      };
+
+      // CREAMOS EL ID EN UN TOKEN
+      const accessToken = await createAccessToken(userData);
+
+      // ALMACENAMOS EL TOKEN EN UN COOKIE
+      res.cookie("accessToken", accessToken, {
+        maxAge: 24 * 60 * 60 * 1000, // UN DIA
+      });
+
+      res.send(userData);
+    } else {
+      res.status(400).json(["INCORRECTO"]);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL VERIFICAR EL CORREO"]);
   }
 };
 
 export const updateUser = async (req, res) => {
-  const { userName, password } = req.body;
+  try {
+    const { userName, password } = req.body;
 
-  const userFound = await userModel.findOne({
-    $and: [{ userName }, { _id: { $ne: req.user._id } }],
-  });
+    const userFound = await userModel.findOne({
+      $and: [{ userName }, { _id: { $ne: req.user._id } }],
+    });
 
-  if (!userFound) {
-    try {
+    if (!userFound) {
       // ENCRIPTAMOS LA CONTRASEÑA
       const encryptedPassword = await bcrypt.hash(password, 10);
 
@@ -193,38 +203,26 @@ export const updateUser = async (req, res) => {
       );
 
       res.status(200).json(["ACTUALIZADO"]);
-    } catch (error) {
-      console.log(error);
-      res.status(400).json(["ERROR"]);
+    } else {
+      res.status(400).json(["EXISTENTE"]);
     }
-  } else {
-    res.status(400).json(["EXISTENTE"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL ACTUALIZAR EL USUARIO"]);
   }
 };
 
-export const verifyToken = async (req, res) => {
-  const { accessToken } = req.cookies;
-
-  jwt.verify(accessToken, TOKEN_SECRET, async (err, user) => {
-    if (err) {
-      console.log("HUBO UN ERROR Y ES:", err);
-      return res.status(400).json(["TU TOKEN NO ESTA AUTORIZADO"]);
-    }
-    return res.json(user);
-  });
-};
-
 export const login = async (req, res) => {
-  // OBTENEMOS LOS DATOS INGRESAMOS POR EL USUARIO
-  const { yourUserName, yourPassword } = req.body;
+  try {
+    // OBTENEMOS LOS DATOS INGRESAMOS POR EL USUARIO
+    const { yourUserName, yourPassword } = req.body;
 
-  // BUSCAMOS SI EL USUARIO EXISTE
-  const userFound = await userModel.findOne({
-    userName: yourUserName,
-  });
+    // BUSCAMOS SI EL USUARIO EXISTE
+    const userFound = await userModel.findOne({
+      userName: yourUserName,
+    });
 
-  if (userFound) {
-    try {
+    if (userFound) {
       // COMPARAMOS EL NOMBRE ENCRIPTADO CON EL NOMBRE DEL USUARIO
       const isMatch = await bcrypt.compare(yourPassword, userFound.password);
       if (isMatch) {
@@ -248,12 +246,12 @@ export const login = async (req, res) => {
       } else {
         res.status(400).json(["INEXISTENTE"]);
       }
-    } catch (error) {
-      console.log(error);
-      res.status(500).json(["ERROR"]);
+    } else {
+      res.status(400).json(["INEXISTENTE"]);
     }
-  } else {
-    res.status(400).json(["INEXISTENTE"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL INICIAR SESIÓN"]);
   }
 };
 
@@ -297,7 +295,7 @@ export const getUserProfile = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR"]);
+    res.status(500).json(["ERROR AL OBTENER EL PERFIL DEL USUARIO"]);
   }
 };
 
@@ -315,4 +313,16 @@ export const logout = async (req, res) => {
     console.log(error);
     res.status(500).json(["ERROR AL ACTUALIZAR LA SESIÓN"]);
   }
+};
+
+export const verifyToken = async (req, res) => {
+  const { accessToken } = req.cookies;
+
+  jwt.verify(accessToken, TOKEN_SECRET, async (err, user) => {
+    if (err) {
+      console.log("HUBO UN ERROR Y ES:", err);
+      return res.status(400).json(["TU TOKEN NO ESTA AUTORIZADO"]);
+    }
+    return res.json(user);
+  });
 };
