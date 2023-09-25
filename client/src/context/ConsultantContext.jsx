@@ -1,12 +1,22 @@
 import { createContext, useContext } from "react";
 import {
-  registerDataConsultant,
-  getConsultant,
-  addResumeCV,
-  updateCV,
-  addNewExperience,
-  addNewStudy,
-  addNewArea,
+  registerDataConsultantRequest,
+  getConsultantRequest,
+  addResumeCVRequest,
+  updateCVRequest,
+  addNewExperienceRequest,
+  addNewStudyRequest,
+  addNewAreaRequest,
+  addNewLanguageRequest,
+  addNewSkillRequest,
+  updateResumeRequest,
+  updateExperienceRequest,
+  updateEducationRequest,
+  deleteExperienceRequest,
+  deleteEducationRequest,
+  deleteAreaRequest,
+  deleteLanguageRequest,
+  deleteSkillRequest,
 } from "../api/authConsultant";
 
 export const ConsultantContext = createContext();
@@ -26,7 +36,7 @@ export const useConsultant = () => {
 export const ConsultantProvider = ({ children }) => {
   const registerConsultant = async (data) => {
     try {
-      const res = await registerDataConsultant(data);
+      const res = await registerDataConsultantRequest(data);
       if (!res.data) {
         return console.log("HUBO UN ERROR EN EL REGISTRO");
       }
@@ -38,7 +48,7 @@ export const ConsultantProvider = ({ children }) => {
 
   const getConsultantProfile = async () => {
     try {
-      const res = await getConsultant();
+      const res = await getConsultantRequest();
       if (!res.data) {
         console.log("ERROR GET CONSULTANT");
         // return setError();
@@ -53,7 +63,7 @@ export const ConsultantProvider = ({ children }) => {
 
   const createResumeCV = async (data) => {
     try {
-      const res = await addResumeCV(data);
+      const res = await addResumeCVRequest(data);
       if (!res.data) {
         return console.log("ERROR CREATE RESUME CV");
         // return setError();
@@ -68,7 +78,7 @@ export const ConsultantProvider = ({ children }) => {
 
   const updateStatusCV = async () => {
     try {
-      const res = await updateCV();
+      const res = await updateCVRequest();
       if (!res.data) {
         console.log("ERROR UPDATE STATUS CV");
         // return setError();
@@ -82,7 +92,7 @@ export const ConsultantProvider = ({ children }) => {
   };
   const addExperience = async (data) => {
     try {
-      const res = await addNewExperience(data);
+      const res = await addNewExperienceRequest(data);
       if (!res.data) {
         console.log("ERROR ADD EXPERIENCE");
         // return setError();
@@ -98,7 +108,7 @@ export const ConsultantProvider = ({ children }) => {
 
   const addStudy = async (data) => {
     try {
-      const res = await addNewStudy(data);
+      const res = await addNewStudyRequest(data);
       if (!res.data) {
         // return setError();
         console.log("ERROR ADD STUDY");
@@ -113,7 +123,7 @@ export const ConsultantProvider = ({ children }) => {
   };
   const addArea = async (data) => {
     try {
-      const res = await addNewArea(data);
+      const res = await addNewAreaRequest(data);
       if (!res.data) {
         // return setError();
         console.log("ERROR ADD AREA");
@@ -124,6 +134,159 @@ export const ConsultantProvider = ({ children }) => {
       //   setError();
       console.log("ERROR ADD AREA 2");
       return error;
+    }
+  };
+  const addLanguage = async (data) => {
+    try {
+      const res = await addNewLanguageRequest(data);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR ADD LANGUAGE");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR ADD LANGUAGE 2");
+      return error;
+    }
+  };
+  const addSkill = async (data) => {
+    try {
+      const res = await addNewSkillRequest(data);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR ADD SKILL");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR ADD SKILL 2");
+      return error;
+    }
+  };
+
+  const updateResume = async (data) => {
+    try {
+      const res = await updateResumeRequest(data);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR UPDATE RESUME");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR UPDATE RESUME 2");
+      return error;
+    }
+  };
+
+  const updateExperience = async (data) => {
+    try {
+      const res = await updateExperienceRequest(data);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR UPDATE EXPERIENCE");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR UPDATE EXPERIENCE 2");
+      return error;
+    }
+  };
+
+  const updateEducation = async (data) => {
+    try {
+      const res = await updateEducationRequest(data);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR UPDATE EDUCATION");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR UPDATE EDUCATION 2");
+      return error;
+    }
+  };
+
+  const deleteExperience = async (id) => {
+    try {
+      const res = await deleteExperienceRequest(id);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR DELETE EXPERIENCE");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR DELETE EXPERIENCE 2");
+      return error;
+    }
+  };
+
+  const deleteStudy = async (id) => {
+    try {
+      const res = await deleteEducationRequest(id);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR DELETE STUDY");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR DELETE STUDY 2");
+      return error;
+    }
+  };
+
+  const deleteArea = async (id) => {
+    try {
+      const res = await deleteAreaRequest(id);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR DELETE AREA");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR DELETE AREA 2");
+      return error;
+    }
+  };
+
+  const deleteLanguage = async (id) => {
+    try {
+      const res = await deleteLanguageRequest(id);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR DELETE LANGUAGE");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log("ERROR DELETE LANGUAGE 2");
+    }
+  };
+  const deleteSkill = async (id) => {
+    try {
+      const res = await deleteSkillRequest(id);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR DELETE SKILL");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log("ERROR DELETE SKILL 2");
     }
   };
 
@@ -137,6 +300,16 @@ export const ConsultantProvider = ({ children }) => {
         addExperience,
         addStudy,
         addArea,
+        addLanguage,
+        addSkill,
+        updateResume,
+        updateExperience,
+        updateEducation,
+        deleteExperience,
+        deleteStudy,
+        deleteArea,
+        deleteLanguage,
+        deleteSkill,
       }}
     >
       {children}

@@ -5,7 +5,7 @@ import {
   listOfMonths,
   listOfYears,
   listOfSpecialtiesAreas,
-} from "../../global/globalFunctions";
+} from "../../helpers/globalFunctions";
 
 // eslint-disable-next-line react/prop-types
 export default function ConsultantAddCV({ setCheckCV, checkCV }) {

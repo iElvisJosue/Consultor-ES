@@ -24,7 +24,10 @@
 }
 .AddExperience,
 .AddStudy,
-.AddArea {
+.AddArea,
+.AddLanguage,
+.AddArea,
+.UpdateResume {
   background-color: var(--White);
   padding: 20px;
   color: var(--Black);

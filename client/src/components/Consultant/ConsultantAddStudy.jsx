@@ -1,37 +1,88 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { useConsultant } from "../../context/ConsultantContext";
-import { listOfMonths, listOfYears } from "../../global/globalFunctions";
+import { listOfMonths, listOfYears } from "../../helpers/globalFunctions";
 import { Toaster, toast } from "sonner";
 
 export default function ConsultantAddStudy({
   setCheckCV,
   checkCV,
   setSeeForm,
+  setUpdate,
+  update,
+  setId,
+  id,
+  consultantInformation,
 }) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
+    setValue,
   } = useForm();
+  const { addStudy, updateEducation } = useConsultant();
 
-  const { addStudy } = useConsultant();
+  const textButton = update ? "Actualizar estudio" : "Agregar estudio";
+
+  const ERROR_MESSAGES = {
+    AGREGADO: "¡Estudio agregado correctamente!",
+    ACTUALIZADO: "¡Estudio actualizado correctamente!",
+    ERROR: "Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.",
+  };
+
+  useEffect(() => {
+    if (update) {
+      const startDate =
+        consultantInformation.data.educationCV[id].startDate.split(" ");
+      const endDate =
+        consultantInformation.data.educationCV[id].endDate.split(" ");
+
+      setValue(
+        "institution",
+        consultantInformation.data.educationCV[id].institution
+      );
+      setValue(
+        "educationLevel",
+        consultantInformation.data.educationCV[id].educationLevel
+      );
+      setValue("area", consultantInformation.data.educationCV[id].area);
+      setValue("studiesMonthStart", startDate[0]);
+      setValue("studiesYearStart", startDate[1]);
+      setValue("studiesMonthEnd", endDate[0]);
+      setValue("studiesYearEnd", endDate[1]);
+    }
+  }, [update]);
 
   const addNewStudy = handleSubmit(async (data) => {
     try {
-      await addStudy(data);
-      toast.success("¡Educación agregada correctamente!");
-      setSeeForm(false);
-      setCheckCV(!checkCV);
-      reset();
+      if (update) {
+        data.id = id;
+        const res = await updateEducation(data);
+        checkResult(res, "ACTUALIZADO");
+      } else {
+        const res = await addStudy(data);
+        checkResult(res, "AGREGADO");
+      }
     } catch (error) {
-      toast.error(
-        "Ha ocurrido un error al agregar la educación. Inténtalo de nuevo más tarde."
-      );
+      toast.error(ERROR_MESSAGES.ERROR);
       console.log(error);
     }
   });
+
+  const checkResult = (res, MESSAGE) => {
+    if (!res.response) {
+      toast.success(ERROR_MESSAGES[MESSAGE]);
+    } else {
+      toast.error(ERROR_MESSAGES.ERROR);
+    }
+    setSeeForm(false);
+    setCheckCV(!checkCV);
+    setUpdate(false);
+    setId(null);
+    reset();
+  };
 
   return (
     <form onSubmit={addNewStudy} className="AddStudy">
@@ -90,7 +141,7 @@ export default function ConsultantAddStudy({
           {listOfYears}
         </select>
       </span>
-      <button type="submit">Agregar</button>
+      <button type="submit">{textButton}</button>
       <Toaster richColors position="top-right" />
     </form>
   );

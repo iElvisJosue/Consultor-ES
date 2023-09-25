@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { listOfSpecialtiesAreas } from "../../global/globalFunctions";
+import { listOfSpecialtiesAreas } from "../../helpers/globalFunctions";
 import { useConsultant } from "../../context/ConsultantContext";
 import { Toaster, toast } from "sonner";
 
@@ -9,13 +9,19 @@ export default function ConsultantAddArea({ setCheckCV, checkCV, setSeeForm }) {
 
   const { addArea } = useConsultant();
 
-  const addNewStudy = handleSubmit(async (data) => {
+  const addNewArea = handleSubmit(async (data) => {
     try {
-      await addArea(data);
-      toast.success("¡Área agregada correctamente!");
-      setSeeForm(false);
-      setCheckCV(!checkCV);
-      reset();
+      const res = await addArea(data);
+      if (!res.response) {
+        toast.success("¡Área agregada correctamente!");
+        setSeeForm(false);
+        setCheckCV(!checkCV);
+        reset();
+      } else {
+        toast.error(
+          "Ha ocurrido un error al agregar la área. Inténtalo de nuevo más tarde."
+        );
+      }
     } catch (error) {
       toast.error(
         "Ha ocurrido un error al agregar la área. Inténtalo de nuevo más tarde."
@@ -25,7 +31,7 @@ export default function ConsultantAddArea({ setCheckCV, checkCV, setSeeForm }) {
   });
 
   return (
-    <form onSubmit={addNewStudy} className="AddArea">
+    <form onSubmit={addNewArea} className="AddArea">
       <h1>Selecciona tus areas de especialidad:</h1>
       <select {...register("nameArea", { required: true })}>
         {listOfSpecialtiesAreas}

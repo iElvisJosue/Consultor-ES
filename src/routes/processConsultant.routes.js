@@ -11,6 +11,16 @@ import {
   addNewExperience,
   addNewStudy,
   addNewArea,
+  addNewLanguage,
+  addNewSkill,
+  updateResume,
+  updateExperience,
+  updateStudy,
+  deleteExperience,
+  deleteStudy,
+  deleteArea,
+  deleteLanguage,
+  deleteSkill,
 } from "../controllers/processConsultant.controllers.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VERIFICAR QUE TENGAS UN TOKEN DE ACCESO
 import { authRequired } from "../middlewares/validateToken.js";
@@ -41,17 +51,47 @@ router.post(
   createResumeCV
 );
 
+// RUTA PARA ACTUALIZAR EL RESUMEN DEL CV
+router.put("/updateResume", authRequired, updateResume);
+
 // RUTA PARA ACTUALIZAR QUE TIENE UN CV CREADO
 router.put("/updateCVIsDone", authRequired, updateCVIsDone);
 
 // RUTA PARA AGREGAR UNA NUEVA EXPERIENCIA
 router.put("/addNewExperience", authRequired, addNewExperience);
 
+// RUTA PARA ACTUALIZAR UNA EXPERIENCIA
+router.put("/updateExperience", authRequired, updateExperience);
+
+// RUTA PARA ELIMINAR UNA EXPERIENCIA
+router.put("/deleteExperience", authRequired, deleteExperience);
+
 // RUTA PARA AGREGAR UN NUEVO ESTUDIO
 router.put("/addNewStudy", authRequired, addNewStudy);
 
+// RUTA PARA ACTUALIZAR UN ESTUDIO
+router.put("/updateStudy", authRequired, updateStudy);
+
+// RUTA PARA ELIMINAR UN ESTUDIO
+router.put("/deleteStudy", authRequired, deleteStudy);
+
 // RUTA PARA AGREGAR UNA NUEVA AREA
 router.put("/addNewArea", authRequired, addNewArea);
+
+// RUTA PARA ELIMINAR UNA AREA
+router.put("/deleteArea", authRequired, deleteArea);
+
+// RUTA PARA AGREGAR UN NUEVO IDIOMA
+router.put("/addNewLanguage", authRequired, addNewLanguage);
+
+// RUTA PARA ELIMINAR UN IDIOMA
+router.put("/deleteLanguage", authRequired, deleteLanguage);
+
+// RUTA PARA AGREGAR UNA NUEVA SKILL
+router.put("/addNewSkill", authRequired, addNewSkill);
+
+// RUTA PARA ELIMINAR UNA SKILL
+router.put("/deleteSkill", authRequired, deleteSkill);
 
 // RUTA PARA REGISTRAR SUS DATOS BANCARIOS
 router.post("/registerDataBank");

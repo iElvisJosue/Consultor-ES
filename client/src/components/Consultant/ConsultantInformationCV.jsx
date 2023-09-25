@@ -1,7 +1,19 @@
 import { useState } from "react";
+import {
+  getInfoExperienceCV,
+  getInfoStudiesCV,
+  getInfoAreasCV,
+  getInfoLanguagesCV,
+  getInfoSkillsCV,
+} from "../../helpers/consultantFunctions";
 import ConsultantAddArea from "./ConsultantAddArea";
 import ConsultantAddExperience from "./ConsultantAddExperience";
 import ConsultantAddStudy from "./ConsultantAddStudy";
+import ConsultantAddLanguage from "./ConsultantAddLanguage";
+import ConsultantAddSkill from "./ConsultantAddSkill";
+import ConsultantUpdateResume from "./ConsultantUpdateResume";
+import { useConsultant } from "../../context/ConsultantContext";
+import { Toaster, toast } from "sonner";
 import "../../styles/FormsConsultant.css";
 
 /* eslint-disable react/prop-types */
@@ -13,136 +25,142 @@ export default function ConsultantInformationCV({
 }) {
   const [seeForm, setSeeForm] = useState(false);
   const [addForm, setAddForm] = useState(null);
+  const [update, setUpdate] = useState(false);
+  const [id, setId] = useState(null);
 
-  const deleteExperience = (id) => {
-    console.log(id);
+  const {
+    deleteExperience,
+    deleteStudy,
+    deleteArea,
+    deleteLanguage,
+    deleteSkill,
+  } = useConsultant();
+  const seeFormConsultant = (data) => {
+    setUpdate(false);
+    setId(null);
+    setAddForm(data);
+    setSeeForm(!seeForm);
   };
-  const deleteEducation = (id) => {
-    console.log(id);
+  const setUpdateConfig = (data, id) => {
+    setId(id);
+    setUpdate(true);
+    setAddForm(data);
+    setSeeForm(!seeForm);
   };
-  const deleteArea = (id) => {
-    console.log(id);
+  const deleteExperienceConsultant = async (id) => {
+    try {
+      await deleteExperience({ idExperience: id });
+      toast.success("¡Experiencia eliminada correctamente!");
+      setCheckCV(!checkCV);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        "¡Ha ocurrido un error al eliminar la experiencia!, inténtalo de nuevo más tarde."
+      );
+    }
   };
+  const deleteEducationConsultant = async (id) => {
+    try {
+      await deleteStudy({ idStudy: id });
+      toast.success("¡Estudio eliminado correctamente!");
+      setCheckCV(!checkCV);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        "¡Ha ocurrido un error al eliminar la estudio!, inténtalo de nuevo más tarde."
+      );
+    }
+  };
+  const deleteAreaConsultant = async (id) => {
+    try {
+      await deleteArea({ idArea: id });
+      toast.success("¡Area eliminada correctamente!");
+      setCheckCV(!checkCV);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        "¡Ha ocurrido un error al eliminar la área!, inténtalo de nuevo más tarde."
+      );
+    }
+  };
+  const deleteLanguageConsultant = async (id) => {
+    try {
+      await deleteLanguage({ idLanguage: id });
+      toast.success("¡Idioma eliminado correctamente!");
+      setCheckCV(!checkCV);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        "¡Ha ocurrido un error al eliminar el idioma!, inténtalo de nuevo más tarde."
+      );
+    }
+  };
+  const deleteSkillConsultant = async (id) => {
+    try {
+      await deleteSkill({ idSkill: id });
+      toast.success("¡Habilidad eliminada correctamente!");
+      setCheckCV(!checkCV);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        "¡Ha ocurrido un error al eliminar la habilidad!, inténtalo de nuevo más tarde."
+      );
+    }
+  };
+
+  const experience = getInfoExperienceCV(
+    consultantInformation,
+    setUpdateConfig,
+    deleteExperienceConsultant
+  );
+  const education = getInfoStudiesCV(
+    consultantInformation,
+    setUpdateConfig,
+    deleteEducationConsultant
+  );
+  const areas = getInfoAreasCV(consultantInformation, deleteAreaConsultant);
+  const languages = getInfoLanguagesCV(
+    consultantInformation,
+    deleteLanguageConsultant
+  );
+  const skills = getInfoSkillsCV(consultantInformation, deleteSkillConsultant);
 
   const classForm = seeForm
     ? "Main__Consultant__Profile--CV--FormLayout Show"
     : "Main__Consultant__Profile--CV--FormLayout";
 
-  const experience = consultantInformation.data.experienceCV
-    ? Object.values(consultantInformation.data.experienceCV).map(
-        ({ _id, position, company, resume, startDate, endDate }, index) => {
-          return (
-            <div
-              key={index}
-              style={{
-                marginBottom: "20px",
-              }}
-            >
-              <p>{position}</p>
-              <p>{company}</p>
-              <p>{resume}</p>
-              <p>
-                {startDate} - {endDate}
-              </p>
-              <button
-                onClick={() => {
-                  deleteExperience(_id);
-                }}
-              >
-                <ion-icon name="trash-outline"></ion-icon>
-              </button>
-            </div>
-          );
-        }
-      )
-    : "No hay experiencia";
-
-  const education = consultantInformation.data.educationCV
-    ? Object.values(consultantInformation.data.educationCV).map(
-        (
-          { _id, institution, educationLevel, area, startDate, endDate },
-          index
-        ) => {
-          return (
-            <div
-              key={index}
-              style={{
-                marginBottom: "20px",
-              }}
-            >
-              <p>{institution}</p>
-              <p>{educationLevel}</p>
-              <p>{area}</p>
-              <p>
-                {startDate} - {endDate}
-              </p>
-              <button
-                onClick={() => {
-                  deleteEducation(_id);
-                }}
-              >
-                <ion-icon name="trash-outline"></ion-icon>
-              </button>
-            </div>
-          );
-        }
-      )
-    : "No hay educación";
-
-  const areas = consultantInformation.data.areasCV
-    ? Object.values(consultantInformation.data.areasCV).map(
-        ({ _id, nameArea }, index) => {
-          return (
-            <span
-              style={{ backgroundColor: "lightblue", marginRight: "10px" }}
-              key={index}
-            >
-              {nameArea}
-              <button
-                onClick={() => {
-                  deleteArea(_id);
-                }}
-              >
-                <ion-icon name="trash-outline"></ion-icon>
-              </button>
-            </span>
-          );
-        }
-      )
-    : "No hay areas";
-
-  const seeFormConsultant = (data) => {
-    setSeeForm(!seeForm);
-    setAddForm(data);
+  const formProps = {
+    setSeeForm,
+    setCheckCV,
+    checkCV,
+    setUpdate,
+    update,
+    setId,
+    id,
+    consultantInformation,
   };
 
   const listForms = {
-    addExperience: (
-      <ConsultantAddExperience
-        setSeeForm={setSeeForm}
-        setCheckCV={setCheckCV}
-        checkCV={checkCV}
-      />
-    ),
-    addStudy: (
-      <ConsultantAddStudy
-        setCheckCV={setCheckCV}
-        setSeeForm={setSeeForm}
-        checkCV={checkCV}
-      />
-    ),
-    addArea: (
-      <ConsultantAddArea
-        setCheckCV={setCheckCV}
-        setSeeForm={setSeeForm}
-        checkCV={checkCV}
-      />
-    ),
+    addExperience: <ConsultantAddExperience {...formProps} />,
+    addStudy: <ConsultantAddStudy {...formProps} />,
+    addArea: <ConsultantAddArea {...formProps} />,
+    addLanguage: <ConsultantAddLanguage {...formProps} />,
+    addSkill: <ConsultantAddSkill {...formProps} />,
+    updateResume: <ConsultantUpdateResume {...formProps} />,
   };
 
   return (
     <div style={{ textAlign: "center", padding: "20px", position: "relative" }}>
-      <h1>MI CURRICULUM</h1>
+      <span
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "20px",
+        }}
+      >
+        <button>MI CURRICULUM</button>
+        <button>INFORMACIÓN BANCARIA</button>
+      </span>
       <br />
       <hr />
       <br />
@@ -154,8 +172,8 @@ export default function ConsultantInformationCV({
             src="https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg"
             alt="Esta es mi foto"
             style={{
-              width: "100px",
-              height: "100px",
+              width: "125px",
+              height: "125px",
               borderRadius: "50%",
             }}
           />
@@ -183,6 +201,13 @@ export default function ConsultantInformationCV({
         <br />
         <p>{consultantInformation.data.resumeCV.profession}</p>
         <p>{consultantInformation.data.resumeCV.description}</p>
+        <button
+          onClick={() => {
+            setUpdateConfig("updateResume", consultantInformation.data.ownerID);
+          }}
+        >
+          <ion-icon name="color-wand-outline"></ion-icon>
+        </button>
       </div>
       <br />
       <hr />
@@ -225,10 +250,39 @@ export default function ConsultantInformationCV({
           Agregar areas
         </button>
       </div>
+      <br />
+      <hr />
+      <br />
+      <div className="Main__Consultant__Profile--Languages">
+        <h2>
+          <ion-icon name="language-outline"></ion-icon> Idiomas
+        </h2>
+        <br />
+        <p>{languages}</p>
+        <br />
+        <button onClick={() => seeFormConsultant("addLanguage")}>
+          Agregar idioma
+        </button>
+      </div>
+      <br />
+      <hr />
+      <br />
+      <div className="Main__Consultant__Profile--Skills">
+        <h2>
+          <ion-icon name="construct-outline"></ion-icon> Habilidades
+        </h2>
+        <br />
+        <p>{skills}</p>
+        <br />
+        <button onClick={() => seeFormConsultant("addSkill")}>
+          Agregar habilidad
+        </button>
+      </div>
       <div className={classForm}>
         <button onClick={seeFormConsultant}>Cerrar formulario</button>
         {listForms[addForm]}
       </div>
+      <Toaster richColors position="top-right" />
     </div>
   );
 }
