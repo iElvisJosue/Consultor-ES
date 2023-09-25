@@ -406,8 +406,9 @@ export const updateStudy = async (req, res) => {
 export const deleteExperience = async (req, res) => {
   try {
     const { idExperience } = req.body;
+    console.log(idExperience);
     await consultantProfileModel.updateOne(
-      {},
+      { ownerID: req.user._id },
       {
         $unset: {
           [`experienceCV.${idExperience}`]: "",
@@ -424,7 +425,7 @@ export const deleteStudy = async (req, res) => {
   try {
     const { idStudy } = req.body;
     await consultantProfileModel.updateOne(
-      {},
+      { ownerID: req.user._id },
       {
         $unset: {
           [`educationCV.${idStudy}`]: "",
@@ -441,7 +442,7 @@ export const deleteArea = async (req, res) => {
   try {
     const { idArea } = req.body;
     await consultantProfileModel.updateOne(
-      {},
+      { ownerID: req.user._id },
       {
         $unset: {
           [`areasCV.${idArea}`]: "",
@@ -459,7 +460,7 @@ export const deleteLanguage = async (req, res) => {
   try {
     const { idLanguage } = req.body;
     await consultantProfileModel.updateOne(
-      {},
+      { ownerID: req.user._id },
       {
         $unset: {
           [`languagesCV.${idLanguage}`]: "",
@@ -476,7 +477,7 @@ export const deleteSkill = async (req, res) => {
   try {
     const { idSkill } = req.body;
     await consultantProfileModel.updateOne(
-      {},
+      { ownerID: req.user._id },
       {
         $unset: {
           [`skillsCV.${idSkill}`]: "",
