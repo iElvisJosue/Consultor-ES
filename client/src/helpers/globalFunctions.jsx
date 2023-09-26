@@ -115,3 +115,69 @@ export const listOfLanguages = languages.map((language, index) =>
     </option>
   )
 );
+
+// LISTA DE SERVICIOS
+const services = ["Fiscal", "Contable", "Legal", "Operativa", "Organizacional"];
+export const listOfServices = services.map((service, index) =>
+  index === 0 ? (
+    <option key={index} value={service} defaultValue={true}>
+      {service}
+    </option>
+  ) : (
+    <option key={index} value={service}>
+      {service}
+    </option>
+  )
+);
+
+// LISTA DE SECTORES
+const sector = [
+  "Agroalimentario",
+  "Automoción",
+  "Banca",
+  "Construcción / Inmobiliario",
+  "Educación",
+  "Entretenimiento",
+  "Gimnasios",
+  "Hoteles",
+  "Restauración",
+  "Retail / Consumer Products",
+  "Salud",
+  "Servicios profesionales",
+  "Tecnológicas",
+  "Telecomunicaciones",
+  "Transportes",
+  "Utilities",
+  "Otro",
+];
+export const listOfSector = sector.map((sector, index) =>
+  index === 0 ? (
+    <option key={index} value={sector} defaultValue={true}>
+      {sector}
+    </option>
+  ) : (
+    <option key={index} value={sector}>
+      {sector}
+    </option>
+  )
+);
+
+// LISTA DE RETOS
+const challenges = [
+  "Crecer y Fidelizar",
+  "Reducir costes y Mejorar",
+  "Finanzas",
+  "Personas",
+  "Tengo otro reto",
+];
+export const listOfChallenges = challenges.map((challenge, index) =>
+  index === 0 ? (
+    <option key={index} value={challenge} defaultValue={true}>
+      {challenge}
+    </option>
+  ) : (
+    <option key={index} value={challenge}>
+      {challenge}
+    </option>
+  )
+);

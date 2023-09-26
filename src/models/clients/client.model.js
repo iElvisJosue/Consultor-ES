@@ -36,6 +36,26 @@ const clientProfileModel = new mongoose.Schema(
       trim: true,
       default: "",
     },
+    businessSector: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    estimatedValue: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    challenges: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    helpMe: {
+      type: String,
+      trim: true,
+      default: "",
+    },
     ownerID: {
       type: String,
     },

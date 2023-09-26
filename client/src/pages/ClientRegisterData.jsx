@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import {
+  listOfServices,
+  listOfSector,
+  listOfChallenges,
+} from "../helpers/globalFunctions";
 
 export default function ConsultantRegisterData() {
   const [loading, setLoading] = useState(false);
@@ -115,14 +120,23 @@ export default function ConsultantRegisterData() {
           />
           <p>Selecciona el área en las que requiere el servicio</p>
           <select {...register("serviceArea", { required: true })}>
-            <option value="Fiscal" defaultValue={true}>
-              Fiscal
-            </option>
-            <option value="Contable">Contable</option>
-            <option value="Legal">Legal</option>
-            <option value="Operativa">Operativa</option>
-            <option value="Organizacional">Organizacional</option>
+            {listOfServices}
           </select>
+          <p>Selecciona el sector de tu empresa</p>
+          <select {...register("businessSector", { required: true })}>
+            {listOfSector}
+          </select>
+          <br />
+          <p>Presupuesto aproximado por proyecto:</p>
+          <input {...register("estimatedValue", { required: true })} />
+          <br />
+          <p>¿Qué retos te interesan?</p>
+          <select {...register("challenges", { required: true })}>
+            {listOfChallenges}
+          </select>
+          <br />
+          <p>¿En qué te podemos ayudar?</p>
+          <input {...register("helpMe", { required: true })} />
           <br />
           <label>
             <input

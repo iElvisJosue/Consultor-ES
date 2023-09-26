@@ -11,6 +11,10 @@ export const registerDataClient = async (req, res) => {
       number,
       businessName,
       serviceArea,
+      businessSector,
+      estimatedValue,
+      challenges,
+      helpMe,
     } = req.body;
 
     // VERIFICAMOS SI EXISTE EL USUARIO
@@ -26,6 +30,10 @@ export const registerDataClient = async (req, res) => {
         number,
         businessName,
         serviceArea,
+        businessSector,
+        estimatedValue,
+        challenges,
+        helpMe,
         ownerID: req.user._id,
       });
 

@@ -44,6 +44,18 @@ export const dataClient = z.object({
   serviceArea: z.string({
     required_error: "EL AREA DE SERVICIO ES REQUERIDO",
   }),
+  businessSector: z.string({
+    required_error: "EL SECTOR DE NEGOCIO ES REQUERIDO",
+  }),
+  estimatedValue: z.string({
+    required_error: "EL VALOR ESTIMADO ES REQUERIDO",
+  }),
+  challenges: z.string({
+    required_error: "EL RETO ES REQUERIDO",
+  }),
+  helpMe: z.string({
+    required_error: "EL AYUDA ES REQUERIDA",
+  }),
 });
 
 export const dataUser = z.object({
