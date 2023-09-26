@@ -20,9 +20,6 @@ export const dataConsultant = z.object({
   motherLastName: z.string({
     required_error: "EL APELLIDO MATERNO ES REQUERIDO",
   }),
-  RFC: z.string({
-    required_error: "EL RFC ES REQUERIDO",
-  }),
   number: z.string({
     required_error: "EL NÚMERO DE TELÉFONO ES REQUERIDO",
   }),
@@ -37,9 +34,6 @@ export const dataClient = z.object({
   }),
   motherLastName: z.string({
     required_error: "EL APELLIDO MATERNO ES REQUERIDO",
-  }),
-  RFC: z.string({
-    required_error: "EL RFC ES REQUERIDO",
   }),
   number: z.string({
     required_error: "EL NÚMERO DE TELÉFONO ES REQUERIDO",

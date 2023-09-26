@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
   getInfoExperienceCV,
@@ -14,9 +15,7 @@ import ConsultantAddSkill from "./ConsultantAddSkill";
 import ConsultantUpdateResume from "./ConsultantUpdateResume";
 import { useConsultant } from "../../context/ConsultantContext";
 import { Toaster, toast } from "sonner";
-import "../../styles/FormsConsultant.css";
 
-/* eslint-disable react/prop-types */
 export default function ConsultantInformationCV({
   email,
   consultantInformation,
@@ -27,7 +26,6 @@ export default function ConsultantInformationCV({
   const [addForm, setAddForm] = useState(null);
   const [update, setUpdate] = useState(false);
   const [id, setId] = useState(null);
-
   const {
     deleteExperience,
     deleteStudy,
@@ -150,20 +148,7 @@ export default function ConsultantInformationCV({
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px", position: "relative" }}>
-      <span
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "20px",
-        }}
-      >
-        <button>MI CURRICULUM</button>
-        <button>INFORMACIÓN BANCARIA</button>
-      </span>
-      <br />
-      <hr />
-      <br />
+    <>
       <div className="Main__Consultant__Profile--Header">
         <h2>Información personal</h2>
         <br />
@@ -189,6 +174,15 @@ export default function ConsultantInformationCV({
             <ion-icon name="call-outline"></ion-icon>{" "}
             {`${consultantInformation.data.number}`}
           </p>
+          {consultantInformation.data.LinkedIn && (
+            <a
+              href={consultantInformation.data.LinkedIn}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ion-icon name="logo-linkedin"></ion-icon> Perfil LinkedIn
+            </a>
+          )}
         </span>
       </div>
       <br />
@@ -282,7 +276,7 @@ export default function ConsultantInformationCV({
         <button onClick={seeFormConsultant}>Cerrar formulario</button>
         {listForms[addForm]}
       </div>
-      <Toaster richColors position="top-right" />
-    </div>
+      <Toaster richcolors position="top-right" />
+    </>
   );
 }

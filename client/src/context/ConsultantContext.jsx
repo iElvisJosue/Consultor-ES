@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import {
   registerDataConsultantRequest,
+  registerDataBankRequest,
   getConsultantRequest,
   addResumeCVRequest,
   updateCVRequest,
@@ -290,10 +291,23 @@ export const ConsultantProvider = ({ children }) => {
     }
   };
 
+  const registerDataBank = async (data) => {
+    try {
+      const res = await registerDataBankRequest(data);
+      if (!res.data) {
+        return console.log("ERROR AL AGREGAR LA INFORMACIÓN DEL BANCO");
+      }
+      return res;
+    } catch (error) {
+      console.log("ERROR AL AGREGAR LA INFORMACIÓN DEL BANCO");
+    }
+  };
+
   return (
     <ConsultantContext.Provider
       value={{
         registerConsultant,
+        registerDataBank,
         getConsultantProfile,
         createResumeCV,
         updateStatusCV,

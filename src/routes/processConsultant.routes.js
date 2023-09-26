@@ -5,6 +5,7 @@ const router = Router();
 // IMPORTAMOS LOS CONTROLADORES
 import {
   registerDataConsultant,
+  registerDataBank,
   getInformationConsultant,
   createResumeCV,
   updateCVIsDone,
@@ -94,10 +95,10 @@ router.put("/addNewSkill", authRequired, addNewSkill);
 router.put("/deleteSkill", authRequired, deleteSkill);
 
 // RUTA PARA REGISTRAR SUS DATOS BANCARIOS
-router.post("/registerDataBank");
+router.put("/registerDataBank", authRequired, registerDataBank);
 
 // RUTA PARA ACTUALIZAR SUS DATOS BANCARIOS
-router.put("/updateDataBank/:id");
+router.put("/updateDataBank/");
 
 // EXPORTAMOS EL ENRUTADOR
 export default router;

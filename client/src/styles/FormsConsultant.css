@@ -27,7 +27,8 @@
 .AddArea,
 .AddLanguage,
 .AddArea,
-.UpdateResume {
+.UpdateResume,
+.AddDataBank {
   background-color: var(--White);
   padding: 20px;
   color: var(--Black);

@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useConsultant } from "../context/ConsultantContext";
 import ConsultantAddCV from "./Consultant/ConsultantAddCV";
-import ConsultantInformationCV from "./Consultant/ConsultantInformationCV";
+import ConsultantInformation from "./Consultant/ConsultantInformation.jsx";
 import Loader from "./Loader";
 
 export default function ConsultantProfile({ user }) {
@@ -34,7 +34,7 @@ export default function ConsultantProfile({ user }) {
   return (
     <section className="Main__Consultant__Profile">
       {cvIsDone.current ? (
-        <ConsultantInformationCV
+        <ConsultantInformation
           email={email}
           consultantInformation={consultantInformation}
           setCheckCV={setCheckCV}

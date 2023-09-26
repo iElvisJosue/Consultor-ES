@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useGlobal } from "./context/GlobalContext";
+import { useGlobal } from "../context/GlobalContext";
 
 export default function ProtectedForClients() {
   const { loading, getUserProfile, isLogin } = useGlobal();

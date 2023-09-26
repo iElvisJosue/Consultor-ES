@@ -484,3 +484,31 @@ export const deleteSkill = async (req, res) => {
     res.status(500).json(["ERROR AL ELIMINAR LA HABILIDAD"]);
   }
 };
+export const registerDataBank = async (req, res) => {
+  try {
+    const { account, bank, name, RFC, country, address } = req.body;
+
+    const dataBank = {
+      account: account,
+      bank: bank,
+      name: name,
+      RFC: RFC,
+      country: country,
+      address: address,
+    };
+
+    await consultantProfileModel.updateOne(
+      {
+        ownerID: req.user._id,
+      },
+      {
+        dataBank: dataBank,
+      }
+    );
+
+    res.send(["INFORMACIÓN BANCARIA REGISTRADA"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL REGISTRAR DATOS DEL CONSULTOR"]);
+  }
+};

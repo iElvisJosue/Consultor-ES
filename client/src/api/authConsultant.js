@@ -66,3 +66,7 @@ export const addNewSkillRequest = (data) =>
 // PETICIÓN PARA ELIMINAR UNA HABILIDAD
 export const deleteSkillRequest = (id) =>
   axios.put("/consultant/deleteSkill", id);
+
+// PETICIÓN PARA AGREGAR LA INFORMACIÓN BANCARIA
+export const registerDataBankRequest = (data) =>
+  axios.put("/consultant/registerDataBank", data);

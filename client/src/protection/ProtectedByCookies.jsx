@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useGlobal } from "./context/GlobalContext";
+import { useGlobal } from "../context/GlobalContext";
 
 export default function ProtectedRoutes() {
   const { loading, hasCookie } = useGlobal();
