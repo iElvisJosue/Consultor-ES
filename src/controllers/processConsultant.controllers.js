@@ -4,41 +4,35 @@ import consultantProfileModel from "../models/consultants/consultant.model.js";
 export const registerDataConsultant = async (req, res) => {
   try {
     // OBTENEMOS LOS DATOS A ALMACENAR
-    const { name, lastName, motherLastName, RFC, number, LinkedIn } = req.body;
+    const { name, lastName, motherLastName, number, LinkedIn } = req.body;
 
-    // VERIFICAMOS SI EXISTEN LOS DATOS ÚNICOS (RFC/USUARIO)
-    const RFCFound = await consultantProfileModel.findOne({ RFC });
+    // VERIFICAMOS SI EXISTE EL USUARIO
     const userFound = await consultantProfileModel.findOne({
       ownerID: req.user._id,
     });
 
-    if (!RFCFound) {
-      if (!userFound) {
-        // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
-        const newConsultantProfile = new consultantProfileModel({
-          name,
-          lastName,
-          motherLastName,
-          RFC,
-          number,
-          LinkedIn,
-          ownerID: req.user._id,
-        });
+    if (!userFound) {
+      // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
+      const newConsultantProfile = new consultantProfileModel({
+        name,
+        lastName,
+        motherLastName,
+        number,
+        LinkedIn,
+        ownerID: req.user._id,
+      });
 
-        // LO ALMACENAMOS EN LA BD
-        const consultantProfileModelSaved = await newConsultantProfile.save();
+      // LO ALMACENAMOS EN LA BD
+      const consultantProfileModelSaved = await newConsultantProfile.save();
 
-        // ELIMINAMOS EL TOKEN
-        res.cookie("accessToken", "", {
-          expires: new Date(0),
-        });
+      // ELIMINAMOS EL TOKEN
+      res.cookie("accessToken", "", {
+        expires: new Date(0),
+      });
 
-        res.send(consultantProfileModelSaved);
-      } else {
-        res.status(400).json(["ACTIVO"]);
-      }
+      res.send(consultantProfileModelSaved);
     } else {
-      res.status(400).json(["RFC"]);
+      res.status(400).json(["ACTIVO"]);
     }
   } catch (error) {
     console.log(error);

@@ -21,12 +21,6 @@ const clientProfileModel = new mongoose.Schema(
       type: String,
       default: "",
     },
-    RFC: {
-      type: String,
-      trim: true,
-      uppercase: true,
-      default: "",
-    },
     number: {
       type: String,
       trim: true,

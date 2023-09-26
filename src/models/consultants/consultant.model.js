@@ -22,12 +22,6 @@ const consultantProfileModel = new mongoose.Schema(
       type: String,
       default: "",
     },
-    RFC: {
-      type: String,
-      trim: true,
-      uppercase: true,
-      default: "",
-    },
     number: {
       type: String,
       trim: true,
@@ -37,6 +31,10 @@ const consultantProfileModel = new mongoose.Schema(
       type: String,
       trim: true,
       default: "",
+    },
+    dataBank: {
+      type: Object,
+      default: {},
     },
     resumeCV: {
       type: Object,

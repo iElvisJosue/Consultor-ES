@@ -16,7 +16,6 @@ export default function ConsultantRegisterData() {
 
   const cookieName = "accessToken";
   const ERROR_MESSAGES = {
-    RFC: "¡El RFC introducido ya esta registrado!",
     EXISTENTE: "El nombre de usuario ya existe, por favor intente con otro.",
     ACTIVO:
       "¡Este usuario ya tiene una cuenta activa, por favor inicie sesión.",
@@ -38,9 +37,6 @@ export default function ConsultantRegisterData() {
 
   const handleErrorResponse = (status) => {
     switch (status) {
-      case "RFC":
-        toast.error(ERROR_MESSAGES.RFC);
-        break;
       case "EXISTENTE":
         toast.error(ERROR_MESSAGES.EXISTENTE);
         break;
@@ -110,8 +106,6 @@ export default function ConsultantRegisterData() {
             type="text"
             {...register("motherLastName", { required: true })}
           />
-          <p>Ingresa tu RFC</p>
-          <input type="text" {...register("RFC", { required: true })} />
           <p>Ingresa tu número de teléfono</p>
           <input type="text" {...register("number", { required: true })} />
           <p>Ingresa tu perfil de LinkedIn (Opcional)</p>

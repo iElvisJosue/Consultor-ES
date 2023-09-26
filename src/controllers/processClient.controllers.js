@@ -8,45 +8,38 @@ export const registerDataClient = async (req, res) => {
       name,
       lastName,
       motherLastName,
-      RFC,
       number,
       businessName,
       serviceArea,
     } = req.body;
 
-    // VERIFICAMOS SI EXISTEN LOS DATOS ÚNICOS (RFC/USUARIO)
-    const RFCFound = await clientProfileModel.findOne({ RFC });
+    // VERIFICAMOS SI EXISTE EL USUARIO
     const userFound = await clientProfileModel.findOne({
       ownerID: req.user._id,
     });
-    if (!RFCFound) {
-      if (!userFound) {
-        // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
-        const newConsultantProfile = new clientProfileModel({
-          name,
-          lastName,
-          motherLastName,
-          RFC,
-          number,
-          businessName,
-          serviceArea,
-          ownerID: req.user._id,
-        });
+    if (!userFound) {
+      // INSTANCIAS EL ESQUEMA Y LO ALMACENAMOS
+      const newConsultantProfile = new clientProfileModel({
+        name,
+        lastName,
+        motherLastName,
+        number,
+        businessName,
+        serviceArea,
+        ownerID: req.user._id,
+      });
 
-        // LO ALMACENAMOS EN LA BD
-        const clientProfileModelSaved = await newConsultantProfile.save();
+      // LO ALMACENAMOS EN LA BD
+      const clientProfileModelSaved = await newConsultantProfile.save();
 
-        // ELIMINAMOS EL TOKEN
-        res.cookie("accessToken", "", {
-          expires: new Date(0),
-        });
+      // ELIMINAMOS EL TOKEN
+      res.cookie("accessToken", "", {
+        expires: new Date(0),
+      });
 
-        res.send(clientProfileModelSaved);
-      } else {
-        res.status(400).json(["ACTIVO"]);
-      }
+      res.send(clientProfileModelSaved);
     } else {
-      res.status(400).json(["RFC"]);
+      res.status(400).json(["ACTIVO"]);
     }
   } catch (error) {
     console.log(error);
