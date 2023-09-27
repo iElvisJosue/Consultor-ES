@@ -26,21 +26,18 @@ export const GlobalProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [hasCookie, setHasCookie] = useState(false);
   const [loading, setLoading] = useState(true);
-
   const setError = () => {
     setUser(null);
     setIsLogin(false);
     setHasCookie(false);
     setLoading(false);
   };
-
   const setSuccess = (res) => {
     setUser(res);
     setLoading(false);
     setHasCookie(true);
     return res;
   };
-
   // COMPROBAR SI TIENE UN COOKIE
   useEffect(() => {
     async function checkCookie() {
@@ -69,7 +66,6 @@ export const GlobalProvider = ({ children }) => {
     }
     checkCookie();
   }, []);
-
   const registerEmail = async (data) => {
     try {
       const res = await sendEmailVerificationCode(data);

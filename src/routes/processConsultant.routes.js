@@ -4,9 +4,10 @@ import { Router } from "express";
 const router = Router();
 // IMPORTAMOS LOS CONTROLADORES
 import {
+  getInformationConsultant,
+  getProjectsAvailableConsultant,
   registerDataConsultant,
   registerDataBank,
-  getInformationConsultant,
   createResumeCV,
   updateCVIsDone,
   addNewExperience,
@@ -97,8 +98,12 @@ router.put("/deleteSkill", authRequired, deleteSkill);
 // RUTA PARA REGISTRAR SUS DATOS BANCARIOS
 router.put("/registerDataBank", authRequired, registerDataBank);
 
-// RUTA PARA ACTUALIZAR SUS DATOS BANCARIOS
-router.put("/updateDataBank/");
+// RUTA PARA OBTENER LOS PROYECTOS DISPONIBLES PARA EL CONSULTOR
+router.get(
+  "/getProjectsAvailableConsultant",
+  authRequired,
+  getProjectsAvailableConsultant
+);
 
 // EXPORTAMOS EL ENRUTADOR
 export default router;

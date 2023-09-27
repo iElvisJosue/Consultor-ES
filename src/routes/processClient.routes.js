@@ -5,7 +5,10 @@ const router = Router();
 // IMPORTAMOS LOS CONTROLADORES
 import { sendEmailVerificationCode } from "../controllers/global.controllers.js";
 // IMPORTAMOS LA FUNCIÓN QUE ALMACENA LA INFORMACIÓN DEL CLIENTE
-import { registerDataClient } from "../controllers/processClient.controllers.js";
+import {
+  registerDataClient,
+  addNewProject,
+} from "../controllers/processClient.controllers.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VERIFICAR QUE TENGAS UN TOKEN DE ACCESO
 import { authRequired } from "../middlewares/validateToken.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VERIFICAR EL FORMATO DE LOS DATOS
@@ -35,8 +38,8 @@ router.post(
   registerDataClient
 );
 
-// RUTA PARA CREAR SU CV
-router.post("/createCV", (req, res) => {});
+// RUTA PARA AGREGAR UN NUEVO PROYECTO
+router.post("/addNewProject", authRequired, addNewProject);
 
 // RUTA PARA REGISTRAR SUS DATOS BANCARIOS
 router.post("/registerNeedsForm", (req, res) => {});

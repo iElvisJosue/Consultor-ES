@@ -1,8 +1,9 @@
 import { createContext, useContext } from "react";
 import {
+  getConsultantRequest,
+  getProjectsAvailableRequest,
   registerDataConsultantRequest,
   registerDataBankRequest,
-  getConsultantRequest,
   addResumeCVRequest,
   updateCVRequest,
   addNewExperienceRequest,
@@ -58,6 +59,22 @@ export const ConsultantProvider = ({ children }) => {
     } catch (error) {
       //   setError();
       console.log("ERROR GET CONSULTANT 2");
+      return error;
+    }
+  };
+
+  const getProjectsAvailable = async (data) => {
+    try {
+      const res = await getProjectsAvailableRequest(data);
+      if (!res.data) {
+        console.log("ERROR GET PROJECTS AVAILABLE");
+        // return setError();
+      }
+      return res;
+    } catch (error) {
+      console.log(error);
+      //   setError();
+      console.log("ERROR GET PROJECTS AVAILABLE 2");
       return error;
     }
   };
@@ -306,9 +323,10 @@ export const ConsultantProvider = ({ children }) => {
   return (
     <ConsultantContext.Provider
       value={{
+        getConsultantProfile,
+        getProjectsAvailable,
         registerConsultant,
         registerDataBank,
-        getConsultantProfile,
         createResumeCV,
         updateStatusCV,
         addExperience,

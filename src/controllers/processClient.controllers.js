@@ -1,5 +1,7 @@
 // IMPORTAMOS EL MODEL DEL CLIENTE
 import clientProfileModel from "../models/clients/client.model.js";
+// IMPORTAMOS EL MODELO DE LOS PROYECTOS DEL CLIENTE
+import clientProjectsModel from "../models/clients/clientProjects.model.js";
 
 export const registerDataClient = async (req, res) => {
   try {
@@ -52,5 +54,28 @@ export const registerDataClient = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR EN EL REGISTRO DE LOS DATOS DEL CLIENTE"]);
+  }
+};
+
+export const addNewProject = async (req, res) => {
+  try {
+    const { nameProject, detailsProject, timeProject, areaProject } = req.body;
+
+    const projectDetails = {
+      nameProject,
+      detailsProject,
+      timeProject,
+      areaProject,
+      ownerID: req.user._id,
+    };
+
+    const newProject = new clientProjectsModel(projectDetails);
+
+    const projectSaved = await newProject.save();
+
+    res.send(projectSaved);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR EN EL REGISTRO DE LOS DATOS DEL PROYECTO"]);
   }
 };

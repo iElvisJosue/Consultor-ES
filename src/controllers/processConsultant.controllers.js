@@ -1,5 +1,7 @@
 // IMPORTAMOS EL MODELO DE LOS DATOS DEL CONSULTOR
 import consultantProfileModel from "../models/consultants/consultant.model.js";
+// IMPORTAMOS EL MODELO DE LOS PROYECTOS DEL CLIENTE
+import clientProjectsModel from "../models/clients/clientProjects.model.js";
 
 export const registerDataConsultant = async (req, res) => {
   try {
@@ -49,6 +51,18 @@ export const getInformationConsultant = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR AL OBTENER LA INFORMACIÓN DEL CONSULTOR"]);
+  }
+};
+export const getProjectsAvailableConsultant = async (req, res) => {
+  try {
+    const { nameArea } = req.query;
+    const projectsAvailable = await clientProjectsModel.find({
+      areaProject: nameArea,
+    });
+    res.send(projectsAvailable);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL OBTENER LOS PROYECTOS"]);
   }
 };
 export const createResumeCV = async (req, res) => {

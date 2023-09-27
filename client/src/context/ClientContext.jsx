@@ -1,5 +1,8 @@
 import { createContext, useContext } from "react";
-import { registerDataClient } from "../api/authClient";
+import {
+  registerDataClientRequest,
+  addNewProjectRequest,
+} from "../api/authClient";
 
 export const ClientContext = createContext();
 
@@ -16,7 +19,7 @@ export const useClient = () => {
 export const ClientProvider = ({ children }) => {
   const registerClient = async (data) => {
     try {
-      const res = await registerDataClient(data);
+      const res = await registerDataClientRequest(data);
       if (!res.data) {
         return console.log("HUBO UN ERROR EN EL REGISTRO");
       }
@@ -26,8 +29,20 @@ export const ClientProvider = ({ children }) => {
     }
   };
 
+  const addProject = async (data) => {
+    try {
+      const res = await addNewProjectRequest(data);
+      if (!res.data) {
+        return console.log("HUBO UN ERROR AL AGREGAR EL PROYECTO");
+      }
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
-    <ClientContext.Provider value={{ registerClient }}>
+    <ClientContext.Provider value={{ registerClient, addProject }}>
       {children}
     </ClientContext.Provider>
   );
