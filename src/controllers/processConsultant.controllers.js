@@ -54,12 +54,41 @@ export const getInformationConsultant = async (req, res) => {
   }
 };
 export const getProjectsAvailableConsultant = async (req, res) => {
+  const dataAreas = Object.values(req.body);
+
   try {
-    const { nameArea } = req.query;
-    const projectsAvailable = await clientProjectsModel.find({
-      areaProject: nameArea,
-    });
-    res.send(projectsAvailable);
+    const results = await Promise.all(
+      dataAreas.map(async ({ nameArea }) => {
+        const result = await clientProjectsModel.aggregate([
+          {
+            $match: {
+              areaProject: nameArea,
+            },
+          },
+          {
+            $lookup: {
+              from: "clientProfile",
+              localField: "ownerID",
+              foreignField: "ownerID",
+              as: "clientOwner",
+            },
+          },
+          {
+            $project: {
+              nameProject: 1,
+              detailsProject: 1,
+              timeProject: 1,
+              areaProject: 1,
+              ownerName: "$clientOwner.name",
+              ownerLastName: "$clientOwner.lastName",
+              ownerMotherLastName: "$clientOwner.motherLastName",
+            },
+          },
+        ]);
+        return result;
+      })
+    );
+    res.send(results);
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR AL OBTENER LOS PROYECTOS"]);

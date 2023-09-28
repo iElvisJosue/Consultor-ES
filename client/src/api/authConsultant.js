@@ -9,11 +9,8 @@ export const getConsultantRequest = () =>
   axios.get("/consultant/getInformationConsultant");
 
 // PETICIÓN PARA OBTENER LOS PROYECTOS DISPONIBLES DEL CONSULTOR
-export const getProjectsAvailableRequest = (data) => {
-  return axios.get("/consultant/getProjectsAvailableConsultant", {
-    params: data,
-  });
-};
+export const getProjectsAvailableRequest = (data) =>
+  axios.post("/consultant/getProjectsAvailableConsultant", data);
 // PETICIÓN PARA ACTUALIZAR EL RESUMEN DEL CV DEL CONSULTOR
 export const addResumeCVRequest = (data) =>
   axios.post("/consultant/createResumeCV", data);

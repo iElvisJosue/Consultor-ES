@@ -11,26 +11,15 @@ export default function ConsultantInformationProjects({
   useEffect(() => {
     async function getProjectsAvailableForConsultant() {
       if (consultantInformation.data.areasCV) {
-        const consultantAreas = getListAreas();
-        const promises = consultantAreas.map((area) =>
-          getProjectsAvailable({
-            nameArea: area,
-          })
-        );
-        const results = await Promise.all(promises);
-        const projects = results.map((result) => result.data[0]);
-        const filteredProjects = projects.filter(Boolean);
-        setProjectsAvailable(filteredProjects);
+        const data = consultantInformation.data.areasCV;
+        const res = await getProjectsAvailable(data);
+        console.log(res.data);
+        const finalResult = res.data.flat();
+        setProjectsAvailable(finalResult);
       }
     }
     getProjectsAvailableForConsultant();
   }, []);
-
-  const getListAreas = () => {
-    const allAreas = Object.values(consultantInformation.data.areasCV);
-    const listAreas = allAreas.map(({ nameArea }) => nameArea);
-    return listAreas;
-  };
 
   if (projectsAvailable) {
     return (
@@ -44,7 +33,15 @@ export default function ConsultantInformationProjects({
       >
         {projectsAvailable.map(
           (
-            { nameProject, detailsProject, areaProject, timeProject },
+            {
+              nameProject,
+              detailsProject,
+              areaProject,
+              timeProject,
+              ownerName,
+              ownerLastName,
+              ownerMotherLastName,
+            },
             index
           ) => (
             <div
@@ -62,6 +59,10 @@ export default function ConsultantInformationProjects({
               <h3>{detailsProject}</h3>
               <p>{areaProject}</p>
               <p>{timeProject}</p>
+              <p>
+                Proyecto de:{" "}
+                {`${ownerName} ${ownerLastName} ${ownerMotherLastName}`}
+              </p>
             </div>
           )
         )}

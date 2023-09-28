@@ -99,7 +99,7 @@ router.put("/deleteSkill", authRequired, deleteSkill);
 router.put("/registerDataBank", authRequired, registerDataBank);
 
 // RUTA PARA OBTENER LOS PROYECTOS DISPONIBLES PARA EL CONSULTOR
-router.get(
+router.post(
   "/getProjectsAvailableConsultant",
   authRequired,
   getProjectsAvailableConsultant
