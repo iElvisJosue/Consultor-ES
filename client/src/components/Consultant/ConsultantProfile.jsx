@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useRef } from "react";
-import { useConsultant } from "../context/ConsultantContext";
-import ConsultantAddCV from "./Consultant/ConsultantAddCV";
-import ConsultantInformation from "./Consultant/ConsultantInformation.jsx";
-import Loader from "./Loader";
+import { useConsultant } from "../../context/ConsultantContext";
+import ConsultantAddCV from "./ConsultantAddCV";
+import ConsultantInformation from "./ConsultantInformation.jsx";
+import Loader from "../Loader";
 
 export default function ConsultantProfile({ user }) {
   const [consultantInformation, setConsultantInformation] = useState(false);
@@ -17,7 +17,7 @@ export default function ConsultantProfile({ user }) {
     async function getConsultantInformation() {
       try {
         const res = await getConsultantProfile();
-        cvIsDone.current = res.data.cvIsDone;
+        cvIsDone.current = res.data.consultantInformation.cvIsDone;
         setConsultantInformation(res);
       } catch (error) {
         console.log(error);

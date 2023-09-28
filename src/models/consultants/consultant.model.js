@@ -48,10 +48,6 @@ const consultantProfileModel = new mongoose.Schema(
       type: Object,
       default: {},
     },
-    areasCV: {
-      type: Object,
-      default: {},
-    },
     languagesCV: {
       type: Object,
       default: {},

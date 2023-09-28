@@ -2,6 +2,8 @@
 import clientProfileModel from "../models/clients/client.model.js";
 // IMPORTAMOS EL MODELO DE LOS PROYECTOS DEL CLIENTE
 import clientProjectsModel from "../models/clients/clientProjects.model.js";
+// IMPORTAMOS EL MODELO DE LOS CONSULTORES
+import consultantAreasModel from "../models/consultants/consultantAreas.model.js";
 
 export const registerDataClient = async (req, res) => {
   try {
@@ -57,6 +59,25 @@ export const registerDataClient = async (req, res) => {
   }
 };
 
+export const getInformationClient = async (req, res) => {
+  try {
+    const dataClient = await clientProfileModel.findOne({
+      ownerID: req.user._id,
+    });
+    const projectsClient = await clientProjectsModel.find({
+      ownerID: req.user._id,
+      isDeleted: false,
+    });
+    const clientFullInformation = {
+      dataClient,
+      projectsClient,
+    };
+    res.send(clientFullInformation);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL OBTENER DE LOS DATOS DEL CLIENTE"]);
+  }
+};
 export const addNewProject = async (req, res) => {
   try {
     const { nameProject, detailsProject, timeProject, areaProject } = req.body;
@@ -77,5 +98,78 @@ export const addNewProject = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR EN EL REGISTRO DE LOS DATOS DEL PROYECTO"]);
+  }
+};
+
+export const deleteProject = async (req, res) => {
+  try {
+    const { idProject } = req.body;
+    await clientProjectsModel.findOneAndUpdate(
+      {
+        _id: idProject,
+      },
+      {
+        isDeleted: true,
+      }
+    );
+    res.send(["PROYECTO ELIMINADO"]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const completedProject = async (req, res) => {
+  try {
+    const { idProject } = req.body;
+    await clientProjectsModel.findOneAndUpdate(
+      {
+        _id: idProject,
+      },
+      {
+        isCompleted: true,
+      }
+    );
+    res.send(["PROYECTO COMPLETADO"]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getConsultantsAvailableForProject = async (req, res) => {
+  const projectAreas = Object.values(req.body);
+  console.log(projectAreas);
+  try {
+    const results = await Promise.all(
+      projectAreas.map(async ({ areaProject }) => {
+        const result = await consultantAreasModel.aggregate([
+          {
+            $match: {
+              nameArea: areaProject,
+            },
+          },
+          {
+            $lookup: {
+              from: "consultantProfile",
+              localField: "ownerID",
+              foreignField: "ownerID",
+              as: "consultantOwner",
+            },
+          },
+          {
+            $project: {
+              nameArea: 1,
+              ownerName: "$consultantOwner.name",
+              ownerLastName: "$consultantOwner.lastName",
+              ownerMotherLastName: "$consultantOwner.motherLastName",
+            },
+          },
+        ]);
+        return result;
+      })
+    );
+    res.send(results);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL OBTENER LOS PROYECTOS"]);
   }
 };

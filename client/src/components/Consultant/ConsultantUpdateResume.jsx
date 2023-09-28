@@ -17,8 +17,14 @@ export default function ConsultantUpdateResume({
 
   useEffect(() => {
     if (update) {
-      setValue("profession", consultantInformation.data.resumeCV.profession);
-      setValue("description", consultantInformation.data.resumeCV.description);
+      setValue(
+        "profession",
+        consultantInformation.data.consultantInformation.resumeCV.profession
+      );
+      setValue(
+        "description",
+        consultantInformation.data.consultantInformation.resumeCV.description
+      );
     }
   }, [update]);
 

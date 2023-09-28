@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import ConsultantProfile from "../components/ConsultantProfile";
-import ClientProfile from "../components/ClientProfile";
-import AdminProfile from "../components/AdminProfile";
 import { useGlobal } from "../context/GlobalContext";
 import { Toaster, toast } from "sonner";
+import ConsultantProfile from "../components/Consultant/ConsultantProfile";
+import ClientProfile from "../components/Client/ClientProfile";
+import AdminProfile from "../components/AdminProfile";
 import Cookies from "js-cookie";
 import Loader from "../components/Loader";
 

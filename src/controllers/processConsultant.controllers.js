@@ -1,5 +1,7 @@
 // IMPORTAMOS EL MODELO DE LOS DATOS DEL CONSULTOR
 import consultantProfileModel from "../models/consultants/consultant.model.js";
+// IMPORTAMOS EL MODEL DE LAS AREAS
+import consultantAreasModel from "../models/consultants/consultantAreas.model.js";
 // IMPORTAMOS EL MODELO DE LOS PROYECTOS DEL CLIENTE
 import clientProjectsModel from "../models/clients/clientProjects.model.js";
 
@@ -47,7 +49,16 @@ export const getInformationConsultant = async (req, res) => {
       ownerID: req.user._id,
     });
 
-    res.send(consultantInformation);
+    const consultantAreas = await consultantAreasModel.find({
+      ownerID: req.user._id,
+    });
+
+    const consultantFullInformation = {
+      consultantInformation,
+      consultantAreas,
+    };
+
+    res.send(consultantFullInformation);
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR AL OBTENER LA INFORMACIÓN DEL CONSULTOR"]);
@@ -63,6 +74,8 @@ export const getProjectsAvailableConsultant = async (req, res) => {
           {
             $match: {
               areaProject: nameArea,
+              isDeleted: false,
+              isCompleted: false,
             },
           },
           {
@@ -150,14 +163,16 @@ export const createResumeCV = async (req, res) => {
             endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
           },
         },
-        areasCV: {
-          [keyArea]: {
-            _id: keyArea,
-            nameArea: nameArea,
-          },
-        },
       }
     );
+
+    const newArea = new consultantAreasModel({
+      nameArea: nameArea,
+      ownerID: req.user._id,
+    });
+
+    await newArea.save();
+
     res.status(200).json(["CREADO"]);
   } catch (error) {
     console.log(error);
@@ -284,26 +299,25 @@ export const addNewArea = async (req, res) => {
   try {
     const { nameArea } = req.body;
 
-    const keyArea = `area${nameArea}`.replace(/\s+/g, "");
-
-    const newAreaData = {
-      _id: keyArea,
+    const areaExists = await consultantAreasModel.findOne({
       nameArea: nameArea,
-    };
+      ownerID: req.user._id,
+    });
 
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $set: {
-          [`areasCV.${keyArea}`]: newAreaData,
-        },
-      }
-    );
+    if (!areaExists) {
+      const newArea = new consultantAreasModel({
+        nameArea: nameArea,
+        ownerID: req.user._id,
+      });
 
-    res.send(["AGREGADO"]);
+      await newArea.save();
+      res.send(["AGREGADA"]);
+    } else {
+      res.send(["EXISTENTE"]);
+    }
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR AL AGREGAR LA ÁREA"]);
+    res.status(500).json(["ERROR"]);
   }
 };
 export const addNewLanguage = async (req, res) => {
@@ -478,14 +492,9 @@ export const deleteStudy = async (req, res) => {
 export const deleteArea = async (req, res) => {
   try {
     const { idArea } = req.body;
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $unset: {
-          [`areasCV.${idArea}`]: "",
-        },
-      }
-    );
+    await consultantAreasModel.deleteOne({
+      _id: idArea,
+    });
 
     res.send(["AREA ELIMINADA"]);
   } catch (error) {

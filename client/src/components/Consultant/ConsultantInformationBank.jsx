@@ -10,7 +10,7 @@ export default function ConsultantInformationBank({
   const [dataBankInformation, setDataBankInformation] = useState(false);
 
   useEffect(() => {
-    if (consultantInformation.data.dataBank) {
+    if (consultantInformation.data.consultantInformation.dataBank) {
       setDataBankInformation(true);
     }
   }, []);
@@ -30,27 +30,45 @@ export default function ConsultantInformationBank({
         >
           <span>
             <b>Número de cuenta o clabe interbancaria:</b>
-            <p>{consultantInformation.data.dataBank?.account ?? ""}</p>
+            <p>
+              {consultantInformation.data.consultantInformation.dataBank
+                ?.account ?? ""}
+            </p>
           </span>
           <span>
             <b>Institución bancaria:</b>
-            <p>{consultantInformation.data.dataBank?.bank ?? ""}</p>
+            <p>
+              {consultantInformation.data.consultantInformation.dataBank
+                ?.bank ?? ""}
+            </p>
           </span>
           <span>
             <b>Nombre del derechohabiente:</b>
-            <p>{consultantInformation.data.dataBank?.name ?? ""}</p>
+            <p>
+              {consultantInformation.data.consultantInformation.dataBank
+                ?.name ?? ""}
+            </p>
           </span>
           <span>
             <b>RFC:</b>
-            <p>{consultantInformation.data.dataBank?.RFC ?? ""}</p>
+            <p>
+              {consultantInformation.data.consultantInformation.dataBank?.RFC ??
+                ""}
+            </p>
           </span>
           <span>
             <b>País de residencia:</b>
-            <p>{consultantInformation.data.dataBank?.country ?? ""}</p>
+            <p>
+              {consultantInformation.data.consultantInformation.dataBank
+                ?.country ?? ""}
+            </p>
           </span>
           <span>
             <b>Domicilio fiscal:</b>
-            <p>{consultantInformation.data.dataBank?.address ?? ""}</p>
+            <p>
+              {consultantInformation.data.consultantInformation.dataBank
+                ?.address ?? ""}
+            </p>
           </span>
           <button onClick={() => setDataBankInformation(false)}>
             <ion-icon name="color-wand-outline"></ion-icon>
@@ -58,7 +76,9 @@ export default function ConsultantInformationBank({
         </div>
       ) : (
         <ConsultantAddDataBank
-          bankInformation={consultantInformation.data.dataBank}
+          bankInformation={
+            consultantInformation.data.consultantInformation.dataBank
+          }
           setDataBankInformation={setDataBankInformation}
           checkCV={checkCV}
           setCheckCV={setCheckCV}

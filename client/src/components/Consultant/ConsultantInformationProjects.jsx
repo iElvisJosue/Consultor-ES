@@ -10,12 +10,13 @@ export default function ConsultantInformationProjects({
 
   useEffect(() => {
     async function getProjectsAvailableForConsultant() {
-      if (consultantInformation.data.areasCV) {
-        const data = consultantInformation.data.areasCV;
+      if (consultantInformation.data.consultantAreas) {
+        const data = consultantInformation.data.consultantAreas;
         const res = await getProjectsAvailable(data);
-        console.log(res.data);
         const finalResult = res.data.flat();
-        setProjectsAvailable(finalResult);
+        if (finalResult.length > 0) {
+          setProjectsAvailable(finalResult);
+        }
       }
     }
     getProjectsAvailableForConsultant();

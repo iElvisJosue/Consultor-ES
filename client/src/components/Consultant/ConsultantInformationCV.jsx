@@ -165,18 +165,18 @@ export default function ConsultantInformationCV({
         </picture>
         <span className="Main__Consultant__Profile--Header--Information">
           <p className="Main__Consultant__Profile--Header--Information--Name">
-            {`${consultantInformation.data.name} ${consultantInformation.data.lastName} ${consultantInformation.data.motherLastName}`}
+            {`${consultantInformation.data.consultantInformation.name} ${consultantInformation.data.consultantInformation.lastName} ${consultantInformation.data.consultantInformation.motherLastName}`}
           </p>
           <p className="Main__Consultant__Profile--Header--Information--Email">
             <ion-icon name="mail-outline"></ion-icon> {email}
           </p>
           <p className="Main__Consultant__Profile--Header--Information--Number">
             <ion-icon name="call-outline"></ion-icon>{" "}
-            {`${consultantInformation.data.number}`}
+            {`${consultantInformation.data.consultantInformation.number}`}
           </p>
-          {consultantInformation.data.LinkedIn && (
+          {consultantInformation.data.consultantInformation.LinkedIn && (
             <a
-              href={consultantInformation.data.LinkedIn}
+              href={consultantInformation.data.consultantInformation.LinkedIn}
               target="_blank"
               rel="noreferrer"
             >
@@ -193,11 +193,21 @@ export default function ConsultantInformationCV({
           <ion-icon name="reader-outline"></ion-icon> Resumen profesional
         </h2>
         <br />
-        <p>{consultantInformation.data.resumeCV.profession}</p>
-        <p>{consultantInformation.data.resumeCV.description}</p>
+        <p>
+          {consultantInformation.data.consultantInformation.resumeCV.profession}
+        </p>
+        <p>
+          {
+            consultantInformation.data.consultantInformation.resumeCV
+              .description
+          }
+        </p>
         <button
           onClick={() => {
-            setUpdateConfig("updateResume", consultantInformation.data.ownerID);
+            setUpdateConfig(
+              "updateResume",
+              consultantInformation.data.consultantInformation.ownerID
+            );
           }}
         >
           <ion-icon name="color-wand-outline"></ion-icon>

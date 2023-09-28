@@ -21,6 +21,14 @@ const clientProjectsModel = new mongoose.Schema({
     trim: true,
     default: "",
   },
+  isCompleted: {
+    type: Boolean,
+    default: false,
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
   ownerID: {
     type: String,
     trim: true,

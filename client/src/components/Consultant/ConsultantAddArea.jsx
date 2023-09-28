@@ -7,25 +7,28 @@ import { Toaster, toast } from "sonner";
 export default function ConsultantAddArea({ setCheckCV, checkCV, setSeeForm }) {
   const { register, handleSubmit, reset } = useForm();
 
+  const ERROR_MESSAGES = {
+    AGREGADA: "¡Área agregada correctamente!",
+    EXISTENTE: "¡El área seleccionada ya existe en tu CV!",
+    ERROR:
+      "Ha ocurrido un error al agregar la área. Inténtalo de nuevo más tarde.",
+  };
+
   const { addArea } = useConsultant();
 
   const addNewArea = handleSubmit(async (data) => {
     try {
       const res = await addArea(data);
       if (!res.response) {
-        toast.success("¡Área agregada correctamente!");
+        toast.success(ERROR_MESSAGES[res.data[0]]);
         setSeeForm(false);
         setCheckCV(!checkCV);
         reset();
       } else {
-        toast.error(
-          "Ha ocurrido un error al agregar la área. Inténtalo de nuevo más tarde."
-        );
+        toast.error(ERROR_MESSAGES.ERROR);
       }
     } catch (error) {
-      toast.error(
-        "Ha ocurrido un error al agregar la área. Inténtalo de nuevo más tarde."
-      );
+      toast.error(ERROR_MESSAGES.ERROR);
       console.log(error);
     }
   });

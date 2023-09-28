@@ -29,16 +29,28 @@ export default function ConsultantAddExperience({
   useEffect(() => {
     if (update) {
       const startDate =
-        consultantInformation.data.experienceCV[id].startDate.split(" ");
+        consultantInformation.data.consultantInformation.experienceCV[
+          id
+        ].startDate.split(" ");
       const endDate =
-        consultantInformation.data.experienceCV[id].endDate.split(" ");
+        consultantInformation.data.consultantInformation.experienceCV[
+          id
+        ].endDate.split(" ");
 
       setValue(
         "position",
-        consultantInformation.data.experienceCV[id].position
+        consultantInformation.data.consultantInformation.experienceCV[id]
+          .position
       );
-      setValue("company", consultantInformation.data.experienceCV[id].company);
-      setValue("resume", consultantInformation.data.experienceCV[id].resume);
+      setValue(
+        "company",
+        consultantInformation.data.consultantInformation.experienceCV[id]
+          .company
+      );
+      setValue(
+        "resume",
+        consultantInformation.data.consultantInformation.experienceCV[id].resume
+      );
       setValue("experienceMonthStart", startDate[0]);
       setValue("experienceYearStart", startDate[1]);
       setValue("experienceMonthEnd", endDate[0]);

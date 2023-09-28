@@ -7,7 +7,11 @@ import { sendEmailVerificationCode } from "../controllers/global.controllers.js"
 // IMPORTAMOS LA FUNCIÓN QUE ALMACENA LA INFORMACIÓN DEL CLIENTE
 import {
   registerDataClient,
+  getInformationClient,
+  getConsultantsAvailableForProject,
   addNewProject,
+  deleteProject,
+  completedProject,
 } from "../controllers/processClient.controllers.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VERIFICAR QUE TENGAS UN TOKEN DE ACCESO
 import { authRequired } from "../middlewares/validateToken.js";
@@ -38,8 +42,24 @@ router.post(
   registerDataClient
 );
 
+// RUTA PARA OBTENER LOS CONSULTORES DISPONIBLES PARA UN PROYECTO
+router.post(
+  "/getConsultantsAvailableForProject",
+  authRequired,
+  getConsultantsAvailableForProject
+);
+
+// RUTA PARA OBTENER LOS DATOS DEL CLIENTE
+router.get("/getInformationClient", authRequired, getInformationClient);
+
 // RUTA PARA AGREGAR UN NUEVO PROYECTO
 router.post("/addNewProject", authRequired, addNewProject);
+
+// RUTA PARA ELIMINAR UN PROYECTO
+router.put("/deleteProject", authRequired, deleteProject);
+
+// RUTA PARA COMPLETAR UN PROYECTO
+router.put("/completedProject", authRequired, completedProject);
 
 // RUTA PARA REGISTRAR SUS DATOS BANCARIOS
 router.post("/registerNeedsForm", (req, res) => {});

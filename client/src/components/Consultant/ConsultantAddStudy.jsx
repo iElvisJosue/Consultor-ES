@@ -35,19 +35,28 @@ export default function ConsultantAddStudy({
   useEffect(() => {
     if (update) {
       const startDate =
-        consultantInformation.data.educationCV[id].startDate.split(" ");
+        consultantInformation.data.consultantInformation.educationCV[
+          id
+        ].startDate.split(" ");
       const endDate =
-        consultantInformation.data.educationCV[id].endDate.split(" ");
+        consultantInformation.data.consultantInformation.educationCV[
+          id
+        ].endDate.split(" ");
 
       setValue(
         "institution",
-        consultantInformation.data.educationCV[id].institution
+        consultantInformation.data.consultantInformation.educationCV[id]
+          .institution
       );
       setValue(
         "educationLevel",
-        consultantInformation.data.educationCV[id].educationLevel
+        consultantInformation.data.consultantInformation.educationCV[id]
+          .educationLevel
       );
-      setValue("area", consultantInformation.data.educationCV[id].area);
+      setValue(
+        "area",
+        consultantInformation.data.consultantInformation.educationCV[id].area
+      );
       setValue("studiesMonthStart", startDate[0]);
       setValue("studiesYearStart", startDate[1]);
       setValue("studiesMonthEnd", endDate[0]);
