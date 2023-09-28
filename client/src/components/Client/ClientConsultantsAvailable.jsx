@@ -61,6 +61,40 @@ export default function ClientConsultantsAvailable({ clientInformation }) {
                 Es una excelente opción para tu proyecto de área:{" "}
                 <b>{information.nameArea}</b>
               </p>
+              <div>
+                {information.ownerResume.map(
+                  ({ profession, description }, index) => {
+                    return (
+                      <div key={index}>
+                        <p>
+                          Su profesión es: <b>{profession}</b>
+                        </p>
+                        <p>
+                          Su descripción es: <b>{description}</b>
+                        </p>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+              <div>
+                {information.ownerExperience.map((e, index) => {
+                  return (
+                    <div key={index}>
+                      <p>
+                        <b>Trabajo en: </b> {e[Object.keys(e)].company}
+                      </p>
+                      <p>
+                        <b>En la posición de: </b> {e[Object.keys(e)].position}
+                      </p>
+                      <p>
+                        <b>Desde: </b> {e[Object.keys(e)].startDate}
+                        <b> Hasta: </b> {e[Object.keys(e)].endDate}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
               <button>Contactar</button>
             </div>
           );

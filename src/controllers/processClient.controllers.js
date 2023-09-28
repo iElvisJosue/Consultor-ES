@@ -137,7 +137,6 @@ export const completedProject = async (req, res) => {
 
 export const getConsultantsAvailableForProject = async (req, res) => {
   const projectAreas = Object.values(req.body);
-  console.log(projectAreas);
   try {
     const results = await Promise.all(
       projectAreas.map(async ({ areaProject }) => {
@@ -161,6 +160,13 @@ export const getConsultantsAvailableForProject = async (req, res) => {
               ownerName: "$consultantOwner.name",
               ownerLastName: "$consultantOwner.lastName",
               ownerMotherLastName: "$consultantOwner.motherLastName",
+              ownerNumber: "$consultantOwner.number",
+              ownerEducation: "$consultantOwner.educationCV",
+              ownerExperience: "$consultantOwner.experienceCV",
+              ownerResume: "$consultantOwner.resumeCV",
+              ownerLanguages: "$consultantOwner.languagesCV",
+              ownerSkills: "$consultantOwner.skillsCV",
+              ownerLinkedIn: "$consultantOwner.LinkedIn",
             },
           },
         ]);
