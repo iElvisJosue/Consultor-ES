@@ -1,31 +1,26 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useConsultant } from "../../context/ConsultantContext";
-import Loader from "../Loader";
 
 export default function ConsultantInformationProjects({
   consultantInformation,
 }) {
-  const [loading, setLoading] = useState(true);
-  const projectsList = useRef({});
-
+  const [projectsAvailable, setProjectsAvailable] = useState();
   const { getProjectsAvailable } = useConsultant();
 
   useEffect(() => {
     async function getProjectsAvailableForConsultant() {
       if (consultantInformation.data.areasCV) {
-        const listAreas = getListAreas();
-        for (let i = 0; i < listAreas.length; i++) {
-          const res = await getProjectsAvailable({
-            nameArea: listAreas[i],
-          });
-          if (res.data[0]) {
-            projectsList.current[`project${i}`] = res.data[0];
-          }
-        }
-        setLoading(false);
-      } else {
-        setLoading(false);
+        const consultantAreas = getListAreas();
+        const promises = consultantAreas.map((area) =>
+          getProjectsAvailable({
+            nameArea: area,
+          })
+        );
+        const results = await Promise.all(promises);
+        const projects = results.map((result) => result.data[0]);
+        const filteredProjects = projects.filter(Boolean);
+        setProjectsAvailable(filteredProjects);
       }
     }
     getProjectsAvailableForConsultant();
@@ -37,11 +32,8 @@ export default function ConsultantInformationProjects({
     return listAreas;
   };
 
-  if (!loading) {
-    const amountProjects = Object.values(projectsList.current).length;
-    const informationProject = Object.values(projectsList.current);
-
-    return amountProjects > 0 ? (
+  if (projectsAvailable) {
+    return (
       <div
         style={{
           display: "flex",
@@ -50,7 +42,7 @@ export default function ConsultantInformationProjects({
           gap: 20,
         }}
       >
-        {informationProject.map(
+        {projectsAvailable.map(
           (
             { nameProject, detailsProject, areaProject, timeProject },
             index
@@ -74,10 +66,8 @@ export default function ConsultantInformationProjects({
           )
         )}
       </div>
-    ) : (
-      <h1>NO HAY PROYECTOS</h1>
     );
   } else {
-    return <Loader />;
+    return <h1>No hay proyectos disponibles para ti</h1>;
   }
 }
