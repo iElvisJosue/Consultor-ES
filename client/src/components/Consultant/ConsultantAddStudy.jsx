@@ -13,7 +13,7 @@ export default function ConsultantAddStudy({
   update,
   setId,
   id,
-  consultantInformation,
+  consultantEducation,
 }) {
   const {
     register,
@@ -33,34 +33,22 @@ export default function ConsultantAddStudy({
   };
 
   useEffect(() => {
-    if (update) {
-      const startDate =
-        consultantInformation.data.consultantInformation.educationCV[
-          id
-        ].startDate.split(" ");
-      const endDate =
-        consultantInformation.data.consultantInformation.educationCV[
-          id
-        ].endDate.split(" ");
-
-      setValue(
-        "institution",
-        consultantInformation.data.consultantInformation.educationCV[id]
-          .institution
+    if (consultantEducation.length > 0) {
+      consultantEducation.forEach(
+        ({ _id, institution, educationLevel, area, startDate, endDate }) => {
+          if (_id === id) {
+            const formatStartDate = startDate.split(" ");
+            const formatEndDate = endDate.split(" ");
+            setValue("institution", institution);
+            setValue("educationLevel", educationLevel);
+            setValue("area", area);
+            setValue("studiesMonthStart", formatStartDate[0]);
+            setValue("studiesYearStart", formatStartDate[1]);
+            setValue("studiesMonthEnd", formatEndDate[0]);
+            setValue("studiesYearEnd", formatEndDate[1]);
+          }
+        }
       );
-      setValue(
-        "educationLevel",
-        consultantInformation.data.consultantInformation.educationCV[id]
-          .educationLevel
-      );
-      setValue(
-        "area",
-        consultantInformation.data.consultantInformation.educationCV[id].area
-      );
-      setValue("studiesMonthStart", startDate[0]);
-      setValue("studiesYearStart", startDate[1]);
-      setValue("studiesMonthEnd", endDate[0]);
-      setValue("studiesYearEnd", endDate[1]);
     }
   }, [update]);
 

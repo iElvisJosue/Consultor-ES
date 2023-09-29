@@ -11,20 +11,14 @@ export default function ConsultantUpdateResume({
   setUpdate,
   update,
   setId,
-  consultantInformation,
+  consultantResume,
 }) {
   const { register, handleSubmit, reset, setValue } = useForm();
 
   useEffect(() => {
-    if (update) {
-      setValue(
-        "profession",
-        consultantInformation.data.consultantInformation.resumeCV.profession
-      );
-      setValue(
-        "description",
-        consultantInformation.data.consultantInformation.resumeCV.description
-      );
+    if (consultantResume) {
+      setValue("profession", consultantResume.profession);
+      setValue("description", consultantResume.description);
     }
   }, [update]);
 

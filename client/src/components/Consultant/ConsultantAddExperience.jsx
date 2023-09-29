@@ -13,7 +13,7 @@ export default function ConsultantAddExperience({
   update,
   setId,
   id,
-  consultantInformation,
+  consultantExperience,
 }) {
   const { register, handleSubmit, reset, setValue } = useForm();
   const { addExperience, updateExperience } = useConsultant();
@@ -21,40 +21,28 @@ export default function ConsultantAddExperience({
   const textButton = update ? "Actualizar experiencia" : "Agregar experiencia";
 
   const ERROR_MESSAGES = {
-    AGREGADA: "¡Experiencia agregada correctamente!",
-    ACTUALIZADA: "¡Experiencia actualizada correctamente!",
+    AGREGADO: "¡Experiencia agregada correctamente!",
+    ACTUALIZADO: "¡Experiencia actualizada correctamente!",
     ERROR: "Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.",
   };
 
   useEffect(() => {
-    if (update) {
-      const startDate =
-        consultantInformation.data.consultantInformation.experienceCV[
-          id
-        ].startDate.split(" ");
-      const endDate =
-        consultantInformation.data.consultantInformation.experienceCV[
-          id
-        ].endDate.split(" ");
-
-      setValue(
-        "position",
-        consultantInformation.data.consultantInformation.experienceCV[id]
-          .position
+    if (consultantExperience.length > 0) {
+      consultantExperience.forEach(
+        ({ _id, company, position, resume, startDate, endDate }) => {
+          if (_id === id) {
+            const formatStartDate = startDate.split(" ");
+            const formatEndDate = endDate.split(" ");
+            setValue("position", position);
+            setValue("company", company);
+            setValue("resume", resume);
+            setValue("experienceMonthStart", formatStartDate[0]);
+            setValue("experienceYearStart", formatStartDate[1]);
+            setValue("experienceMonthEnd", formatEndDate[0]);
+            setValue("experienceYearEnd", formatEndDate[1]);
+          }
+        }
       );
-      setValue(
-        "company",
-        consultantInformation.data.consultantInformation.experienceCV[id]
-          .company
-      );
-      setValue(
-        "resume",
-        consultantInformation.data.consultantInformation.experienceCV[id].resume
-      );
-      setValue("experienceMonthStart", startDate[0]);
-      setValue("experienceYearStart", startDate[1]);
-      setValue("experienceMonthEnd", endDate[0]);
-      setValue("experienceYearEnd", endDate[1]);
     }
   }, [update]);
 
@@ -63,10 +51,10 @@ export default function ConsultantAddExperience({
       if (update) {
         data.id = id;
         const res = await updateExperience(data);
-        checkResult(res, "ACTUALIZADA");
+        checkResult(res);
       } else {
         const res = await addExperience(data);
-        checkResult(res, "AGREGADA");
+        checkResult(res);
       }
     } catch (error) {
       toast.error(ERROR_MESSAGES.ERROR);
@@ -74,9 +62,9 @@ export default function ConsultantAddExperience({
     }
   });
 
-  const checkResult = (res, MESSAGE) => {
+  const checkResult = (res) => {
     if (!res.response) {
-      toast.success(ERROR_MESSAGES[MESSAGE]);
+      toast.success(ERROR_MESSAGES[res.data[0]]);
     } else {
       toast.error(ERROR_MESSAGES.ERROR);
     }

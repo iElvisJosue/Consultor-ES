@@ -1,14 +1,11 @@
 // OBTENER INFORMACIÓN DE EXPERIENCIA DE CV
 export const getInfoExperienceCV = (
-  consultantInformation,
+  consultantExperience,
   setUpdateConfig,
   deleteExperienceConsultant
 ) => {
-  if (consultantInformation.data.consultantInformation.experienceCV) {
-    const experience = Object.values(
-      consultantInformation.data.consultantInformation.experienceCV
-    );
-    const experienceContent = experience.map(
+  if (consultantExperience.length > 0) {
+    const experienceContent = consultantExperience.map(
       ({ _id, position, company, resume, startDate, endDate }, index) => {
         return (
           <div
@@ -43,21 +40,16 @@ export const getInfoExperienceCV = (
     );
     return experienceContent;
   }
-
   return "No hay experiencia";
 };
-
 // OBTENER INFORMACIÓN DE ESTUDIOS DE CV
 export const getInfoStudiesCV = (
-  consultantInformation,
+  consultantEducation,
   setUpdateConfig,
   deleteEducationConsultant
 ) => {
-  if (consultantInformation.data.consultantInformation.educationCV) {
-    const education = Object.values(
-      consultantInformation.data.consultantInformation.educationCV
-    );
-    const educationContent = education.map(
+  if (consultantEducation.length > 0) {
+    const educationContent = consultantEducation.map(
       (
         { _id, institution, educationLevel, area, startDate, endDate },
         index
@@ -93,48 +85,38 @@ export const getInfoStudiesCV = (
         );
       }
     );
-
     return educationContent;
   }
-
   return "No hay estudios";
 };
-
 // OBTENER INFORMACIÓN DE LAS AREAS DE CV
-export const getInfoAreasCV = (consultantInformation, deleteAreaConsultant) => {
-  const areas = consultantInformation.data.consultantAreas;
-  if (areas.length > 0) {
-    const areasContent = consultantInformation.data.consultantAreas.map(
-      ({ _id, nameArea }, index) => {
-        return (
-          <span style={{ marginRight: "10px" }} key={index}>
-            {nameArea}
-            <button
-              onClick={() => {
-                deleteAreaConsultant(_id);
-              }}
-            >
-              <ion-icon name="trash-outline"></ion-icon>
-            </button>
-          </span>
-        );
-      }
-    );
+export const getInfoAreasCV = (consultantAreas, deleteAreaConsultant) => {
+  if (consultantAreas.length > 0) {
+    const areasContent = consultantAreas.map(({ _id, nameArea }, index) => {
+      return (
+        <span style={{ marginRight: "10px" }} key={index}>
+          {nameArea}
+          <button
+            onClick={() => {
+              deleteAreaConsultant(_id);
+            }}
+          >
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+        </span>
+      );
+    });
     return areasContent;
   }
   return "No hay areas";
 };
-
 // OBTENER INFORMACIÓN DE LOS IDIOMAS DE CV
 export const getInfoLanguagesCV = (
-  consultantInformation,
+  consultantLanguages,
   deleteLanguageConsultant
 ) => {
-  if (consultantInformation.data.consultantInformation.languagesCV) {
-    const languages = Object.values(
-      consultantInformation.data.consultantInformation.languagesCV
-    );
-    const languagesContent = languages.map(
+  if (consultantLanguages.length > 0) {
+    const languagesContent = consultantLanguages.map(
       ({ _id, nameLanguage, levelLanguage }, index) => {
         return (
           <span style={{ marginRight: "10px" }} key={index}>
@@ -154,17 +136,10 @@ export const getInfoLanguagesCV = (
   }
   return "No hay idiomas";
 };
-
 // OBTENER INFORMACIÓN DE LOS SKILLS DE CV
-export const getInfoSkillsCV = (
-  consultantInformation,
-  deleteSkillConsultant
-) => {
-  if (consultantInformation.data.consultantInformation.skillsCV) {
-    const skills = Object.values(
-      consultantInformation.data.consultantInformation.skillsCV
-    );
-    const skillsContent = skills.map(({ _id, nameSkill }, index) => {
+export const getInfoSkillsCV = (consultantSkills, deleteSkillConsultant) => {
+  if (consultantSkills.length > 0) {
+    const skillsContent = consultantSkills.map(({ _id, nameSkill }, index) => {
       return (
         <span style={{ marginRight: "10px" }} key={index}>
           {nameSkill}
@@ -180,5 +155,5 @@ export const getInfoSkillsCV = (
     });
     return skillsContent;
   }
-  return "No hay habilidades";
+  return "No hay skills";
 };

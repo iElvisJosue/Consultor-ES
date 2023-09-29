@@ -13,6 +13,7 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
   const { createResumeCV, updateStatusCV } = useConsultant();
 
   const ERROR_MESSAGES = {
+    CORRECTO: "¡Resumen de tu perfil profesional creado!",
     EXISTENTE: "Ya has creado un resumen de tu perfil profesional.",
     SERVER_ERROR:
       "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
@@ -21,7 +22,7 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
   const handleSuccessResponse = async () => {
     try {
       await updateStatusCV();
-      toast.success("¡Resumen de tu perfil profesional creado!");
+      toast.success(ERROR_MESSAGES.CORRECTO);
       setTimeout(() => {
         setCheckCV(!checkCV);
       }, 1500);

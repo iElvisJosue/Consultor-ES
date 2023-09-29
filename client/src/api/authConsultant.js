@@ -24,7 +24,7 @@ export const updateCVRequest = () => axios.put("/consultant/updateCVIsDone");
 
 // PETICIÓN PARA AGREGAR UNA EXPERIENCIA
 export const addNewExperienceRequest = (data) =>
-  axios.put("/consultant/addNewExperience", data);
+  axios.post("/consultant/addNewExperience", data);
 
 // PETICIÓN PARA ACTUALIZAR UNA EXPERIENCIA
 export const updateExperienceRequest = (data) =>
@@ -32,11 +32,11 @@ export const updateExperienceRequest = (data) =>
 
 // PETICIÓN PARA ELIMINAR UNA EXPERIENCIA
 export const deleteExperienceRequest = (id) =>
-  axios.put("/consultant/deleteExperience", id);
+  axios.delete(`/consultant/deleteExperience/${id}`);
 
 // PETICIÓN PARA AGREGAR UN ESTUDIO
 export const addNewStudyRequest = (data) =>
-  axios.put("/consultant/addNewStudy", data);
+  axios.post("/consultant/addNewStudy", data);
 
 // PETICIÓN PARA ACTUALIZAR UNA EDUCACIÓN
 export const updateEducationRequest = (data) =>
@@ -44,32 +44,36 @@ export const updateEducationRequest = (data) =>
 
 // PETICIÓN PARA ELIMINAR UNA EDUCACIÓN
 export const deleteEducationRequest = (id) =>
-  axios.put("/consultant/deleteStudy", id);
+  axios.delete(`/consultant/deleteStudy/${id}`);
 
 // PETICIÓN PARA AGREGAR UN AREA
 export const addNewAreaRequest = (data) =>
-  axios.put("/consultant/addNewArea", data);
+  axios.post("/consultant/addNewArea", data);
 
 // PETICIÓN PARA ELIMINAR UNA AREA
 export const deleteAreaRequest = (id) =>
-  axios.put("/consultant/deleteArea", id);
+  axios.delete(`/consultant/deleteArea/${id}`);
 
 // PETICIÓN PARA AGREGAR UN IDIOMA
 export const addNewLanguageRequest = (data) =>
-  axios.put("/consultant/addNewLanguage", data);
+  axios.post("/consultant/addNewLanguage", data);
 
 // PETICIÓN PARA ELIMINAR UN IDIOMA
 export const deleteLanguageRequest = (id) =>
-  axios.put("/consultant/deleteLanguage", id);
+  axios.delete(`/consultant/deleteLanguage/${id}`);
 
 // PETICIÓN PARA AGREGAR UNA HABILIDAD
 export const addNewSkillRequest = (data) =>
-  axios.put("/consultant/addNewSkill", data);
+  axios.post("/consultant/addNewSkill", data);
 
 // PETICIÓN PARA ELIMINAR UNA HABILIDAD
 export const deleteSkillRequest = (id) =>
-  axios.put("/consultant/deleteSkill", id);
+  axios.delete(`/consultant/deleteSkill/${id}`);
 
 // PETICIÓN PARA AGREGAR LA INFORMACIÓN BANCARIA
 export const registerDataBankRequest = (data) =>
-  axios.put("/consultant/registerDataBank", data);
+  axios.post("/consultant/registerDataBank", data);
+
+// PETICIÓN PARA ACTUALIZAR LA INFORMACIÓN BANCARIA
+export const updateDataBankRequest = (data) =>
+  axios.put("/consultant/updateDataBank", data);

@@ -11,24 +11,40 @@ export default function ConsultantAddSkill({
   const { register, handleSubmit, reset } = useForm();
 
   const { addSkill } = useConsultant();
+  const ERROR_MESSAGES = {
+    AGREGADO: "¡Habilidad agregada correctamente!",
+    EXISTENTE: "¡La habilidad ingresada ya existe en tu CV!",
+    FORMATO:
+      "¡Formato de datos incorrecto! Inténtalo de nuevo con otro nombre.",
+    ERROR: "Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.",
+  };
+
+  const loadMessage = (status) => {
+    switch (status) {
+      case "AGREGADO":
+        return toast.success(ERROR_MESSAGES.AGREGADO);
+      case "EXISTENTE":
+        return toast.error(ERROR_MESSAGES.EXISTENTE);
+      case "FORMATO":
+        return toast.error(ERROR_MESSAGES.FORMATO);
+      default:
+        return toast.error(ERROR_MESSAGES.ERROR);
+    }
+  };
 
   const addNewSkill = handleSubmit(async (data) => {
     try {
       const res = await addSkill(data);
       if (!res.response) {
-        toast.success("¡Habilidad agregada correctamente!");
+        loadMessage(res.data[0]);
         setSeeForm(false);
         setCheckCV(!checkCV);
         reset();
       } else {
-        toast.error(
-          "¡Formato de datos incorrecto! Inténtalo de nuevo con otro nombre."
-        );
+        loadMessage("FORMATO");
       }
     } catch (error) {
-      toast.error(
-        "Ha ocurrido un error al agregar la habilidad. Inténtalo de nuevo más tarde."
-      );
+      loadMessage("ERROR");
       console.log(error);
     }
   });

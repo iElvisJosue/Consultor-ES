@@ -1,7 +1,19 @@
 // IMPORTAMOS EL MODELO DE LOS DATOS DEL CONSULTOR
 import consultantProfileModel from "../models/consultants/consultant.model.js";
-// IMPORTAMOS EL MODEL DE LAS AREAS
+// IMPORTAMOS EL MODELO DEL RESUMEN DE CV
+import consultantResumeModel from "../models/consultants/consultantResume.model.js";
+// IMPORTAMOS EL MODELO DE LA EXPERIENCIA
+import consultantExperienceModel from "../models/consultants/consultantExperience.model.js";
+// IMPORTAMOS EL MODELO DE LOS ESTUDIOS
+import consultantEducationModel from "../models/consultants/consultantEducation.model.js";
+// IMPORTAMOS EL MODELO DE LAS AREAS
 import consultantAreasModel from "../models/consultants/consultantAreas.model.js";
+// IMPORTAMOS EL MODELO DE LOS LENGUAJES
+import consultantLanguagesModel from "../models/consultants/consultantLanguages.model.js";
+// IMPORTAMOS EL MODELO DE LOS SKILLS
+import consultantSkillsModel from "../models/consultants/consultantSkills.model.js";
+// IMPORTAMOS EL MODELO DEL BANCO
+import consultantBankModel from "../models/consultants/consultantBank.model.js";
 // IMPORTAMOS EL MODELO DE LOS PROYECTOS DEL CLIENTE
 import clientProjectsModel from "../models/clients/clientProjects.model.js";
 
@@ -49,13 +61,43 @@ export const getInformationConsultant = async (req, res) => {
       ownerID: req.user._id,
     });
 
+    const consultantResume = await consultantResumeModel.findOne({
+      ownerID: req.user._id,
+    });
+
+    const consultantExperience = await consultantExperienceModel.find({
+      ownerID: req.user._id,
+    });
+
+    const consultantEducation = await consultantEducationModel.find({
+      ownerID: req.user._id,
+    });
+
     const consultantAreas = await consultantAreasModel.find({
+      ownerID: req.user._id,
+    });
+
+    const consultantLanguages = await consultantLanguagesModel.find({
+      ownerID: req.user._id,
+    });
+
+    const consultantSkills = await consultantSkillsModel.find({
+      ownerID: req.user._id,
+    });
+
+    const consultantBank = await consultantBankModel.findOne({
       ownerID: req.user._id,
     });
 
     const consultantFullInformation = {
       consultantInformation,
+      consultantResume,
+      consultantExperience,
+      consultantEducation,
       consultantAreas,
+      consultantLanguages,
+      consultantSkills,
+      consultantBank,
     };
 
     res.send(consultantFullInformation);
@@ -129,49 +171,42 @@ export const createResumeCV = async (req, res) => {
       nameArea,
     } = req.body;
 
-    const keyExperience = `experience${position}On${company}`.replace(
-      /\s+/g,
-      ""
-    );
-    const keyEducation = `education${area}On${institution}`.replace(/\s+/g, "");
-    const keyArea = `area${nameArea}`.replace(/\s+/g, "");
-
-    await consultantProfileModel.findOneAndUpdate(
-      { ownerID: req.user._id },
-      {
-        resumeCV: {
-          profession: profession,
-          description: description,
-        },
-        experienceCV: {
-          [keyExperience]: {
-            _id: keyExperience,
-            position: position,
-            company: company,
-            resume: resume,
-            startDate: `${experienceMonthStart} ${experienceYearStart}`,
-            endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
-          },
-        },
-        educationCV: {
-          [keyEducation]: {
-            _id: keyEducation,
-            institution: institution,
-            educationLevel: educationLevel,
-            area: area,
-            startDate: `${studiesMonthStart} ${studiesYearStart}`,
-            endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
-          },
-        },
-      }
-    );
-
-    const newArea = new consultantAreasModel({
-      nameArea: nameArea,
+    const resumeAdded = new consultantResumeModel({
+      profession,
+      description,
       ownerID: req.user._id,
     });
 
-    await newArea.save();
+    await resumeAdded.save();
+
+    const experienceAdded = new consultantExperienceModel({
+      position,
+      company,
+      resume,
+      startDate: `${experienceMonthStart} ${experienceYearStart}`,
+      endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
+      ownerID: req.user._id,
+    });
+
+    await experienceAdded.save();
+
+    const educationAdded = new consultantEducationModel({
+      institution,
+      educationLevel,
+      area,
+      startDate: `${studiesMonthStart} ${studiesYearStart}`,
+      endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
+      ownerID: req.user._id,
+    });
+
+    await educationAdded.save();
+
+    const areaAdded = new consultantAreasModel({
+      nameArea,
+      ownerID: req.user._id,
+    });
+
+    await areaAdded.save();
 
     res.status(200).json(["CREADO"]);
   } catch (error) {
@@ -183,17 +218,17 @@ export const updateResume = async (req, res) => {
   try {
     const { profession, description } = req.body;
 
-    await consultantProfileModel.updateOne(
+    await consultantResumeModel.updateOne(
       { ownerID: req.user._id },
       {
-        resumeCV: {
+        $set: {
           profession: profession,
           description: description,
         },
       }
     );
 
-    res.send(["RESUMEN ACTUALIZADO"]);
+    res.send(["ACTUALIZADO"]);
   } catch (error) {
     console.log(error);
     res
@@ -216,6 +251,27 @@ export const updateCVIsDone = async (req, res) => {
     res.status(500).json(["ERROR AL ACTUALIZAR EL CV DEL CONSULTOR"]);
   }
 };
+export const updateDataBank = async (req, res) => {
+  try {
+    const { account, bank, name, RFC, country, address } = req.body;
+
+    const dataBank = {
+      account: account,
+      bank: bank,
+      name: name,
+      RFC: RFC,
+      country: country,
+      address: address,
+    };
+
+    await consultantBankModel.updateOne({ ownerID: req.user._id }, dataBank);
+
+    res.send(["BANCO ACTUALIZADO"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL ACTUALIZAR LOS DATOS DEL BANCO"]);
+  }
+};
 export const addNewExperience = async (req, res) => {
   try {
     const {
@@ -228,13 +284,39 @@ export const addNewExperience = async (req, res) => {
       experienceYearEnd,
     } = req.body;
 
-    const keyExperience = `experience${position}On${company}`.replace(
-      /\s+/g,
-      ""
-    );
+    const newExperienceData = {
+      position: position,
+      company: company,
+      resume: resume,
+      startDate: `${experienceMonthStart} ${experienceYearStart}`,
+      endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
+      ownerID: req.user._id,
+    };
+
+    const experienceAdded = new consultantExperienceModel(newExperienceData);
+
+    await experienceAdded.save();
+
+    res.send(["AGREGADO"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL AGREGAR LA EXPERIENCIA"]);
+  }
+};
+export const updateExperience = async (req, res) => {
+  try {
+    const {
+      position,
+      company,
+      resume,
+      experienceMonthStart,
+      experienceYearStart,
+      experienceMonthEnd,
+      experienceYearEnd,
+      id,
+    } = req.body;
 
     const newExperienceData = {
-      _id: keyExperience,
       position: position,
       company: company,
       resume: resume,
@@ -242,19 +324,28 @@ export const addNewExperience = async (req, res) => {
       endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
     };
 
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
+    await consultantExperienceModel.updateOne(
+      { _id: id },
       {
-        $set: {
-          [`experienceCV.${keyExperience}`]: newExperienceData,
-        },
+        $set: newExperienceData,
       }
     );
 
-    res.send(["AGREGADO"]);
+    res.send(["ACTUALIZADO"]);
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR AL AGREGAR LA EXPERIENCIA"]);
+    res.status(500).json(["ERROR AL ACTUALIZAR LA EXPERIENCIA"]);
+  }
+};
+export const deleteExperience = async (req, res) => {
+  try {
+    await consultantExperienceModel.deleteOne({
+      _id: req.params.id,
+    });
+    res.send(["EXPERIENCIA ELIMINADO"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL ELIMINAR LA EXPERIENCIA"]);
   }
 };
 export const addNewStudy = async (req, res) => {
@@ -269,10 +360,39 @@ export const addNewStudy = async (req, res) => {
       studiesYearEnd,
     } = req.body;
 
-    const keyEducation = `education${area}On${institution}`.replace(/\s+/g, "");
-
     const newStudyData = {
-      _id: keyEducation,
+      institution: institution,
+      educationLevel: educationLevel,
+      area: area,
+      startDate: `${studiesMonthStart} ${studiesYearStart}`,
+      endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
+      ownerID: req.user._id,
+    };
+
+    const studyAdded = new consultantEducationModel(newStudyData);
+
+    await studyAdded.save();
+
+    res.send(["AGREGADO"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL AGREGAR LA EDUCACIÓN"]);
+  }
+};
+export const updateStudy = async (req, res) => {
+  try {
+    const {
+      institution,
+      educationLevel,
+      area,
+      studiesMonthStart,
+      studiesYearStart,
+      studiesMonthEnd,
+      studiesYearEnd,
+      id,
+    } = req.body;
+
+    const newEducationData = {
       institution: institution,
       educationLevel: educationLevel,
       area: area,
@@ -280,19 +400,28 @@ export const addNewStudy = async (req, res) => {
       endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
     };
 
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
+    await consultantEducationModel.updateOne(
+      { _id: id },
       {
-        $set: {
-          [`educationCV.${keyEducation}`]: newStudyData,
-        },
+        $set: newEducationData,
       }
     );
 
-    res.send(["AGREGADO"]);
+    res.send(["ACTUALIZADO"]);
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR AL AGREGAR LA EDUCACIÓN"]);
+    res.status(500).json(["ERROR AL ACTUALIZAR LA EXPERIENCIA"]);
+  }
+};
+export const deleteStudy = async (req, res) => {
+  try {
+    await consultantEducationModel.deleteOne({
+      _id: req.params.id,
+    });
+    res.send(["EDUCACIÓN ELIMINADA"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL ELIMINAR LA EDUCACIÓN"]);
   }
 };
 export const addNewArea = async (req, res) => {
@@ -311,7 +440,7 @@ export const addNewArea = async (req, res) => {
       });
 
       await newArea.save();
-      res.send(["AGREGADA"]);
+      res.send(["AGREGADO"]);
     } else {
       res.send(["EXISTENTE"]);
     }
@@ -320,220 +449,89 @@ export const addNewArea = async (req, res) => {
     res.status(500).json(["ERROR"]);
   }
 };
+export const deleteArea = async (req, res) => {
+  try {
+    await consultantAreasModel.deleteOne({
+      _id: req.params.id,
+    });
+    res.send(["AREA ELIMINADA"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL ELIMINAR EL AREA"]);
+  }
+};
 export const addNewLanguage = async (req, res) => {
   try {
     const { nameLanguage, levelLanguage } = req.body;
 
-    const keyLanguage =
-      `language${nameLanguage}WithLevel${levelLanguage}`.replace(/\s+/g, "");
-
-    const newLanguageData = {
-      _id: keyLanguage,
+    const hasThisLanguage = await consultantLanguagesModel.findOne({
       nameLanguage: nameLanguage,
-      levelLanguage: levelLanguage,
-    };
+      ownerID: req.user._id,
+    });
+    if (!hasThisLanguage) {
+      const languageAdded = new consultantLanguagesModel({
+        nameLanguage: nameLanguage,
+        levelLanguage: levelLanguage,
+        ownerID: req.user._id,
+      });
 
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $set: {
-          [`languagesCV.${keyLanguage}`]: newLanguageData,
-        },
-      }
-    );
+      await languageAdded.save();
 
-    res.send(["AGREGADO"]);
+      res.send(["AGREGADO"]);
+    } else {
+      res.send(["EXISTENTE"]);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR AL AGREGAR EL IDIOMA"]);
   }
 };
-export const addNewSkill = async (req, res) => {
-  try {
-    const { nameSkill } = req.body;
-
-    const keySkill = `skill${nameSkill}`.replace(/\s+/g, "");
-
-    const newSkillData = {
-      _id: keySkill,
-      nameSkill: nameSkill,
-    };
-
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $set: {
-          [`skillsCV.${keySkill}`]: newSkillData,
-        },
-      }
-    );
-
-    res.send(["AGREGADO"]);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL AGREGAR LA HABILIDAD"]);
-  }
-};
-export const updateExperience = async (req, res) => {
-  try {
-    const {
-      position,
-      company,
-      resume,
-      experienceMonthStart,
-      experienceYearStart,
-      experienceMonthEnd,
-      experienceYearEnd,
-      id,
-    } = req.body;
-
-    const newExperienceData = {
-      _id: id,
-      position: position,
-      company: company,
-      resume: resume,
-      startDate: `${experienceMonthStart} ${experienceYearStart}`,
-      endDate: `${experienceMonthEnd} ${experienceYearEnd}`,
-    };
-
-    const experienceUpdated = await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $set: {
-          [`experienceCV.${id}`]: newExperienceData,
-        },
-      },
-      {
-        new: true,
-      }
-    );
-
-    res.send(experienceUpdated);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR LA EXPERIENCIA"]);
-  }
-};
-export const updateStudy = async (req, res) => {
-  try {
-    const {
-      institution,
-      educationLevel,
-      area,
-      studiesMonthStart,
-      studiesYearStart,
-      studiesMonthEnd,
-      studiesYearEnd,
-      id,
-    } = req.body;
-
-    const newStudyData = {
-      _id: id,
-      institution: institution,
-      educationLevel: educationLevel,
-      area: area,
-      startDate: `${studiesMonthStart} ${studiesYearStart}`,
-      endDate: `${studiesMonthEnd} ${studiesYearEnd}`,
-    };
-
-    const studyUpdated = await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $set: {
-          [`educationCV.${id}`]: newStudyData,
-        },
-      },
-      {
-        new: true,
-      }
-    );
-
-    res.send(studyUpdated);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR LA EDUCACIÓN"]);
-  }
-};
-export const deleteExperience = async (req, res) => {
-  try {
-    const { idExperience } = req.body;
-    console.log(idExperience);
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $unset: {
-          [`experienceCV.${idExperience}`]: "",
-        },
-      }
-    );
-    res.send(["EXPERIENCIA ELIMINADA"]);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR LA EXPERIENCIA"]);
-  }
-};
-export const deleteStudy = async (req, res) => {
-  try {
-    const { idStudy } = req.body;
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $unset: {
-          [`educationCV.${idStudy}`]: "",
-        },
-      }
-    );
-    res.send(["ESTUDIO ELIMINADO"]);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR EL ESTUDIO"]);
-  }
-};
-export const deleteArea = async (req, res) => {
-  try {
-    const { idArea } = req.body;
-    await consultantAreasModel.deleteOne({
-      _id: idArea,
-    });
-
-    res.send(["AREA ELIMINADA"]);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR EL ESTUDIO"]);
-  }
-};
 export const deleteLanguage = async (req, res) => {
   try {
-    const { idLanguage } = req.body;
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $unset: {
-          [`languagesCV.${idLanguage}`]: "",
-        },
-      }
-    );
+    await consultantLanguagesModel.deleteOne({
+      _id: req.params.id,
+    });
     res.send(["IDIOMA ELIMINADO"]);
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR AL ELIMINAR EL IDIOMA"]);
   }
 };
-export const deleteSkill = async (req, res) => {
+export const addNewSkill = async (req, res) => {
   try {
-    const { idSkill } = req.body;
-    await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      {
-        $unset: {
-          [`skillsCV.${idSkill}`]: "",
-        },
-      }
-    );
-    res.send(["HABILIDAD ELIMINADA"]);
+    const { nameSkill } = req.body;
+
+    const hasThisSkill = await consultantSkillsModel.findOne({
+      nameSkill: nameSkill,
+      ownerID: req.user._id,
+    });
+    if (!hasThisSkill) {
+      const skillAdded = new consultantSkillsModel({
+        nameSkill: nameSkill,
+        ownerID: req.user._id,
+      });
+
+      await skillAdded.save();
+
+      res.send(["AGREGADO"]);
+    } else {
+      res.send(["EXISTENTE"]);
+    }
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR LA HABILIDAD"]);
+    res.status(500).json(["ERROR AL AGREGAR LA SKILL"]);
+  }
+};
+export const deleteSkill = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    await consultantSkillsModel.deleteOne({
+      _id: req.params.id,
+    });
+    res.send(["SKILL ELIMINADA"]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(["ERROR AL ELIMINAR LA SKILL"]);
   }
 };
 export const registerDataBank = async (req, res) => {
@@ -547,18 +545,14 @@ export const registerDataBank = async (req, res) => {
       RFC: RFC,
       country: country,
       address: address,
+      ownerID: req.user._id,
     };
 
-    await consultantProfileModel.updateOne(
-      {
-        ownerID: req.user._id,
-      },
-      {
-        dataBank: dataBank,
-      }
-    );
+    const dataBankAdded = new consultantBankModel(dataBank);
 
-    res.send(["INFORMACIÓN BANCARIA REGISTRADA"]);
+    await dataBankAdded.save();
+
+    res.send(["INFORMACIÓN DEL BANCO AGREGADA"]);
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR AL REGISTRAR DATOS DEL CONSULTOR"]);

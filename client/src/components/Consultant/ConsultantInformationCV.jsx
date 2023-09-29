@@ -33,6 +33,7 @@ export default function ConsultantInformationCV({
     deleteLanguage,
     deleteSkill,
   } = useConsultant();
+
   const seeFormConsultant = (data) => {
     setUpdate(false);
     setId(null);
@@ -47,7 +48,7 @@ export default function ConsultantInformationCV({
   };
   const deleteExperienceConsultant = async (id) => {
     try {
-      await deleteExperience({ idExperience: id });
+      await deleteExperience(id);
       toast.success("¡Experiencia eliminada correctamente!");
       setCheckCV(!checkCV);
     } catch (error) {
@@ -59,7 +60,7 @@ export default function ConsultantInformationCV({
   };
   const deleteEducationConsultant = async (id) => {
     try {
-      await deleteStudy({ idStudy: id });
+      await deleteStudy(id);
       toast.success("¡Estudio eliminado correctamente!");
       setCheckCV(!checkCV);
     } catch (error) {
@@ -71,8 +72,8 @@ export default function ConsultantInformationCV({
   };
   const deleteAreaConsultant = async (id) => {
     try {
-      await deleteArea({ idArea: id });
-      toast.success("¡Area eliminada correctamente!");
+      await deleteArea(id);
+      toast.success("¡Área eliminada correctamente!");
       setCheckCV(!checkCV);
     } catch (error) {
       console.log(error);
@@ -83,7 +84,7 @@ export default function ConsultantInformationCV({
   };
   const deleteLanguageConsultant = async (id) => {
     try {
-      await deleteLanguage({ idLanguage: id });
+      await deleteLanguage(id);
       toast.success("¡Idioma eliminado correctamente!");
       setCheckCV(!checkCV);
     } catch (error) {
@@ -95,7 +96,7 @@ export default function ConsultantInformationCV({
   };
   const deleteSkillConsultant = async (id) => {
     try {
-      await deleteSkill({ idSkill: id });
+      await deleteSkill(id);
       toast.success("¡Habilidad eliminada correctamente!");
       setCheckCV(!checkCV);
     } catch (error) {
@@ -106,22 +107,31 @@ export default function ConsultantInformationCV({
     }
   };
 
+  const {
+    consultantResume,
+    consultantExperience,
+    consultantEducation,
+    consultantAreas,
+    consultantLanguages,
+    consultantSkills,
+  } = consultantInformation.data;
+
   const experience = getInfoExperienceCV(
-    consultantInformation,
+    consultantExperience,
     setUpdateConfig,
     deleteExperienceConsultant
   );
   const education = getInfoStudiesCV(
-    consultantInformation,
+    consultantEducation,
     setUpdateConfig,
     deleteEducationConsultant
   );
-  const areas = getInfoAreasCV(consultantInformation, deleteAreaConsultant);
+  const areas = getInfoAreasCV(consultantAreas, deleteAreaConsultant);
   const languages = getInfoLanguagesCV(
-    consultantInformation,
+    consultantLanguages,
     deleteLanguageConsultant
   );
-  const skills = getInfoSkillsCV(consultantInformation, deleteSkillConsultant);
+  const skills = getInfoSkillsCV(consultantSkills, deleteSkillConsultant);
 
   const classForm = seeForm
     ? "Main__Consultant__Profile--CV--FormLayout Show"
@@ -139,12 +149,27 @@ export default function ConsultantInformationCV({
   };
 
   const listForms = {
-    addExperience: <ConsultantAddExperience {...formProps} />,
-    addStudy: <ConsultantAddStudy {...formProps} />,
+    addExperience: (
+      <ConsultantAddExperience
+        {...formProps}
+        consultantExperience={consultantExperience}
+      />
+    ),
+    addStudy: (
+      <ConsultantAddStudy
+        {...formProps}
+        consultantEducation={consultantEducation}
+      />
+    ),
     addArea: <ConsultantAddArea {...formProps} />,
     addLanguage: <ConsultantAddLanguage {...formProps} />,
     addSkill: <ConsultantAddSkill {...formProps} />,
-    updateResume: <ConsultantUpdateResume {...formProps} />,
+    updateResume: (
+      <ConsultantUpdateResume
+        {...formProps}
+        consultantResume={consultantResume}
+      />
+    ),
   };
 
   return (
@@ -193,15 +218,8 @@ export default function ConsultantInformationCV({
           <ion-icon name="reader-outline"></ion-icon> Resumen profesional
         </h2>
         <br />
-        <p>
-          {consultantInformation.data.consultantInformation.resumeCV.profession}
-        </p>
-        <p>
-          {
-            consultantInformation.data.consultantInformation.resumeCV
-              .description
-          }
-        </p>
+        <p>{consultantResume.profession}</p>
+        <p>{consultantResume.description}</p>
         <button
           onClick={() => {
             setUpdateConfig(

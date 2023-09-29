@@ -10,6 +10,7 @@ import {
   registerDataBank,
   createResumeCV,
   updateCVIsDone,
+  updateDataBank,
   addNewExperience,
   addNewStudy,
   addNewArea,
@@ -60,43 +61,46 @@ router.put("/updateResume", authRequired, updateResume);
 router.put("/updateCVIsDone", authRequired, updateCVIsDone);
 
 // RUTA PARA AGREGAR UNA NUEVA EXPERIENCIA
-router.put("/addNewExperience", authRequired, addNewExperience);
+router.post("/addNewExperience", authRequired, addNewExperience);
 
 // RUTA PARA ACTUALIZAR UNA EXPERIENCIA
 router.put("/updateExperience", authRequired, updateExperience);
 
 // RUTA PARA ELIMINAR UNA EXPERIENCIA
-router.put("/deleteExperience", authRequired, deleteExperience);
+router.delete("/deleteExperience/:id", authRequired, deleteExperience);
 
 // RUTA PARA AGREGAR UN NUEVO ESTUDIO
-router.put("/addNewStudy", authRequired, addNewStudy);
+router.post("/addNewStudy", authRequired, addNewStudy);
 
 // RUTA PARA ACTUALIZAR UN ESTUDIO
 router.put("/updateStudy", authRequired, updateStudy);
 
 // RUTA PARA ELIMINAR UN ESTUDIO
-router.put("/deleteStudy", authRequired, deleteStudy);
+router.delete("/deleteStudy/:id", authRequired, deleteStudy);
 
 // RUTA PARA AGREGAR UNA NUEVA AREA
-router.put("/addNewArea", authRequired, addNewArea);
+router.post("/addNewArea", authRequired, addNewArea);
 
 // RUTA PARA ELIMINAR UNA AREA
-router.put("/deleteArea", authRequired, deleteArea);
+router.delete("/deleteArea/:id", authRequired, deleteArea);
 
 // RUTA PARA AGREGAR UN NUEVO IDIOMA
-router.put("/addNewLanguage", authRequired, addNewLanguage);
+router.post("/addNewLanguage", authRequired, addNewLanguage);
 
 // RUTA PARA ELIMINAR UN IDIOMA
-router.put("/deleteLanguage", authRequired, deleteLanguage);
+router.delete("/deleteLanguage/:id", authRequired, deleteLanguage);
 
 // RUTA PARA AGREGAR UNA NUEVA SKILL
-router.put("/addNewSkill", authRequired, addNewSkill);
+router.post("/addNewSkill", authRequired, addNewSkill);
 
 // RUTA PARA ELIMINAR UNA SKILL
-router.put("/deleteSkill", authRequired, deleteSkill);
+router.delete("/deleteSkill/:id", authRequired, deleteSkill);
 
 // RUTA PARA REGISTRAR SUS DATOS BANCARIOS
-router.put("/registerDataBank", authRequired, registerDataBank);
+router.post("/registerDataBank", authRequired, registerDataBank);
+
+// RUTA PARA ACTUALIZAR SUS DATOS BANCARIOS
+router.put("/updateDataBank", authRequired, updateDataBank);
 
 // RUTA PARA OBTENER LOS PROYECTOS DISPONIBLES PARA EL CONSULTOR
 router.post(

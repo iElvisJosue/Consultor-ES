@@ -14,6 +14,7 @@ import {
   updateResumeRequest,
   updateExperienceRequest,
   updateEducationRequest,
+  updateDataBankRequest,
   deleteExperienceRequest,
   deleteEducationRequest,
   deleteAreaRequest,
@@ -233,6 +234,22 @@ export const ConsultantProvider = ({ children }) => {
     }
   };
 
+  const updateDataBank = async (data) => {
+    try {
+      const res = await updateDataBankRequest(data);
+      if (!res.data) {
+        // return setError();
+        console.log("ERROR UPDATE DATA BANK");
+      }
+      console.log(res);
+      return res;
+    } catch (error) {
+      //   setError();
+      console.log("ERROR UPDATE DATA BANK 2");
+      return error;
+    }
+  };
+
   const deleteExperience = async (id) => {
     try {
       const res = await deleteExperienceRequest(id);
@@ -329,6 +346,7 @@ export const ConsultantProvider = ({ children }) => {
         registerDataBank,
         createResumeCV,
         updateStatusCV,
+        updateDataBank,
         addExperience,
         addStudy,
         addArea,
