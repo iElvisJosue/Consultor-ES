@@ -16,6 +16,8 @@ import consultantSkillsModel from "../models/consultants/consultantSkills.model.
 import consultantBankModel from "../models/consultants/consultantBank.model.js";
 // IMPORTAMOS EL MODELO DE LOS PROYECTOS DEL CLIENTE
 import clientProjectsModel from "../models/clients/clientProjects.model.js";
+// IMPORTAMOS EL MODELO DEL CLIENTE
+import clientProfileModel from "../models/clients/client.model.js";
 
 export const registerDataConsultant = async (req, res) => {
   try {
@@ -110,40 +112,34 @@ export const getProjectsAvailableConsultant = async (req, res) => {
   const dataAreas = Object.values(req.body);
 
   try {
-    const results = await Promise.all(
+    const projectInformation = await Promise.all(
       dataAreas.map(async ({ nameArea }) => {
-        const result = await clientProjectsModel.aggregate([
-          {
-            $match: {
-              areaProject: nameArea,
-              isDeleted: false,
-              isCompleted: false,
-            },
-          },
-          {
-            $lookup: {
-              from: "consultantAreas",
-              localField: "ownerID",
-              foreignField: "ownerID",
-              as: "clientOwner",
-            },
-          },
-          {
-            $project: {
-              nameProject: 1,
-              detailsProject: 1,
-              timeProject: 1,
-              areaProject: 1,
-              ownerName: "$clientOwner.name",
-              ownerLastName: "$clientOwner.lastName",
-              ownerMotherLastName: "$clientOwner.motherLastName",
-            },
-          },
-        ]);
+        const result = await clientProjectsModel.find({
+          areaProject: nameArea,
+          isDeleted: false,
+          isCompleted: false,
+        });
         return result;
       })
     );
-    res.send(results);
+    const projectInformationFiltered = projectInformation.flat();
+    if (projectInformationFiltered.length > 0) {
+      const clientInformation = await Promise.all(
+        projectInformationFiltered.map(async ({ ownerID }) => {
+          const result = await clientProfileModel.findOne({
+            ownerID: ownerID,
+          });
+          return result;
+        })
+      );
+      const projectClientInformation = {
+        clientInformation,
+        projectInformation: projectInformationFiltered,
+      };
+      res.send(projectClientInformation);
+    } else {
+      res.send(["NO HAY PROYECTOS"]);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR AL OBTENER LOS PROYECTOS"]);

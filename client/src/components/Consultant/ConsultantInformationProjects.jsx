@@ -13,9 +13,8 @@ export default function ConsultantInformationProjects({
       if (consultantInformation.data.consultantAreas) {
         const data = consultantInformation.data.consultantAreas;
         const res = await getProjectsAvailable(data);
-        const finalResult = res.data.flat();
-        if (finalResult.length > 0) {
-          setProjectsAvailable(finalResult);
+        if (!res.data[0]) {
+          setProjectsAvailable(res.data);
         }
       }
     }
@@ -23,7 +22,7 @@ export default function ConsultantInformationProjects({
   }, []);
 
   if (projectsAvailable) {
-    console.log(projectsAvailable);
+    const { clientInformation, projectInformation } = projectsAvailable;
     return (
       <div
         style={{
@@ -33,17 +32,9 @@ export default function ConsultantInformationProjects({
           gap: 20,
         }}
       >
-        {projectsAvailable.map(
+        {projectInformation.map(
           (
-            {
-              nameProject,
-              detailsProject,
-              areaProject,
-              timeProject,
-              ownerName,
-              ownerLastName,
-              ownerMotherLastName,
-            },
+            { nameProject, detailsProject, areaProject, timeProject },
             index
           ) => (
             <div
@@ -58,13 +49,27 @@ export default function ConsultantInformationProjects({
               }}
             >
               <h1>{nameProject}</h1>
-              <h3>{detailsProject}</h3>
-              <p>{areaProject}</p>
-              <p>{timeProject}</p>
+              <h3>
+                <b>Detalles del proyecto: </b>
+                {detailsProject}
+              </h3>
               <p>
-                Proyecto de:{" "}
-                {`${ownerName} ${ownerLastName} ${ownerMotherLastName}`}
+                <b>Area del proyecto: </b>
+                {areaProject}
               </p>
+              <p>
+                <b>Tiempo estimado: </b>
+                {timeProject}
+              </p>
+              <p>
+                <b>Proyecto de:</b>{" "}
+                {clientInformation[index].name +
+                  " " +
+                  clientInformation[index].lastName +
+                  " " +
+                  clientInformation[index].motherLastName}
+              </p>
+              <button>Contactar</button>
             </div>
           )
         )}

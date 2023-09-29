@@ -2,8 +2,20 @@
 import clientProfileModel from "../models/clients/client.model.js";
 // IMPORTAMOS EL MODELO DE LOS PROYECTOS DEL CLIENTE
 import clientProjectsModel from "../models/clients/clientProjects.model.js";
+// IMPORTAMOS EL MODELO DEL CONSULTOR
+import consultantProfileModel from "../models/consultants/consultant.model.js";
+// IMPORTAMOS EL MODELO DEL RESUMEN DEL CONSULTOR
+import consultantResumeModel from "../models/consultants/consultantResume.model.js";
+// IMPORTAMOS EL MODELO DE EXPERIENCIA DEL CONSULTOR
+import consultantExperienceModel from "../models/consultants/consultantExperience.model.js";
+// IMPORTAMOS EL MODELO DE EDUCACIÓN DEL CONSULTOR
+import consultantEducationModel from "../models/consultants/consultantEducation.model.js";
 // IMPORTAMOS EL MODELO DE LOS CONSULTORES
 import consultantAreasModel from "../models/consultants/consultantAreas.model.js";
+// IMPORTAMOS EL MODELO DE LOS IDIOMAS DEL CONSULTOR
+import consultantLanguagesModel from "../models/consultants/consultantLanguages.model.js";
+// IMPORTAMOS EL MODELO DE LAS HABILIDADES DEL CONSULTOR
+import consultantSkillsModel from "../models/consultants/consultantSkills.model.js";
 
 export const registerDataClient = async (req, res) => {
   try {
@@ -58,7 +70,6 @@ export const registerDataClient = async (req, res) => {
     res.status(500).json(["ERROR EN EL REGISTRO DE LOS DATOS DEL CLIENTE"]);
   }
 };
-
 export const getInformationClient = async (req, res) => {
   try {
     const dataClient = await clientProfileModel.findOne({
@@ -100,7 +111,6 @@ export const addNewProject = async (req, res) => {
     res.status(500).json(["ERROR EN EL REGISTRO DE LOS DATOS DEL PROYECTO"]);
   }
 };
-
 export const deleteProject = async (req, res) => {
   try {
     const { idProject } = req.body;
@@ -117,7 +127,6 @@ export const deleteProject = async (req, res) => {
     console.log(error);
   }
 };
-
 export const completedProject = async (req, res) => {
   try {
     const { idProject } = req.body;
@@ -134,46 +143,82 @@ export const completedProject = async (req, res) => {
     console.log(error);
   }
 };
-
 export const getConsultantsAvailableForProject = async (req, res) => {
   const projectAreas = Object.values(req.body);
   try {
-    const results = await Promise.all(
+    const consultantArea = await Promise.all(
       projectAreas.map(async ({ areaProject }) => {
-        const result = await consultantAreasModel.aggregate([
-          {
-            $match: {
-              nameArea: areaProject,
-            },
-          },
-          {
-            $lookup: {
-              from: "consultantProfile",
-              localField: "ownerID",
-              foreignField: "ownerID",
-              as: "consultantOwner",
-            },
-          },
-          {
-            $project: {
-              nameArea: 1,
-              ownerName: "$consultantOwner.name",
-              ownerLastName: "$consultantOwner.lastName",
-              ownerMotherLastName: "$consultantOwner.motherLastName",
-              ownerNumber: "$consultantOwner.number",
-              ownerEducation: "$consultantOwner.educationCV",
-              ownerExperience: "$consultantOwner.experienceCV",
-              ownerResume: "$consultantOwner.resumeCV",
-              ownerLanguages: "$consultantOwner.languagesCV",
-              ownerSkills: "$consultantOwner.skillsCV",
-              ownerLinkedIn: "$consultantOwner.LinkedIn",
-            },
-          },
-        ]);
+        const result = await consultantAreasModel.find({
+          nameArea: areaProject,
+        });
         return result;
       })
     );
-    res.send(results);
+
+    const consultantAreaFiltered = consultantArea.flat();
+    if (consultantAreaFiltered.length > 0) {
+      const consultantInformation = await Promise.all(
+        consultantAreaFiltered.map(async ({ ownerID }) => {
+          const result = await consultantProfileModel.findOne({
+            ownerID: ownerID,
+          });
+          return result;
+        })
+      );
+      const consultantResume = await Promise.all(
+        consultantAreaFiltered.map(async ({ ownerID }) => {
+          const result = await consultantResumeModel.findOne({
+            ownerID: ownerID,
+          });
+          return result;
+        })
+      );
+      const consultantExperience = await Promise.all(
+        consultantAreaFiltered.map(async ({ ownerID }) => {
+          const result = await consultantExperienceModel.find({
+            ownerID: ownerID,
+          });
+          return result;
+        })
+      );
+      const consultantEducation = await Promise.all(
+        consultantAreaFiltered.map(async ({ ownerID }) => {
+          const result = await consultantEducationModel.find({
+            ownerID: ownerID,
+          });
+          return result;
+        })
+      );
+      const consultantLanguages = await Promise.all(
+        consultantAreaFiltered.map(async ({ ownerID }) => {
+          const result = await consultantLanguagesModel.find({
+            ownerID: ownerID,
+          });
+          return result;
+        })
+      );
+      const consultantSkills = await Promise.all(
+        consultantAreaFiltered.map(async ({ ownerID }) => {
+          const result = await consultantSkillsModel.find({
+            ownerID: ownerID,
+          });
+          return result;
+        })
+      );
+
+      const projectConsultantInformation = {
+        consultantInformation,
+        consultantResume,
+        consultantExperience,
+        consultantEducation,
+        consultantLanguages,
+        consultantSkills,
+        areaInformation: consultantAreaFiltered,
+      };
+      res.send(projectConsultantInformation);
+    } else {
+      res.send(["NO HAY PROYECTOS"]);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json(["ERROR AL OBTENER LOS PROYECTOS"]);
