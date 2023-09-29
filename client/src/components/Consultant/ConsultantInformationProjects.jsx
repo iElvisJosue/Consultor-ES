@@ -23,6 +23,7 @@ export default function ConsultantInformationProjects({
   }, []);
 
   if (projectsAvailable) {
+    console.log(projectsAvailable);
     return (
       <div
         style={{

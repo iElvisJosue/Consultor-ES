@@ -122,7 +122,7 @@ export const getProjectsAvailableConsultant = async (req, res) => {
           },
           {
             $lookup: {
-              from: "clientProfile",
+              from: "consultantAreas",
               localField: "ownerID",
               foreignField: "ownerID",
               as: "clientOwner",
