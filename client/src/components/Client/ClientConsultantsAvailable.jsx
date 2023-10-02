@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useClient } from "../../context/ClientContext";
+import Loader from "../Loader";
 
 export default function ClientConsultantsAvailable({ clientInformation }) {
+  const [searching, setSearching] = useState(true);
   const [consultants, setConsultants] = useState(false);
   const { getConsultantsAvailableForProject } = useClient();
+
   useEffect(() => {
     async function getConsultantsAvailable() {
       const { projectsClient } = clientInformation;
@@ -15,20 +18,25 @@ export default function ClientConsultantsAvailable({ clientInformation }) {
           setConsultants(res.data);
         }
       }
+      setSearching(false);
     }
     getConsultantsAvailable();
   }, []);
 
   const getProjectAreas = (projectsClient) => {
     const projectArea = [];
-    projectsClient.map(({ areaProject }) => {
-      return projectArea.push({ areaProject });
+    projectsClient.map(({ areaProject, isCompleted, isDeleted }) => {
+      if (!isDeleted && !isCompleted) {
+        return projectArea.push({ areaProject });
+      }
     });
     return projectArea;
   };
 
+  if (searching) {
+    return <Loader />;
+  }
   if (consultants) {
-    console.log(consultants);
     const {
       areaInformation,
       consultantInformation,

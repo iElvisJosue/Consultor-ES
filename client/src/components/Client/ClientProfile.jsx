@@ -19,7 +19,6 @@ export default function ClientProfile() {
     async function getClientInformation() {
       try {
         const res = await getInformationClient();
-        console.log(res);
         setClientInformation(res.data);
         setInfoUpdated(true);
       } catch (error) {

@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useConsultant } from "../../context/ConsultantContext";
+import Loader from "../Loader";
 
 export default function ConsultantInformationProjects({
   consultantInformation,
 }) {
   const [projectsAvailable, setProjectsAvailable] = useState();
+  const [searching, setSearching] = useState(true);
   const { getProjectsAvailable } = useConsultant();
 
   useEffect(() => {
@@ -17,10 +19,14 @@ export default function ConsultantInformationProjects({
           setProjectsAvailable(res.data);
         }
       }
+      setSearching(false);
     }
     getProjectsAvailableForConsultant();
   }, []);
 
+  if (searching) {
+    return <Loader />;
+  }
   if (projectsAvailable) {
     const { clientInformation, projectInformation } = projectsAvailable;
     return (

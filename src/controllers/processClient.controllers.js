@@ -233,7 +233,6 @@ export const getConsultantsAvailableForProject = async (req, res) => {
       res.send(["NO HAY PROYECTOS"]);
     }
   } catch (error) {
-    console.log(error);
     res.status(500).json(error500);
   }
 };
