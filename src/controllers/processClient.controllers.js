@@ -16,10 +16,12 @@ import consultantAreasModel from "../models/consultants/consultantAreas.model.js
 import consultantLanguagesModel from "../models/consultants/consultantLanguages.model.js";
 // IMPORTAMOS EL MODELO DE LAS HABILIDADES DEL CONSULTOR
 import consultantSkillsModel from "../models/consultants/consultantSkills.model.js";
+const error500 =
+  "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde.";
 
+// ERRORES LISTOS
 export const registerDataClient = async (req, res) => {
   try {
-    // OBTENEMOS LOS DATOS A ALMACENAR
     const {
       name,
       lastName,
@@ -63,11 +65,14 @@ export const registerDataClient = async (req, res) => {
 
       res.send(clientProfileModelSaved);
     } else {
-      res.status(400).json(["ACTIVO"]);
+      res
+        .status(400)
+        .json(
+          "Este correo ya tiene una cuenta activa, por favor inicie sesión."
+        );
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR EN EL REGISTRO DE LOS DATOS DEL CLIENTE"]);
+    res.status(500).json(error500);
   }
 };
 export const getInformationClient = async (req, res) => {
@@ -85,10 +90,10 @@ export const getInformationClient = async (req, res) => {
     };
     res.send(clientFullInformation);
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL OBTENER DE LOS DATOS DEL CLIENTE"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const addNewProject = async (req, res) => {
   try {
     const { nameProject, detailsProject, timeProject, areaProject } = req.body;
@@ -103,17 +108,20 @@ export const addNewProject = async (req, res) => {
 
     const newProject = new clientProjectsModel(projectDetails);
 
-    const projectSaved = await newProject.save();
+    await newProject.save();
 
-    res.send(projectSaved);
+    res.send(
+      "¡Tu proyecto ha sido agregado exitosamente! Siempre puedes consultar tus proyectos en esta sección."
+    );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR EN EL REGISTRO DE LOS DATOS DEL PROYECTO"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const deleteProject = async (req, res) => {
   try {
     const { idProject } = req.body;
+    console.log(idProject);
     await clientProjectsModel.findOneAndUpdate(
       {
         _id: idProject,
@@ -122,11 +130,14 @@ export const deleteProject = async (req, res) => {
         isDeleted: true,
       }
     );
-    res.send(["PROYECTO ELIMINADO"]);
+    res.send(
+      "El proyecto seleccionado ha sido eliminado exitosamente de tu perfil."
+    );
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const completedProject = async (req, res) => {
   try {
     const { idProject } = req.body;
@@ -138,9 +149,11 @@ export const completedProject = async (req, res) => {
         isCompleted: true,
       }
     );
-    res.send(["PROYECTO COMPLETADO"]);
+    res.send(
+      "El proyecto seleccionado ha sido completado exitosamente. Esperamos que los resultados sean los esperados."
+    );
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error500);
   }
 };
 export const getConsultantsAvailableForProject = async (req, res) => {
@@ -221,6 +234,6 @@ export const getConsultantsAvailableForProject = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR AL OBTENER LOS PROYECTOS"]);
+    res.status(500).json(error500);
   }
 };

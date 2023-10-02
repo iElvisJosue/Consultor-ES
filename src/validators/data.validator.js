@@ -6,7 +6,8 @@ export const emailVerificationCode = z.object({
       required_error: "CORREO REQUERIDO",
     })
     .email({
-      message: "CORREO INVALIDO",
+      message:
+        "La dirección de correo electrónico que has proporcionado no es válida. Por favor, asegúrate de ingresar una dirección de correo electrónico válida y vuelve a intentarlo.",
     }),
 });
 

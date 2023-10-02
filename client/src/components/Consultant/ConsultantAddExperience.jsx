@@ -2,8 +2,8 @@
 import { useForm } from "react-hook-form";
 import { listOfMonths, listOfYears } from "../../helpers/globalFunctions";
 import { useConsultant } from "../../context/ConsultantContext";
-import { Toaster, toast } from "sonner";
 import { useEffect } from "react";
+import { handleResponseMessages } from "../../helpers/globalFunctions";
 
 export default function ConsultantAddExperience({
   setCheckCV,
@@ -19,12 +19,6 @@ export default function ConsultantAddExperience({
   const { addExperience, updateExperience } = useConsultant();
 
   const textButton = update ? "Actualizar experiencia" : "Agregar experiencia";
-
-  const ERROR_MESSAGES = {
-    AGREGADO: "¡Experiencia agregada correctamente!",
-    ACTUALIZADO: "¡Experiencia actualizada correctamente!",
-    ERROR: "Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.",
-  };
 
   useEffect(() => {
     if (consultantExperience.length > 0) {
@@ -57,16 +51,18 @@ export default function ConsultantAddExperience({
         checkResult(res);
       }
     } catch (error) {
-      toast.error(ERROR_MESSAGES.ERROR);
-      console.log(error);
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
     }
   });
 
   const checkResult = (res) => {
-    if (!res.response) {
-      toast.success(ERROR_MESSAGES[res.data[0]]);
+    if (res.response) {
+      const { status, data } = res.response;
+      handleResponseMessages({ status, data });
     } else {
-      toast.error(ERROR_MESSAGES.ERROR);
+      const { status, data } = res;
+      handleResponseMessages({ status, data });
     }
     setSeeForm(false);
     setCheckCV(!checkCV);
@@ -102,7 +98,6 @@ export default function ConsultantAddExperience({
         </select>
       </span>
       <button type="submit">{textButton}</button>
-      <Toaster richColors position="top-right" />
     </form>
   );
 }

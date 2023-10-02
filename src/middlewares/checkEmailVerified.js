@@ -10,5 +10,9 @@ export const emailIsVerified = async (req, res, next) => {
   const { emailVerified } = await userModel.findById(req.user._id);
   if (emailVerified) return next();
   // TODO: MANDARLO A VERIFICAR SU CORREO
-  res.status(400).json(["SIN VERIFICAR"]);
+  res
+    .status(400)
+    .json(
+      "Tu correo no ha sido verificado, por favor, verifica tu correo e intenta de nuevo."
+    );
 };

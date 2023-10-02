@@ -19,6 +19,7 @@ export default function ProtectedForClients() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // TODO: COMPROBAR QUE EL USUARIO TENGA EL CORREO VERIFICADO
   if (role) {
     if (loading) return <h1>Loading...</h1>;
     if (!loading && !isLogin && role === "Consultant") {

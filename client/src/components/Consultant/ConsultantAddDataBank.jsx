@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
-import { Toaster, toast } from "sonner";
 import { useConsultant } from "../../context/ConsultantContext";
 import { useEffect } from "react";
+import { handleResponseMessages } from "../../helpers/globalFunctions";
 
 export default function ConsultantAddDataBank({
   setUpdateDataBank,
@@ -24,12 +24,6 @@ export default function ConsultantAddDataBank({
     }
   }, [consultantBank]);
 
-  const ERROR_MESSAGES = {
-    ACTUALIZADO: "¡Datos bancarios actualizados correctamente!",
-    AGREGADO: "¡Datos bancarios agregados correctamente!",
-    ERROR: "Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.",
-  };
-
   const textButton = consultantBank ? "Actualizar" : "Agregar";
 
   const verifyProcessDataBank = handleSubmit(async (data) => {
@@ -40,31 +34,36 @@ export default function ConsultantAddDataBank({
     }
   });
 
+  const handleError = (error) => {
+    const { status, data } = error.response;
+    handleResponseMessages({ status, data });
+  };
+
   const addDataBankConsultant = async (data) => {
     try {
       const res = await registerDataBank(data);
-      checkResult(res, "AGREGADO");
+      checkResult(res);
     } catch (error) {
-      toast.error(ERROR_MESSAGES.ERROR);
-      console.log(error);
+      handleError(error);
     }
   };
   const updateDataBankConsultant = async (data) => {
     try {
       const res = await updateDataBank(data);
-      checkResult(res, "ACTUALIZADO");
+      checkResult(res);
     } catch (error) {
-      toast.error(ERROR_MESSAGES.ERROR);
-      console.log(error);
+      handleError(error);
     }
   };
-  const checkResult = (res, MESSAGE) => {
-    if (!res.response) {
-      toast.success(ERROR_MESSAGES[MESSAGE]);
+  const checkResult = (res) => {
+    if (res.response) {
+      const { status, data } = res.response;
+      handleResponseMessages({ status, data });
+    } else {
+      const { status, data } = res;
+      handleResponseMessages({ status, data });
       setCheckCV(!checkCV);
       setUpdateDataBank(false);
-    } else {
-      toast.error(ERROR_MESSAGES.ERROR);
     }
   };
 
@@ -83,7 +82,6 @@ export default function ConsultantAddDataBank({
       <p>Domicilio fiscal:</p>
       <input type="text" {...register("address", { required: true })} />
       <button type="submit">{textButton}</button>
-      <Toaster richColors position="top-right" />
     </form>
   );
 }

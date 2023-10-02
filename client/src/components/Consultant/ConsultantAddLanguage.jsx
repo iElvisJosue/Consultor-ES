@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { listOfLanguages } from "../../helpers/globalFunctions";
 import { useConsultant } from "../../context/ConsultantContext";
-import { Toaster, toast } from "sonner";
+import { handleResponseMessages } from "../../helpers/globalFunctions";
 
 export default function ConsultantAddLanguage({
   setCheckCV,
@@ -12,37 +12,22 @@ export default function ConsultantAddLanguage({
   const { register, handleSubmit, reset } = useForm();
   const { addLanguage } = useConsultant();
 
-  const ERROR_MESSAGES = {
-    AGREGADO: "¡Idioma agregado correctamente!",
-    EXISTENTE: "¡El idioma seleccionado ya existe en tu CV!",
-    ERROR: "Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.",
-  };
-
-  const loadMessage = (status) => {
-    switch (status) {
-      case "AGREGADO":
-        return toast.success(ERROR_MESSAGES.AGREGADO);
-      case "EXISTENTE":
-        return toast.error(ERROR_MESSAGES.EXISTENTE);
-      default:
-        return toast.error(ERROR_MESSAGES.ERROR);
-    }
-  };
-
   const addNewLanguage = handleSubmit(async (data) => {
     try {
       const res = await addLanguage(data);
-      if (!res.response) {
-        loadMessage(res.data[0]);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        const { status, data } = res;
+        handleResponseMessages({ status, data });
         setSeeForm(false);
         setCheckCV(!checkCV);
         reset();
-      } else {
-        loadMessage("ERROR");
       }
     } catch (error) {
-      loadMessage("ERROR");
-      console.log(error);
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
     }
   });
 
@@ -62,7 +47,6 @@ export default function ConsultantAddLanguage({
         <option value="Nativo">Nativo</option>
       </select>
       <button type="submit">Agregar</button>
-      <Toaster richColors position="top-right" />
     </form>
   );
 }

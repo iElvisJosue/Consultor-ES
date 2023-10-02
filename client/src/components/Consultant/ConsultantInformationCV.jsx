@@ -14,7 +14,7 @@ import ConsultantAddLanguage from "./ConsultantAddLanguage";
 import ConsultantAddSkill from "./ConsultantAddSkill";
 import ConsultantUpdateResume from "./ConsultantUpdateResume";
 import { useConsultant } from "../../context/ConsultantContext";
-import { Toaster, toast } from "sonner";
+import { handleResponseMessages } from "../../helpers/globalFunctions";
 
 export default function ConsultantInformationCV({
   email,
@@ -46,64 +46,20 @@ export default function ConsultantInformationCV({
     setAddForm(data);
     setSeeForm(!seeForm);
   };
-  const deleteExperienceConsultant = async (id) => {
+  const handleDelete = async (id, deleteSection) => {
     try {
-      await deleteExperience(id);
-      toast.success("¡Experiencia eliminada correctamente!");
+      const res = await deleteSection(id);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        const { status, data } = res;
+        handleResponseMessages({ status, data });
+      }
       setCheckCV(!checkCV);
     } catch (error) {
-      console.log(error);
-      toast.error(
-        "¡Ha ocurrido un error al eliminar la experiencia!, inténtalo de nuevo más tarde."
-      );
-    }
-  };
-  const deleteEducationConsultant = async (id) => {
-    try {
-      await deleteStudy(id);
-      toast.success("¡Estudio eliminado correctamente!");
-      setCheckCV(!checkCV);
-    } catch (error) {
-      console.log(error);
-      toast.error(
-        "¡Ha ocurrido un error al eliminar la estudio!, inténtalo de nuevo más tarde."
-      );
-    }
-  };
-  const deleteAreaConsultant = async (id) => {
-    try {
-      await deleteArea(id);
-      toast.success("¡Área eliminada correctamente!");
-      setCheckCV(!checkCV);
-    } catch (error) {
-      console.log(error);
-      toast.error(
-        "¡Ha ocurrido un error al eliminar la área!, inténtalo de nuevo más tarde."
-      );
-    }
-  };
-  const deleteLanguageConsultant = async (id) => {
-    try {
-      await deleteLanguage(id);
-      toast.success("¡Idioma eliminado correctamente!");
-      setCheckCV(!checkCV);
-    } catch (error) {
-      console.log(error);
-      toast.error(
-        "¡Ha ocurrido un error al eliminar el idioma!, inténtalo de nuevo más tarde."
-      );
-    }
-  };
-  const deleteSkillConsultant = async (id) => {
-    try {
-      await deleteSkill(id);
-      toast.success("¡Habilidad eliminada correctamente!");
-      setCheckCV(!checkCV);
-    } catch (error) {
-      console.log(error);
-      toast.error(
-        "¡Ha ocurrido un error al eliminar la habilidad!, inténtalo de nuevo más tarde."
-      );
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
     }
   };
 
@@ -119,19 +75,22 @@ export default function ConsultantInformationCV({
   const experience = getInfoExperienceCV(
     consultantExperience,
     setUpdateConfig,
-    deleteExperienceConsultant
+    handleDelete,
+    deleteExperience
   );
   const education = getInfoStudiesCV(
     consultantEducation,
     setUpdateConfig,
-    deleteEducationConsultant
+    handleDelete,
+    deleteStudy
   );
-  const areas = getInfoAreasCV(consultantAreas, deleteAreaConsultant);
+  const areas = getInfoAreasCV(consultantAreas, handleDelete, deleteArea);
   const languages = getInfoLanguagesCV(
     consultantLanguages,
-    deleteLanguageConsultant
+    handleDelete,
+    deleteLanguage
   );
-  const skills = getInfoSkillsCV(consultantSkills, deleteSkillConsultant);
+  const skills = getInfoSkillsCV(consultantSkills, handleDelete, deleteSkill);
 
   const classForm = seeForm
     ? "Main__Consultant__Profile--CV--FormLayout Show"
@@ -304,7 +263,6 @@ export default function ConsultantInformationCV({
         <button onClick={seeFormConsultant}>Cerrar formulario</button>
         {listForms[addForm]}
       </div>
-      <Toaster richcolors position="top-right" />
     </>
   );
 }

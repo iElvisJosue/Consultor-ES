@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useConsultant } from "../../context/ConsultantContext";
 import { listOfMonths, listOfYears } from "../../helpers/globalFunctions";
-import { Toaster, toast } from "sonner";
+import { handleResponseMessages } from "../../helpers/globalFunctions";
 
 export default function ConsultantAddStudy({
   setCheckCV,
@@ -25,12 +25,6 @@ export default function ConsultantAddStudy({
   const { addStudy, updateEducation } = useConsultant();
 
   const textButton = update ? "Actualizar estudio" : "Agregar estudio";
-
-  const ERROR_MESSAGES = {
-    AGREGADO: "¡Estudio agregado correctamente!",
-    ACTUALIZADO: "¡Estudio actualizado correctamente!",
-    ERROR: "Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.",
-  };
 
   useEffect(() => {
     if (consultantEducation.length > 0) {
@@ -57,22 +51,24 @@ export default function ConsultantAddStudy({
       if (update) {
         data.id = id;
         const res = await updateEducation(data);
-        checkResult(res, "ACTUALIZADO");
+        checkResult(res);
       } else {
         const res = await addStudy(data);
-        checkResult(res, "AGREGADO");
+        checkResult(res);
       }
     } catch (error) {
-      toast.error(ERROR_MESSAGES.ERROR);
-      console.log(error);
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
     }
   });
 
-  const checkResult = (res, MESSAGE) => {
-    if (!res.response) {
-      toast.success(ERROR_MESSAGES[MESSAGE]);
+  const checkResult = (res) => {
+    if (res.response) {
+      const { status, data } = res.response;
+      handleResponseMessages({ status, data });
     } else {
-      toast.error(ERROR_MESSAGES.ERROR);
+      const { status, data } = res;
+      handleResponseMessages({ status, data });
     }
     setSeeForm(false);
     setCheckCV(!checkCV);
@@ -139,7 +135,6 @@ export default function ConsultantAddStudy({
         </select>
       </span>
       <button type="submit">{textButton}</button>
-      <Toaster richColors position="top-right" />
     </form>
   );
 }

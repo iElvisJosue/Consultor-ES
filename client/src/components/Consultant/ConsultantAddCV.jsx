@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useConsultant } from "../../context/ConsultantContext";
-import { Toaster, toast } from "sonner";
+import { handleResponseMessages } from "../../helpers/globalFunctions";
 import {
   listOfMonths,
   listOfYears,
@@ -10,48 +10,25 @@ import {
 // eslint-disable-next-line react/prop-types
 export default function ConsultantAddCV({ setCheckCV, checkCV }) {
   const { register, handleSubmit } = useForm();
-  const { createResumeCV, updateStatusCV } = useConsultant();
-
-  const ERROR_MESSAGES = {
-    CORRECTO: "¡Resumen de tu perfil profesional creado!",
-    EXISTENTE: "Ya has creado un resumen de tu perfil profesional.",
-    SERVER_ERROR:
-      "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
-  };
-
-  const handleSuccessResponse = async () => {
-    try {
-      await updateStatusCV();
-      toast.success(ERROR_MESSAGES.CORRECTO);
-      setTimeout(() => {
-        setCheckCV(!checkCV);
-      }, 1500);
-    } catch (error) {
-      console.log(error);
-      toast.error(ERROR_MESSAGES.SERVER_ERROR);
-    }
-  };
-
-  const handleErrorResponse = (status) => {
-    switch (status) {
-      case "EXISTENTE":
-        toast.error(ERROR_MESSAGES.EXISTENTE);
-        break;
-      case "ERROR":
-        toast.error(ERROR_MESSAGES.SERVER_ERROR);
-        break;
-      default:
-        toast.error(ERROR_MESSAGES.SERVER_ERROR);
-    }
-  };
+  const { createResumeCV } = useConsultant();
 
   const addResumeCV = handleSubmit(async (data) => {
-    const res = await createResumeCV(data);
-    if (!res.data) {
-      handleErrorResponse(res.response.data[0]);
-      return;
+    try {
+      const res = await createResumeCV(data);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        const { status, data } = res;
+        handleResponseMessages({ status, data });
+        setTimeout(() => {
+          setCheckCV(!checkCV);
+        }, 1500);
+      }
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
     }
-    handleSuccessResponse();
   });
 
   return (
@@ -141,8 +118,6 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
         <br />
         <button type="submit">Finalizar</button>
       </form>
-
-      <Toaster richColors position="top-right" />
     </main>
   );
 }

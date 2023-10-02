@@ -5,7 +5,6 @@ import {
   registerDataConsultantRequest,
   registerDataBankRequest,
   addResumeCVRequest,
-  updateCVRequest,
   addNewExperienceRequest,
   addNewStudyRequest,
   addNewAreaRequest,
@@ -91,21 +90,6 @@ export const ConsultantProvider = ({ children }) => {
     } catch (error) {
       //   setError();
       console.log("ERROR CREATE RESUME CV 2");
-      return error;
-    }
-  };
-
-  const updateStatusCV = async () => {
-    try {
-      const res = await updateCVRequest();
-      if (!res.data) {
-        console.log("ERROR UPDATE STATUS CV");
-        // return setError();
-      }
-      return res;
-    } catch (error) {
-      //   setError();
-      console.log("ERROR UPDATE STATUS CV 2");
       return error;
     }
   };
@@ -345,7 +329,6 @@ export const ConsultantProvider = ({ children }) => {
         registerConsultant,
         registerDataBank,
         createResumeCV,
-        updateStatusCV,
         updateDataBank,
         addExperience,
         addStudy,

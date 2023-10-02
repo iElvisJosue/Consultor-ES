@@ -5,6 +5,7 @@ import ClientPersonalInformation from "./ClientPersonalInformation";
 import ClientProjectsCreated from "./ClientProjectsCreated";
 import ClientConsultantsAvailable from "./ClientConsultantsAvailable";
 import Loader from "../Loader";
+import { handleResponseMessages } from "../../helpers/globalFunctions";
 
 export default function ClientProfile() {
   const [clientInformation, setClientInformation] = useState(false);
@@ -18,10 +19,12 @@ export default function ClientProfile() {
     async function getClientInformation() {
       try {
         const res = await getInformationClient();
+        console.log(res);
         setClientInformation(res.data);
         setInfoUpdated(true);
       } catch (error) {
-        console.log(error);
+        const { status, data } = error.response;
+        handleResponseMessages({ status, data });
       }
     }
     getClientInformation();

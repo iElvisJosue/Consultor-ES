@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useGlobal } from "../context/GlobalContext";
 import { useClient } from "../context/ClientContext";
 import { useNavigate } from "react-router-dom";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import {
@@ -10,6 +10,7 @@ import {
   listOfSector,
   listOfChallenges,
 } from "../helpers/globalFunctions";
+import { handleResponseMessages } from "../helpers/globalFunctions";
 
 export default function ConsultantRegisterData() {
   const [loading, setLoading] = useState(false);
@@ -20,71 +21,52 @@ export default function ConsultantRegisterData() {
   const navigate = useNavigate();
 
   const cookieName = "accessToken";
-  const ERROR_MESSAGES = {
-    EXISTENTE: "El nombre de usuario ya existe, por favor intente con otro.",
-    ACTIVO:
-      "¡Este usuario ya tiene una cuenta activa, por favor inicie sesión.",
-    TYC: "¡Debe aceptar los términos y condiciones!",
-    NO_VERIFICADO:
-      "Está acción no se puede completar porque tu correo no ha sido verificado. Verifica tu correo e intenta de nuevo.",
-    SERVER_ERROR:
-      "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
-  };
 
   const handleSuccessResponse = () => {
     setLoading(true);
-    toast.success("¡Usuario registrado correctamente!");
+    handleResponseMessages({
+      status: 200,
+      data: "Tu cuenta ha sido creada exitosamente. Te estamos redirigiendo...",
+    });
     setTimeout(() => {
       Cookies.remove(cookieName);
       navigate("/Login");
     }, 3000);
   };
 
-  const handleErrorResponse = (status) => {
-    switch (status) {
-      case "EXISTENTE":
-        toast.error(ERROR_MESSAGES.EXISTENTE);
-        break;
-      case "TYC":
-        toast.error(ERROR_MESSAGES.TYC);
-        break;
-      case "SIN VERIFICAR":
-        toast.error(ERROR_MESSAGES.NO_VERIFICADO, {
-          action: {
-            label: "Verificar",
-            onClick: () => {
-              navigate("/ClientCodeVerification");
-            },
-          },
-        });
-        break;
-      default:
-        toast.error(ERROR_MESSAGES.SERVER_ERROR);
-        break;
-    }
-  };
-
   const updateUserData = handleSubmit(async (data) => {
     if (!termsAccepted) {
-      handleErrorResponse("TYC");
-      return;
+      return handleResponseMessages({
+        status: 400,
+        data: "Para completar su registro, debe aceptar los términos y condiciones.",
+      });
     }
-    const res = await updateUser(data);
-    if (!res.data) {
-      handleErrorResponse(res.response.data[0]);
-      return;
+    try {
+      const res = await updateUser(data);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        registerClientData(data);
+      }
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
     }
-    registerClientData(data);
   });
 
   const registerClientData = async (data) => {
-    const res = await registerClient(data);
-    if (res.data) {
-      handleSuccessResponse();
-    } else if (res.response) {
-      handleErrorResponse(res.response.data[0]);
-    } else {
-      toast.error(ERROR_MESSAGES.SERVER_ERROR);
+    try {
+      const res = await registerClient(data);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        handleSuccessResponse();
+      }
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
     }
   };
 
@@ -160,7 +142,7 @@ export default function ConsultantRegisterData() {
           <button type="submit">Registrarse</button>
         </form>
       )}
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-right" closeButton />
     </main>
   );
 }

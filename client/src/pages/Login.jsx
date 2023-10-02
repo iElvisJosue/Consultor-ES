@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useGlobal } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import { handleResponseMessages } from "../helpers/globalFunctions";
 
 export default function Login() {
   const {
@@ -12,12 +13,6 @@ export default function Login() {
   const { login } = useGlobal();
   const navigate = useNavigate();
 
-  const ERROR_MESSAGES = {
-    INEXISTENTE: "¡Oops! Uno de los datos es incorrecto.",
-    SERVER_ERROR:
-      "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
-  };
-
   const handleSuccessResponse = (res) => {
     toast.success(`¡Bienvenido ${res.userName}!`);
     setTimeout(() => {
@@ -26,27 +21,18 @@ export default function Login() {
     return;
   };
 
-  const handleErrorResponse = (status) => {
-    switch (status) {
-      case "INEXISTENTE":
-        toast.error(ERROR_MESSAGES.INEXISTENTE);
-        break;
-      case "ERROR":
-        toast.error(ERROR_MESSAGES.SERVER_ERROR);
-        break;
-      default:
-        toast.error(ERROR_MESSAGES.SERVER_ERROR);
-    }
-  };
-
   const checkDataLogin = handleSubmit(async (data) => {
-    const res = await login(data);
-    if (res._id) {
-      return handleSuccessResponse(res);
-    } else if (res.response) {
-      return handleErrorResponse(res.response.data[0]);
-    } else {
-      return toast.error(ERROR_MESSAGES.SERVER_ERROR);
+    try {
+      const res = await login(data);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        handleSuccessResponse(res);
+      }
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
     }
   });
 

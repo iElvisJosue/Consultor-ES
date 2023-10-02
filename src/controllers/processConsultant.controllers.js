@@ -18,7 +18,10 @@ import consultantBankModel from "../models/consultants/consultantBank.model.js";
 import clientProjectsModel from "../models/clients/clientProjects.model.js";
 // IMPORTAMOS EL MODELO DEL CLIENTE
 import clientProfileModel from "../models/clients/client.model.js";
+const error500 =
+  "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde.";
 
+// ERRORES LISTOS
 export const registerDataConsultant = async (req, res) => {
   try {
     // OBTENEMOS LOS DATOS A ALMACENAR
@@ -50,13 +53,17 @@ export const registerDataConsultant = async (req, res) => {
 
       res.send(consultantProfileModelSaved);
     } else {
-      res.status(400).json(["ACTIVO"]);
+      res
+        .status(400)
+        .json(
+          "Este correo ya tiene una cuenta activa, por favor inicie sesión."
+        );
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR EN REGISTRO DE DATOS DEL CONSULTOR"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const getInformationConsultant = async (req, res) => {
   try {
     const consultantInformation = await consultantProfileModel.findOne({
@@ -141,10 +148,10 @@ export const getProjectsAvailableConsultant = async (req, res) => {
       res.send(["NO HAY PROYECTOS"]);
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL OBTENER LOS PROYECTOS"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const createResumeCV = async (req, res) => {
   try {
     const {
@@ -204,12 +211,18 @@ export const createResumeCV = async (req, res) => {
 
     await areaAdded.save();
 
-    res.status(200).json(["CREADO"]);
+    await updateCVIsDone(req, res);
+
+    res
+      .status(200)
+      .json(
+        "Felicidades, tu CV ha sido creado exitosamente. Ahora puedes acceder y editar tu currículum en cualquier momento. Siéntete libre de explorar todas las opciones disponibles para personalizar tu perfil."
+      );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL CREAR EL CV DEL CONSULTOR"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const updateResume = async (req, res) => {
   try {
     const { profession, description } = req.body;
@@ -224,50 +237,22 @@ export const updateResume = async (req, res) => {
       }
     );
 
-    res.send(["ACTUALIZADO"]);
+    res.send("El resumen de tu CV ha sido actualizado correctamente.");
   } catch (error) {
-    console.log(error);
-    res
-      .status(500)
-      .json(["ERROR AL ACTUALIZAR EL RESUMEN DEL CV DEL CONSULTOR"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const updateCVIsDone = async (req, res) => {
-  try {
-    const cvIsUpdated = await consultantProfileModel.updateOne(
-      { ownerID: req.user._id },
-      { $set: { cvIsDone: true } },
-      {
-        new: true,
-      }
-    );
-    res.send(cvIsUpdated);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR EL CV DEL CONSULTOR"]);
-  }
+  await consultantProfileModel.updateOne(
+    { ownerID: req.user._id },
+    { $set: { cvIsDone: true } },
+    {
+      new: true,
+    }
+  );
 };
-export const updateDataBank = async (req, res) => {
-  try {
-    const { account, bank, name, RFC, country, address } = req.body;
-
-    const dataBank = {
-      account: account,
-      bank: bank,
-      name: name,
-      RFC: RFC,
-      country: country,
-      address: address,
-    };
-
-    await consultantBankModel.updateOne({ ownerID: req.user._id }, dataBank);
-
-    res.send(["BANCO ACTUALIZADO"]);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR LOS DATOS DEL BANCO"]);
-  }
-};
+// ERRORES LISTOS
 export const addNewExperience = async (req, res) => {
   try {
     const {
@@ -293,12 +278,12 @@ export const addNewExperience = async (req, res) => {
 
     await experienceAdded.save();
 
-    res.send(["AGREGADO"]);
+    res.send("¡La experiencia ha sido agregada correctamente a tu CV!");
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL AGREGAR LA EXPERIENCIA"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const updateExperience = async (req, res) => {
   try {
     const {
@@ -327,23 +312,27 @@ export const updateExperience = async (req, res) => {
       }
     );
 
-    res.send(["ACTUALIZADO"]);
+    res.send(
+      "¡La experiencia seleccionada, ha sido actualizada correctamente en tu CV!"
+    );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR LA EXPERIENCIA"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const deleteExperience = async (req, res) => {
   try {
     await consultantExperienceModel.deleteOne({
       _id: req.params.id,
     });
-    res.send(["EXPERIENCIA ELIMINADO"]);
+    res.send(
+      "¡La experiencia seleccionada, ha sido eliminada correctamente de tu CV!"
+    );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR LA EXPERIENCIA"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const addNewStudy = async (req, res) => {
   try {
     const {
@@ -369,12 +358,12 @@ export const addNewStudy = async (req, res) => {
 
     await studyAdded.save();
 
-    res.send(["AGREGADO"]);
+    res.send("¡La educación ha sido agregada correctamente a tu CV!");
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL AGREGAR LA EDUCACIÓN"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const updateStudy = async (req, res) => {
   try {
     const {
@@ -403,23 +392,28 @@ export const updateStudy = async (req, res) => {
       }
     );
 
-    res.send(["ACTUALIZADO"]);
+    res.send(
+      "¡La educación seleccionada, ha sido actualizada correctamente en tu CV!"
+    );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR LA EXPERIENCIA"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const deleteStudy = async (req, res) => {
   try {
     await consultantEducationModel.deleteOne({
       _id: req.params.id,
     });
-    res.send(["EDUCACIÓN ELIMINADA"]);
+    res.send(
+      "¡La educación seleccionada, ha sido eliminada correctamente de tu CV!"
+    );
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR LA EDUCACIÓN"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const addNewArea = async (req, res) => {
   try {
     const { nameArea } = req.body;
@@ -436,26 +430,32 @@ export const addNewArea = async (req, res) => {
       });
 
       await newArea.save();
-      res.send(["AGREGADO"]);
+      res.send("¡El área seleccionada ha sido agregada correctamente a tu CV!");
     } else {
-      res.send(["EXISTENTE"]);
+      res
+        .status(302)
+        .json(
+          "¡El área seleccionada ya existe en tu CV! Por favor, selecciona una diferente."
+        );
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const deleteArea = async (req, res) => {
   try {
     await consultantAreasModel.deleteOne({
       _id: req.params.id,
     });
-    res.send(["AREA ELIMINADA"]);
+    res.send(
+      "¡La área seleccionada, ha sido eliminada correctamente de tu CV!"
+    );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR EL AREA"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const addNewLanguage = async (req, res) => {
   try {
     const { nameLanguage, levelLanguage } = req.body;
@@ -473,26 +473,34 @@ export const addNewLanguage = async (req, res) => {
 
       await languageAdded.save();
 
-      res.send(["AGREGADO"]);
+      res.send(
+        "¡El idioma seleccionado ha sido agregado correctamente a tu CV!"
+      );
     } else {
-      res.send(["EXISTENTE"]);
+      res
+        .status(302)
+        .json(
+          "¡El idioma seleccionado ya existe en tu CV! Por favor, selecciona uno diferente."
+        );
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL AGREGAR EL IDIOMA"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const deleteLanguage = async (req, res) => {
   try {
     await consultantLanguagesModel.deleteOne({
       _id: req.params.id,
     });
-    res.send(["IDIOMA ELIMINADO"]);
+    res.send(
+      "¡El idioma seleccionado, ha sido eliminado correctamente de tu CV!"
+    );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR EL IDIOMA"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const addNewSkill = async (req, res) => {
   try {
     const { nameSkill } = req.body;
@@ -509,27 +517,34 @@ export const addNewSkill = async (req, res) => {
 
       await skillAdded.save();
 
-      res.send(["AGREGADO"]);
+      res.send(
+        "¡La habilidad introducida ha sido agregada correctamente a tu CV!"
+      );
     } else {
-      res.send(["EXISTENTE"]);
+      res
+        .status(302)
+        .json(
+          "¡La habilidad introducida ya existe en tu CV! Por favor, ingresa una diferente."
+        );
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL AGREGAR LA SKILL"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const deleteSkill = async (req, res) => {
-  console.log(req.params.id);
   try {
     await consultantSkillsModel.deleteOne({
       _id: req.params.id,
     });
-    res.send(["SKILL ELIMINADA"]);
+    res.send(
+      "¡La habilidad seleccionada, ha sido eliminada correctamente de tu CV!"
+    );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ELIMINAR LA SKILL"]);
+    res.status(500).json(error500);
   }
 };
+// ERRORES LISTOS
 export const registerDataBank = async (req, res) => {
   try {
     const { account, bank, name, RFC, country, address } = req.body;
@@ -548,9 +563,31 @@ export const registerDataBank = async (req, res) => {
 
     await dataBankAdded.save();
 
-    res.send(["INFORMACIÓN DEL BANCO AGREGADA"]);
+    res.send(
+      "Te confirmamos que la información bancaria que proporcionaste ha sido agregada de manera exitosa a tu perfil. Siempre puedes gestionar tu información financiera en está sección."
+    );
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL REGISTRAR DATOS DEL CONSULTOR"]);
+    res.status(500).json(error500);
+  }
+};
+// ERRORES LISTOS
+export const updateDataBank = async (req, res) => {
+  try {
+    const { account, bank, name, RFC, country, address } = req.body;
+
+    const dataBank = {
+      account: account,
+      bank: bank,
+      name: name,
+      RFC: RFC,
+      country: country,
+      address: address,
+    };
+
+    await consultantBankModel.updateOne({ ownerID: req.user._id }, dataBank);
+
+    res.send("Tu información bancaria ha sido actualizada correctamente.");
+  } catch (error) {
+    res.status(500).json(error500);
   }
 };

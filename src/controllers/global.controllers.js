@@ -12,6 +12,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { TOKEN_SECRET } from "../config.js";
 
+const error500 =
+  "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde.";
+
 const EMAIL_TEMPLATES = {
   Consultant: {
     subject: "¡Bienvenido a Consultor-ES!",
@@ -27,36 +30,30 @@ const generateCode = () => {
   }
   return code;
 };
-
+// ERRORES LISTOS
 const sendEmail = async (toEmail, code, role) => {
   const nameFromEmail = toEmail.split("@")[0];
 
-  try {
-    await transporter.sendMail({
-      from: process.env.EMAIL,
-      to: toEmail,
-      subject: `${EMAIL_TEMPLATES[role].subject}`,
-      html: templateCodeVerification(nameFromEmail, code, role),
-      attachments: [
-        {
-          filename: "EmailHeader.jpg",
-          path: "./public/EmailHeader.jpg",
-          cid: "EmailHeader",
-        },
-        {
-          filename: "EmailFooter.jpg",
-          path: "./public/EmailFooter.jpg",
-          cid: "EmailFooter",
-        },
-      ],
-    });
-    console.log("CORREO ENVIADO EXITOSAMENTE");
-  } catch (error) {
-    console.log("HUBO UN ERROR ENVIANDO EL CORREO");
-    return error;
-  }
+  await transporter.sendMail({
+    from: process.env.EMAIL,
+    to: toEmail,
+    subject: `${EMAIL_TEMPLATES[role].subject}`,
+    html: templateCodeVerification(nameFromEmail, code, role),
+    attachments: [
+      {
+        filename: "EmailHeader.jpg",
+        path: "./public/EmailHeader.jpg",
+        cid: "EmailHeader",
+      },
+      {
+        filename: "EmailFooter.jpg",
+        path: "./public/EmailFooter.jpg",
+        cid: "EmailFooter",
+      },
+    ],
+  });
 };
-
+// ERRORES LISTOS
 const registerAndSendVerificationCode = async (res, email, role) => {
   try {
     // OBTENEMOS UN CÓDIGO DE VERIFICACIÓN
@@ -89,23 +86,17 @@ const registerAndSendVerificationCode = async (res, email, role) => {
       secure: true,
       sameSite: "none",
     });
-
     const responseObject = {
       accessToken: accessToken,
       user,
     };
-
-    // VEMOS LOS DATOS
     res.send(responseObject);
-
-    // ENVIAMOS EL CORREO DEPENDIENDO EL ROLE
     sendEmail(newUserModelSaved.email, code, role);
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL REGISTRAR EL USUARIO"]);
+    res.status(500).json(error500);
   }
 };
-
+// ERRORES LISTOS
 export const sendEmailVerificationCode = async (req, res) => {
   try {
     const { email, role } = req.body;
@@ -120,7 +111,11 @@ export const sendEmailVerificationCode = async (req, res) => {
       emailFound.emailVerified === true &&
       emailFound.userName !== ""
     ) {
-      res.status(400).json(["VERIFICADO"]);
+      res
+        .status(302)
+        .json(
+          "El correo introducido ya ha sido verificado, por favor, inténtalo de nuevo con otro correo o inicia sesión con tu cuenta."
+        );
     } else if (
       emailFound &&
       emailFound.emailVerified === true &&
@@ -133,11 +128,14 @@ export const sendEmailVerificationCode = async (req, res) => {
       registerAndSendVerificationCode(res, email, role);
     }
   } catch (error) {
-    console.log(error);
-    res.status(400).json(["ERROR AL ENVIAR EL CORREO"]);
+    res
+      .status(500)
+      .json(
+        "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde."
+      );
   }
 };
-
+// ERRORES LISTOS
 export const emailVerification = async (req, res) => {
   try {
     const { codeEntered } = req.body;
@@ -171,14 +169,17 @@ export const emailVerification = async (req, res) => {
 
       res.send(userData);
     } else {
-      res.status(400).json(["INCORRECTO"]);
+      res
+        .status(400)
+        .json(
+          "El código que has ingresado no es válido. Por favor, asegúrate de introducir el código correcto y vuelve a intentarlo."
+        );
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL VERIFICAR EL CORREO"]);
+    res.status(500).json(error500);
   }
 };
-
+// ERRORES LISTOS
 export const updateUser = async (req, res) => {
   try {
     const { userName, password } = req.body;
@@ -201,17 +202,19 @@ export const updateUser = async (req, res) => {
           new: true,
         }
       );
-
-      res.status(200).json(["ACTUALIZADO"]);
+      res.status(200).json("El usuario ha sido actualizado.");
     } else {
-      res.status(400).json(["EXISTENTE"]);
+      res
+        .status(302)
+        .json(
+          "El nombre de usuario ingresado ya existe, por favor, inténtalo con otro nombre."
+        );
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR EL USUARIO"]);
+    res.status(500).json(error500);
   }
 };
-
+// ERRORES LISTOS
 export const login = async (req, res) => {
   try {
     // OBTENEMOS LOS DATOS INGRESAMOS POR EL USUARIO
@@ -241,20 +244,26 @@ export const login = async (req, res) => {
           user: userSessionInfo,
         };
 
-        // VEMOS LOS DATOS
-        res.send(responseObject);
+        res.status(200).json(responseObject);
       } else {
-        res.status(400).json(["INEXISTENTE"]);
+        res
+          .status(404)
+          .json(
+            "Lo sentimos, las credenciales proporcionadas no son correctas. Por favor, verifica tu nombre de usuario y contraseña e inténtalo de nuevo."
+          );
       }
     } else {
-      res.status(400).json(["INEXISTENTE"]);
+      res
+        .status(404)
+        .json(
+          "Lo sentimos, las credenciales proporcionadas no son correctas. Por favor, verifica tu nombre de usuario y contraseña e inténtalo de nuevo."
+        );
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL INICIAR SESIÓN"]);
+    res.status(500).json(error500);
   }
 };
-
+// ERRORES LISTOS
 const startSession = async (req, res, id) => {
   try {
     const userSession = await userModel.findByIdAndUpdate(
@@ -276,11 +285,10 @@ const startSession = async (req, res, id) => {
       online: userSession.online,
     };
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR LA SESIÓN"]);
+    res.status(500).json(error500);
   }
 };
-
+// ERRORES LISTOS
 export const getUserProfile = async (req, res) => {
   try {
     const userInformation = await userModel.findById(req.user._id);
@@ -295,7 +303,7 @@ export const getUserProfile = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json(["ERROR AL OBTENER EL PERFIL DEL USUARIO"]);
+    res.status(500).json(error500);
   }
 };
 
@@ -304,17 +312,14 @@ export const logout = async (req, res) => {
     await userModel.findByIdAndUpdate(req.body.id, {
       online: false,
     });
-    // ELIMINAMOS EL TOKEN
     res.cookie("accessToken", "", {
       expires: new Date(0),
     });
     res.send("SESIÓN FINALIZADA");
   } catch (error) {
-    console.log(error);
-    res.status(500).json(["ERROR AL ACTUALIZAR LA SESIÓN"]);
+    res.status(500).json(error500);
   }
 };
-
 export const verifyToken = async (req, res) => {
   const { accessToken } = req.cookies;
 

@@ -6,8 +6,6 @@ export default function ProtectedForClients() {
   const { loading, getUserProfile, isLogin } = useGlobal();
   const [role, setRole] = useState(null);
 
-  console.log(isLogin);
-
   useEffect(() => {
     async function checkUserProfile() {
       try {

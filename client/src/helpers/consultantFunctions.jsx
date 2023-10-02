@@ -2,7 +2,8 @@
 export const getInfoExperienceCV = (
   consultantExperience,
   setUpdateConfig,
-  deleteExperienceConsultant
+  handleDelete,
+  deleteExperience
 ) => {
   if (consultantExperience.length > 0) {
     const experienceContent = consultantExperience.map(
@@ -22,7 +23,7 @@ export const getInfoExperienceCV = (
             </p>
             <button
               onClick={() => {
-                deleteExperienceConsultant(_id);
+                handleDelete(_id, deleteExperience);
               }}
             >
               <ion-icon name="trash-outline"></ion-icon>
@@ -46,7 +47,8 @@ export const getInfoExperienceCV = (
 export const getInfoStudiesCV = (
   consultantEducation,
   setUpdateConfig,
-  deleteEducationConsultant
+  handleDelete,
+  deleteStudy
 ) => {
   if (consultantEducation.length > 0) {
     const educationContent = consultantEducation.map(
@@ -69,7 +71,7 @@ export const getInfoStudiesCV = (
             </p>
             <button
               onClick={() => {
-                deleteEducationConsultant(_id);
+                handleDelete(_id, deleteStudy);
               }}
             >
               <ion-icon name="trash-outline"></ion-icon>
@@ -90,7 +92,7 @@ export const getInfoStudiesCV = (
   return "No hay estudios";
 };
 // OBTENER INFORMACIÓN DE LAS AREAS DE CV
-export const getInfoAreasCV = (consultantAreas, deleteAreaConsultant) => {
+export const getInfoAreasCV = (consultantAreas, handleDelete, deleteArea) => {
   if (consultantAreas.length > 0) {
     const areasContent = consultantAreas.map(({ _id, nameArea }, index) => {
       return (
@@ -98,7 +100,7 @@ export const getInfoAreasCV = (consultantAreas, deleteAreaConsultant) => {
           {nameArea}
           <button
             onClick={() => {
-              deleteAreaConsultant(_id);
+              handleDelete(_id, deleteArea);
             }}
           >
             <ion-icon name="trash-outline"></ion-icon>
@@ -113,7 +115,8 @@ export const getInfoAreasCV = (consultantAreas, deleteAreaConsultant) => {
 // OBTENER INFORMACIÓN DE LOS IDIOMAS DE CV
 export const getInfoLanguagesCV = (
   consultantLanguages,
-  deleteLanguageConsultant
+  handleDelete,
+  deleteLanguage
 ) => {
   if (consultantLanguages.length > 0) {
     const languagesContent = consultantLanguages.map(
@@ -123,7 +126,7 @@ export const getInfoLanguagesCV = (
             {nameLanguage} - {levelLanguage}
             <button
               onClick={() => {
-                deleteLanguageConsultant(_id);
+                handleDelete(_id, deleteLanguage);
               }}
             >
               <ion-icon name="trash-outline"></ion-icon>
@@ -137,7 +140,11 @@ export const getInfoLanguagesCV = (
   return "No hay idiomas";
 };
 // OBTENER INFORMACIÓN DE LOS SKILLS DE CV
-export const getInfoSkillsCV = (consultantSkills, deleteSkillConsultant) => {
+export const getInfoSkillsCV = (
+  consultantSkills,
+  handleDelete,
+  deleteSkill
+) => {
   if (consultantSkills.length > 0) {
     const skillsContent = consultantSkills.map(({ _id, nameSkill }, index) => {
       return (
@@ -145,7 +152,7 @@ export const getInfoSkillsCV = (consultantSkills, deleteSkillConsultant) => {
           {nameSkill}
           <button
             onClick={() => {
-              deleteSkillConsultant(_id);
+              handleDelete(_id, deleteSkill);
             }}
           >
             <ion-icon name="trash-outline"></ion-icon>

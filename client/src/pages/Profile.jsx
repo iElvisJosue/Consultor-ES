@@ -47,7 +47,7 @@ export default function Profile() {
       </header>
       <br />
       {loading ? <Loader /> : profiles[user.role]}
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-right" closeButton />
     </main>
   );
 }
