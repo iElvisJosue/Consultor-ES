@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/Header.css";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);

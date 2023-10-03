@@ -1,0 +1,107 @@
+.Main__Login {
+  min-height: 100vh;
+  height: auto;
+  background-color: var(--BgColor);
+  font-size: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Main__Login hr {
+  width: 100%;
+  height: 2px;
+  border: none;
+  background: var(--SecondaryYellow);
+}
+.Main__Login--Form {
+  position: relative;
+  background: var(--White);
+  padding: 20px;
+  width: 50em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.Main__Login--Form--Back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--MainPurple);
+  color: var(--White);
+  width: 50px;
+  height: 50px;
+  font-size: 2em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__Login--Form--Logo {
+  width: 6rem;
+}
+.Main__Login--Form--Title {
+  text-align: center;
+  color: var(--MainPurple);
+  font-size: 2.5em;
+}
+.Main__Login--Form--Inputs {
+  position: relative;
+  width: 100%;
+  height: 65px;
+}
+.Main__Inputs.Login {
+  width: 100%;
+  height: 100%;
+  padding: 10px 50px;
+}
+.Main__Login--Form--Inputs--Icon {
+  position: absolute;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__Login--Form--Inputs--Icon.Eye {
+  right: 0;
+  cursor: pointer;
+}
+.Main__Login--Form--Inputs--Icon ion-icon {
+  color: var(--MainPurple);
+  width: 50px;
+  font-size: 2em;
+}
+.Main__Login--Form--RegisterTitle {
+  width: 100%;
+  color: var(--MainPurple);
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.6em;
+}
+.Main__Login--Form--Register {
+  display: flex;
+  gap: 10px;
+}
+.Main__Login--Form--Register small {
+  color: var(--MainPurple);
+}
+.Main__Login--Form--Register small a {
+  transition: 0.3s ease-in-out all;
+}
+.Main__Login--Form--Register small:hover a {
+  color: var(--MainYellow);
+}
+@media (width <= 768px) {
+  .Main__Login {
+    display: initial;
+  }
+  .Main__Login--Form {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+  }
+}

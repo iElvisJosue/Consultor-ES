@@ -3,7 +3,7 @@ export default function WhyConsultantPresentation() {
     <article className="Main__WhyConsultant__Presentation__Content">
       <div className="Main__WhyConsultant__Presentation__Content--Text">
         <p className="Main__WhyConsultant__Presentation__Content--Text--Title">
-          ¿POR QUE NECESITAS UN CONSULTOR?
+          ¿Por qué necesitas un consultor?
         </p>
         <p className="Main__WhyConsultant__Presentation__Content--Text--SubTitle">
           Las empresas pueden beneficiarse de trabajar por proyecto con

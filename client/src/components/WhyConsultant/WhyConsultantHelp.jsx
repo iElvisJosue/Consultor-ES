@@ -3,7 +3,9 @@ export default function WhyConsultantHelp() {
     <section className="Main__WhyConsultant__Help">
       <picture className="Main__WhyConsultant__Help--Picture--Left"></picture>
       <div className="Main__WhyConsultant__Help--Content">
-        <p className="Main__WhyConsultant__Help--Title">¿COMO TE AYUDAMOS?</p>
+        <p className="Main__WhyConsultant__Help--Title">
+          ¿Cómo podemos ayudarte?
+        </p>
         <p className="Main__WhyConsultant__Help--Title--Text">
           Te ayudamos a crear una estrategia que represente tu personalidad.
           Conocerlo es el objetivo principal del consultor. Obtenga una solución

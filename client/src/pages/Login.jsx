@@ -3,8 +3,11 @@ import { useGlobal } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { handleResponseMessages } from "../helpers/globalFunctions";
+import "../styles/Login.css";
+import { useState } from "react";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -36,45 +39,78 @@ export default function Login() {
     }
   });
 
+  const typeInputPassword = showPassword ? "text" : "password";
+  const iconInputPassword = showPassword ? "eye-off-outline" : "eye-outline";
+
   return (
-    <main className="Main">
-      <form onSubmit={checkDataLogin}>
-        <p>Ingresa tu nombre de usuario:</p>
-        <input type="text" {...register("yourUserName", { required: true })} />
-        {errors.yourUserName && (
-          <p
-            style={{
-              color: "red",
-            }}
-          >
-            El nombre de usuario es requerido.
-          </p>
-        )}
-        <p>Ingresa tu contraseña:</p>
-        <input
-          type="password"
-          {...register("yourPassword", { required: true })}
+    <main className="Main__Login">
+      <form onSubmit={checkDataLogin} className="Main__Login--Form">
+        <a href="/" className="Main__Login--Form--Back">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </a>
+        <img
+          src="./LogoConsultores.png"
+          alt="Consultor-ES Logo"
+          className="Main__Login--Form--Logo"
         />
-        {errors.yourPassword && (
-          <p
-            style={{
-              color: "red",
-            }}
-          >
-            La contraseña es requerida.
-          </p>
+        <h2 className="Main__Login--Form--Title">¡Hola de nuevo 👋!</h2>
+        <hr />
+
+        <div className="Main__Login--Form--Inputs">
+          <span className="Main__Login--Form--Inputs--Icon">
+            <ion-icon name="person-outline"></ion-icon>
+          </span>
+          <input
+            type="text"
+            {...register("yourUserName", { required: true })}
+            className="Main__Inputs Login"
+            placeholder="Usuario"
+          />
+        </div>
+        {errors.yourUserName && (
+          <small className="Main__Login--Form--Inputs--Error">
+            El nombre de usuario es requerido. ⚠️
+          </small>
         )}
-        <br />
-        <br />
-        <button type="submit">Iniciar sesión</button>
+
+        <div className="Main__Login--Form--Inputs">
+          <span className="Main__Login--Form--Inputs--Icon">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </span>
+          <span
+            className="Main__Login--Form--Inputs--Icon Eye"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            <ion-icon name={iconInputPassword}></ion-icon>
+          </span>
+          <input
+            type={typeInputPassword}
+            {...register("yourPassword", { required: true })}
+            className="Main__Inputs Login"
+            placeholder="Contraseña"
+          />
+        </div>
+        {errors.yourPassword && (
+          <small className="Main__Login--Form--Inputs--Error">
+            La contraseña es requerida. ⚠️
+          </small>
+        )}
+        <button type="submit" className="Main__Button">
+          Iniciar sesión
+        </button>
+        <p className="Main__Login--Form--RegisterTitle">
+          ¿No tienes cuenta? Crea una cuenta:{" "}
+        </p>
+        <span className="Main__Login--Form--Register">
+          <small>
+            <a href="/ConsultantEmailVerification">Consultor</a>
+          </small>
+          <small>|</small>
+          <small>
+            <a href="/ClientEmailVerification">Cliente</a>
+          </small>
+        </span>
       </form>
-      <br />
-      <p>¿No tienes cuenta?</p>
-      <br />
-      <a href="/ConsultantEmailVerification">Registraste como consultor</a>
-      <br />
-      <p>ó</p>
-      <a href="/ClientEmailVerification">Registraste como cliente</a>
       <Toaster richColors position="top-right" />
     </main>
   );

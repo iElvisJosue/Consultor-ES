@@ -6,7 +6,12 @@
   --Black: #222222;
   --White: #ffffff;
   --BgColor: #e7dfd8;
-  --BorderRadius: 20px;
+  --MainPurple: #5f366e;
+  --SecondaryPurple: #f2efff;
+  --MainYellow: #ffa30c;
+  --SecondaryYellow: #ebc06a60;
+  --Red: #ff5f56;
+  --BorderRadius: 2rem;
 }
 * {
   margin: 0;
@@ -17,8 +22,45 @@
 }
 a {
   text-decoration: none;
-  color: var(--Black);
+  color: var(--MainPurple);
 }
-ion-icon {
-  font-size: 25px;
+small {
+  font-size: 13px;
+  color: var(--Red);
+  font-weight: bold;
+  width: 100%;
+}
+
+/* CLASES GENERALES */
+.Main__Button {
+  width: 100%;
+  height: 65px;
+  font-size: 16px;
+  background: var(--MainPurple);
+  border: 2px solid var(--MainPurple);
+  color: var(--White);
+  font-weight: bold;
+  transition: 0.3s ease-in-out all;
+}
+.Main__Button:hover {
+  cursor: pointer;
+  background: none;
+  color: var(--MainPurple);
+}
+.Main__Inputs {
+  font-size: 16px;
+  height: 65px;
+  background-color: #f9fafb;
+  border: none;
+  outline: 2px solid #f9fafb;
+  color: var(--MainPurple);
+
+  transition: 0.3s ease-in-out outline;
+}
+.Main__Inputs::placeholder {
+  font-weight: bold;
+  color: var(--MainPurple);
+}
+.Main__Inputs::focus {
+  outline: 2px solid var(--MainPurple);
 }

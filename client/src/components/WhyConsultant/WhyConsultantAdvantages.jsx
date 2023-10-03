@@ -4,7 +4,7 @@ export default function WhyConsultantAdvantages() {
       <picture className="Main__WhyConsultant__Advantages--Picture"></picture>
       <span className="Main__WhyConsultant__Advantages--Details">
         <p className="Main__WhyConsultant__Advantages--Details--Title">
-          VENTAJAS
+          Ventajas
         </p>
         <div className="Main__WhyConsultant__Advantages--Details--Details">
           <p>

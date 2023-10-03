@@ -1,6 +1,8 @@
 .Main {
   position: relative;
   overflow: hidden;
+
+  font-size: 10px;
 }
 .Main__Brown {
   background: var(--BgColor);
@@ -14,16 +16,15 @@
 .Main__Advantages,
 .Main__Services,
 .Main__Message {
-  width: 1440px;
+  width: 144em;
   margin: auto;
 
   display: flex;
   flex-direction: column;
 }
 .Main__Standards,
-.Main__ContactMessage,
-.Main__Footer {
-  width: 1440px;
+.Main__ContactMessage {
+  width: 144em;
   margin: auto;
 
   display: flex;
@@ -32,103 +33,10 @@
 .Main__Services,
 .Main__Message,
 .Main__Standards,
-.Main__ContactMessage,
-.Main__Footer {
+.Main__ContactMessage {
   gap: 20px;
   padding: 40px 0px;
 }
-.Main__Footer {
-  justify-content: flex-end;
-  align-items: center;
-}
-/* ESTILOS PARA EL HEADER */
-.Main__Header {
-  position: fixed;
-  width: 100%;
-  max-width: 1440px;
-  top: 0;
-  background: var(--Black);
-  height: 75px;
-  z-index: 2;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.Main__Header--Picture {
-  min-width: 75px;
-  width: 75px;
-
-  display: flex;
-  align-items: center;
-}
-.Main__Header--Picture--Img {
-  width: 100%;
-  background-color: var(--BgColor);
-}
-.Main__Header--Menu {
-  position: relative;
-  width: 100%;
-  list-style: none;
-  gap: 20px;
-  padding: 20px;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-.Main__Header--Menu--Item--Link {
-  padding: 10px 20px;
-  background: var(--White);
-  border-radius: var(--BorderRadius);
-  border: 2px solid transparent;
-  font-weight: bold;
-  color: var(--Black);
-
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out,
-    border-color 0.3s ease-in-out;
-}
-.Main__Header--Menu--Item--Link:hover {
-  background-color: var(--Black);
-  color: var(--White);
-  border-color: var(--White);
-}
-.Main__Header--Button {
-  height: 100%;
-  width: 75px;
-  border: none;
-  background: none;
-  color: var(--White);
-  display: none;
-  cursor: pointer;
-}
-
-/* ESTILOS PARA EL MENÚ */
-.Main__Header--Navbar {
-  position: fixed;
-  top: 0;
-  right: -150%;
-  width: 100%;
-  height: 100vh;
-  background: var(--Black);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  z-index: 1000;
-
-  transition: 0.5s ease-in-out all;
-}
-.Main__Header--Navbar a {
-  font-size: 25px;
-  color: var(--White);
-}
-.Main__Header--Navbar.Show {
-  right: 0;
-}
-
 /* ESTILOS PARA EL CONTENIDO DE LA PRESENTACIÓN */
 .Main__Presentation__Content {
   display: flex;
@@ -143,15 +51,15 @@
   gap: 30px;
 }
 .Main__Presentation__Content--Text--Title {
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__Presentation__Content--Text--SubTitle {
-  font-size: 35px;
+  font-size: 3.5em;
 }
 .Main__Presentation__Content--Text--Button {
   position: relative;
   border: 3px solid var(--Black);
-  font-size: 25px;
+  font-size: 2.5em;
   color: var(--Black);
   width: 250px;
   height: 60px;
@@ -199,10 +107,10 @@
   text-align: center;
 }
 .Main__Advantages--Title {
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__Advantages--Title--Text {
-  font-size: 25px;
+  font-size: 2.5em;
 }
 
 /* ESTILOS PARA EL CONTENIDO DE LOS SERVICIOS */
@@ -210,7 +118,7 @@
   margin: auto;
   max-width: 60%;
   text-align: center;
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__Services--Content {
   margin-top: 50px;
@@ -244,20 +152,20 @@
   width: 100%;
 }
 .Main__Services--Content--Article--Title {
-  font-size: 40px;
+  font-size: 4em;
   text-align: center;
   font-weight: bold;
 }
 .Main__Services--Content--Article--Details {
   margin-top: 40px;
-  font-size: 25px;
+  font-size: 2.5em;
   text-align: center;
 }
 
 /* ESTILOS PARA EL MENSAJE */
 .Main__Message--Title {
   text-align: center;
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__Message--Picture {
   height: 400px;
@@ -291,33 +199,16 @@
 }
 .Main__Standards--Details--Title {
   text-align: center;
-  font-size: 65px;
+  font-size: 6.5em;
   max-width: 80%;
   margin: auto;
 }
 .Main__Standards--Details--Details,
 .Main__ContactMessage--Details--Text {
-  font-size: 25px;
+  font-size: 2.5em;
   text-align: center;
 }
 
-/* ESTILOS PARA EL FOOTER */
-.Main__Footer--Text {
-  text-align: center;
-  font-size: 25px;
-}
-.Main__Footer--Link {
-  display: flex;
-  gap: 20px;
-}
-.Main__Footer--Link a ion-icon {
-  transform: translateY(3px);
-  color: var(--Black);
-  transition: 0.3s ease-in-out all;
-}
-.Main__Footer--Link a:hover ion-icon {
-  transform: translateY(-5px);
-}
 /* DISEÑO PARA CELULARES */
 @media (width <= 1440px) {
   .Main__Presentation,
@@ -325,8 +216,7 @@
   .Main__Services,
   .Main__Message,
   .Main__Standards,
-  .Main__ContactMessage,
-  .Main__Footer {
+  .Main__ContactMessage {
     width: 100%;
   }
   .Main__Advantages,
@@ -334,67 +224,24 @@
   .Main__Message,
   .Main__Standards,
   .Main__ContactMessage,
-  .Main__Footer,
   .Main__Presentation__Content--Text {
     padding: 40px 20px;
   }
 }
 @media (width <= 1337px) {
-  .Main__Header--Menu--Item--Link {
-    font-size: 14px;
-  }
-  .Main__Presentation__Content--Text--Title,
-  .Main__Advantages--Title,
-  .Main__Services--Title,
-  .Main__Message--Title,
-  .Main__Standards--Details--Title {
-    font-size: 55px;
-  }
-  .Main__Presentation__Content--Text--SubTitle,
-  .Main__Services--Content--Article--Title {
-    font-size: 30px;
+  .Main {
+    font-size: 8.5px;
   }
   .Main__Presentation__Content--Text--Button {
-    font-size: 20px;
     width: 200px;
-  }
-  .Main__Advantages--Title--Text,
-  .Main__Services--Content--Article--Details,
-  .Main__Standards--Details--Details,
-  .Main__ContactMessage--Details--Text,
-  .Main__Footer--Text {
-    font-size: 20px;
-  }
-}
-@media (width <= 1233px) {
-  .Main__Header--Menu {
-    display: none;
-  }
-  .Main__Header--Button {
-    display: block;
   }
 }
 @media (width <= 1024px) {
-  .Main__Presentation__Content--Text--Title,
-  .Main__Advantages--Title,
-  .Main__Services--Title,
-  .Main__Message--Title,
-  .Main__Standards--Details--Title {
-    font-size: 45px;
-  }
-  .Main__Presentation__Content--Text--SubTitle {
-    font-size: 25px;
+  .Main {
+    font-size: 8px;
   }
   .Main__Presentation__Content--Text--Button {
-    font-size: 18px;
     width: 150px;
-  }
-  .Main__Advantages--Title--Text,
-  .Main__Services--Content--Article--Details,
-  .Main__Standards--Details--Details,
-  .Main__ContactMessage--Details--Text,
-  .Main__Footer--Text {
-    font-size: 18px;
   }
   .Main__Advantages--Title,
   .Main__Advantages--Title--Text,
@@ -414,6 +261,9 @@
   }
 }
 @media (width <= 768px) {
+  .Main {
+    font-size: 7.5px;
+  }
   .Main__Presentation__Content,
   .Main__Standards {
     flex-direction: column-reverse;
@@ -438,42 +288,20 @@
   .Main__ContactMessage {
     flex-direction: column;
   }
-  .Main__Footer {
-    flex-direction: column;
-  }
 }
 @media (width <= 500px) {
+  .Main {
+    font-size: 7px;
+  }
   .Main__Presentation__Content--Image {
     height: 300px;
   }
-  .Main__Presentation__Content--Text--Title,
-  .Main__Advantages--Title,
-  .Main__Services--Title,
-  .Main__Message--Title,
-  .Main__Standards--Details--Title {
-    font-size: 35px;
-  }
-  .Main__Presentation__Content--Text--SubTitle,
-  .Main__Services--Content--Article--Title {
-    font-size: 20px;
-  }
   .Main__Presentation__Content--Text--Button {
-    font-size: 16px;
     height: 50px;
-  }
-  .Main__Advantages--Title--Text,
-  .Main__Services--Content--Article--Details,
-  .Main__Standards--Details--Details,
-  .Main__ContactMessage--Details--Text {
-    font-size: 16px;
   }
 }
 @media (width <= 378px) {
-  .Main__Presentation__Content--Text--Title,
-  .Main__Advantages--Title,
-  .Main__Services--Title,
-  .Main__Message--Title,
-  .Main__Standards--Details--Title {
-    font-size: 30px;
+  .Main {
+    font-size: 6.5px;
   }
 }

@@ -2,11 +2,11 @@
 export default function WhyConsultantMessage({ content }) {
   const contentWhyConsultantMessage = {
     1: {
-      title: "MARCA TU PROPIO RITMO",
+      title: "Marca tu propio ritmo",
       text: "Estamos seguros de que objetivos claros, una filosofía de inversión a largo plazo, una cartera equilibrada y costes bajos crean un camino hacia sus objetivos financieros. Hay inversión y hay inversión inteligente. ¡Somos los últimos, somos los mejores!",
     },
     2: {
-      title: "GESTIÓN EMPRESARIAL DE CICLO COMPLETO",
+      title: "Gestión empresarial de ciclo completo",
       text: "Ya sea que busque consultoría financiera, evaluaciones de riesgo o una gestión provisional de recursos humanos, estamos listos para proporcionárselo. Tenemos una experiencia comprobada en cualquier proceso por el que vive y trabaja una empresa moderna",
     },
   };

@@ -3,7 +3,7 @@ export default function AboutPresentation() {
     <article className="Main__About__Presentation__Content">
       <div className="Main__About__Presentation__Content--Text">
         <p className="Main__About__Presentation__Content--Text--Title">
-          ¿QUIENES SOMOS?
+          ¿Quienes somos?
         </p>
         <p className="Main__About__Presentation__Content--Text--SubTitle">
           Somos una empresa que te ayuda a crear una estrategia que represente

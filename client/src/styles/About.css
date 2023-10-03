@@ -1,5 +1,7 @@
 .Main__About {
   overflow: hidden;
+
+  font-size: 10px;
 }
 .Main__About__Brown {
   background: var(--BgColor);
@@ -14,7 +16,7 @@
 .Main__About--Advantages,
 .Main__About__Costs,
 .Main__About__Information {
-  width: 1440px;
+  width: 144em;
   margin: auto;
 
   display: flex;
@@ -54,10 +56,10 @@
   gap: 30px;
 }
 .Main__About__Presentation__Content--Text--Title {
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__About__Presentation__Content--Text--SubTitle {
-  font-size: 35px;
+  font-size: 3.5em;
 }
 .Main__About__Presentation__Content--Image {
   width: 100%;
@@ -87,10 +89,10 @@
   gap: 20px;
 }
 .Main__About__Business--Title {
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__About__Business--Title--Text {
-  font-size: 25px;
+  font-size: 2.5em;
 }
 
 /* ESTILOS PARA EL CONTENIDO DE LAS VENTAJAS  */
@@ -98,7 +100,7 @@
   margin: auto;
   max-width: 80%;
   text-align: center;
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__About--Advantages--Content {
   margin-top: 50px;
@@ -132,13 +134,13 @@
   width: 100%;
 }
 .Main__About--Advantages--Content--Article--Title {
-  font-size: 40px;
+  font-size: 4em;
   text-align: center;
   font-weight: bold;
 }
 .Main__About--Advantages--Content--Article--Details {
   margin-top: 40px;
-  font-size: 25px;
+  font-size: 2.5em;
   text-align: center;
 }
 
@@ -162,7 +164,7 @@
 }
 .Main__About__Costs--Details--Title {
   text-align: center;
-  font-size: 65px;
+  font-size: 6.5em;
   max-width: 80%;
   margin: auto;
 }
@@ -193,7 +195,7 @@
   gap: 40px;
 }
 .Main__About__Information--Details--Text {
-  font-size: 25px;
+  font-size: 2.5em;
   text-align: center;
 }
 
@@ -215,41 +217,16 @@
   }
 }
 @media (width <= 1337px) {
-  .Main__About__Presentation__Content--Text--Title,
-  .Main__About__Business--Title,
-  .Main__About--Advantages--Title,
-  .Main__About__Costs--Details--Title {
-    font-size: 55px;
-  }
-  .Main__About__Presentation__Content--Text--SubTitle,
-  .Main__About--Advantages--Content--Article--Title {
-    font-size: 30px;
-  }
-  .Main__About__Business--Title--Text,
-  .Main__About--Advantages--Content--Article--Details,
-  .Main__About__Costs--Details--Details,
-  .Main__About__Information--Details--Text {
-    font-size: 20px;
+  .Main__About {
+    font-size: 8.5px;
   }
 }
 @media (width <= 1024px) {
-  .Main__About__Presentation__Content--Text--Title,
-  .Main__About__Business--Title,
-  .Main__About--Advantages--Title,
-  .Main__About__Costs--Details--Title {
-    font-size: 45px;
+  .Main__About {
+    font-size: 8px;
   }
   .Main__About--Advantages--Title {
     max-width: 100%;
-  }
-  .Main__About__Presentation__Content--Text--SubTitle {
-    font-size: 25px;
-  }
-  .Main__About__Business--Title--Text,
-  .Main__About--Advantages--Content--Article--Details,
-  .Main__About__Costs--Details--Details,
-  .Main__About__Information--Details--Text {
-    font-size: 18px;
   }
   .Main__About--Advantages--Content {
     grid-template-columns: 1fr;
@@ -257,6 +234,9 @@
   }
 }
 @media (width <= 768px) {
+  .Main__About {
+    font-size: 7.5px;
+  }
   .Main__About__Presentation__Content {
     flex-direction: column-reverse;
   }
@@ -302,31 +282,12 @@
   }
 }
 @media (width <= 500px) {
-  .Main__About__Presentation__Content--Image {
-    height: 300px;
-  }
-  .Main__About__Presentation__Content--Text--Title,
-  .Main__About__Business--Title,
-  .Main__About--Advantages--Title,
-  .Main__About__Costs--Details--Title {
-    font-size: 35px;
-  }
-  .Main__About__Presentation__Content--Text--SubTitle,
-  .Main__About--Advantages--Content--Article--Title {
-    font-size: 20px;
-  }
-  .Main__About__Business--Title--Text,
-  .Main__About--Advantages--Content--Article--Details,
-  .Main__About__Costs--Details--Details,
-  .Main__About__Information--Details--Text {
-    font-size: 16px;
+  .Main__About {
+    font-size: 7px;
   }
 }
 @media (width <= 378px) {
-  .Main__About__Presentation__Content--Text--Title,
-  .Main__About__Business--Title,
-  .Main__About--Advantages--Title,
-  .Main__About__Costs--Details--Title {
-    font-size: 30px;
+  .Main__About {
+    font-size: 6.5px;
   }
 }

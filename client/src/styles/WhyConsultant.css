@@ -1,5 +1,7 @@
 .Main__WhyConsultant {
   overflow: hidden;
+
+  font-size: 10px;
 }
 .Main__WhyConsultant__Brown {
   background: var(--BgColor);
@@ -14,7 +16,7 @@
 .Main__WhyConsultant__Message,
 .Main__WhyConsultant__Advantages,
 .Main__WhyConsultant__Innovation {
-  width: 1440px;
+  width: 144em;
   margin: auto;
 
   display: flex;
@@ -47,10 +49,10 @@
   gap: 30px;
 }
 .Main__WhyConsultant__Presentation__Content--Text--Title {
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__WhyConsultant__Presentation__Content--Text--SubTitle {
-  font-size: 35px;
+  font-size: 3.5em;
 }
 .Main__WhyConsultant__Presentation__Content--Image {
   width: 100%;
@@ -82,15 +84,15 @@
   gap: 20px;
 }
 .Main__WhyConsultant__Help--Title {
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__WhyConsultant__Help--Title--Text {
-  font-size: 25px;
+  font-size: 2.5em;
 }
 /* ESTILOS PARA EL CONTENIDO DEL MENSAJE  */
 
 .Main__WhyConsultant__Message--Title {
-  font-size: 65px;
+  font-size: 6.5em;
   margin: auto;
   max-width: 80%;
   text-align: center;
@@ -99,7 +101,7 @@
   order: 1;
 }
 .Main__WhyConsultant__Message--Title--Text {
-  font-size: 25px;
+  font-size: 2.5em;
   margin: auto;
   max-width: 80%;
   text-align: center;
@@ -131,12 +133,11 @@
 }
 .Main__WhyConsultant__Advantages--Details--Title {
   text-align: center;
-  font-size: 65px;
+  font-size: 6.5em;
 }
 .Main__WhyConsultant__Advantages--Details--Details {
   text-align: center;
-
-  font-size: 25px;
+  font-size: 2.5em;
 }
 .Main__WhyConsultant__Advantages--Picture {
   width: 100%;
@@ -155,7 +156,7 @@
   text-align: center;
 }
 .Main__WhyConsultant__Innovation--Details--Text {
-  font-size: 25px;
+  font-size: 2.5em;
 }
 .Main__WhyConsultant__Innovation--Picture {
   width: 100%;
@@ -183,44 +184,19 @@
   }
 }
 @media (width <= 1337px) {
-  .Main__WhyConsultant__Presentation__Content--Text--Title,
-  .Main__WhyConsultant__Help--Title,
-  .Main__WhyConsultant__Message--Title,
-  .Main__WhyConsultant__Advantages--Details--Title {
-    font-size: 55px;
-  }
-  .Main__WhyConsultant__Presentation__Content--Text--SubTitle {
-    font-size: 30px;
-  }
-  .Main__WhyConsultant__Message--Title--Text,
-  .Main__WhyConsultant__Advantages--Details--Details,
-  .Main__WhyConsultant__Innovation--Details--Text´,
-  .Main__WhyConsultant__Help--Title--Text {
-    font-size: 20px;
+  .Main__WhyConsultant {
+    font-size: 8.5px;
   }
 }
 @media (width <= 1024px) {
-  .Main__WhyConsultant__Presentation__Content--Text--Title,
-  .Main__WhyConsultant__Help--Title,
-  .Main__WhyConsultant__Message--Title,
-  .Main__WhyConsultant__Advantages--Details--Title {
-    font-size: 45px;
-  }
-  .Main__WhyConsultant__Message--Title,
-  .Main__WhyConsultant__Message--Title--Text {
-    max-width: 100%;
-  }
-  .Main__WhyConsultant__Presentation__Content--Text--SubTitle {
-    font-size: 25px;
-  }
-  .Main__WhyConsultant__Message--Title--Text,
-  .Main__WhyConsultant__Help--Title--Text,
-  .Main__WhyConsultant__Advantages--Details--Details,
-  .Main__WhyConsultant__Innovation--Details--Text {
-    font-size: 18px;
+  .Main__WhyConsultant {
+    font-size: 8px;
   }
 }
 @media (width <= 768px) {
+  .Main__WhyConsultant {
+    font-size: 7.5px;
+  }
   .Main__WhyConsultant__Presentation__Content {
     flex-direction: column-reverse;
   }
@@ -253,30 +229,15 @@
   }
 }
 @media (width <= 500px) {
+  .Main__WhyConsultant {
+    font-size: 7px;
+  }
   .Main__WhyConsultant__Presentation__Content--Image {
     height: 300px;
   }
-  .Main__WhyConsultant__Presentation__Content--Text--Title,
-  .Main__WhyConsultant__Help--Title,
-  .Main__WhyConsultant__Message--Title,
-  .Main__WhyConsultant__Advantages--Details--Title {
-    font-size: 35px;
-  }
-  .Main__WhyConsultant__Presentation__Content--Text--SubTitle {
-    font-size: 20px;
-  }
-  .Main__WhyConsultant__Message--Title--Text,
-  .Main__WhyConsultant__Help--Title--Text,
-  .Main__WhyConsultant__Advantages--Details--Details,
-  .Main__WhyConsultant__Innovation--Details--Text {
-    font-size: 16px;
-  }
 }
 @media (width <= 378px) {
-  .Main__WhyConsultant__Presentation__Content--Text--Title,
-  .Main__WhyConsultant__Help--Title,
-  .Main__WhyConsultant__Message--Title,
-  .Main__WhyConsultant__Advantages--Details--Title {
-    font-size: 30px;
+  .Main__WhyConsultant {
+    font-size: 6.5px;
   }
 }
