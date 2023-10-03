@@ -51,16 +51,15 @@ small {
   font-size: 16px;
   height: 65px;
   background-color: #f9fafb;
-  border: none;
-  outline: 2px solid #f9fafb;
+  border: 2px solid #f9fafb;
   color: var(--MainPurple);
 
-  transition: 0.3s ease-in-out outline;
+  transition: 0.3s ease-in-out all;
 }
 .Main__Inputs::placeholder {
   font-weight: bold;
   color: var(--MainPurple);
 }
-.Main__Inputs::focus {
-  outline: 2px solid var(--MainPurple);
+.Main__Inputs:focus {
+  border-color: var(--MainPurple);
 }
