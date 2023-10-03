@@ -99,7 +99,7 @@ export default function Login() {
           Iniciar sesión
         </button>
         <p className="Main__Login--Form--RegisterTitle">
-          ¿No tienes cuenta? Crea una cuenta:{" "}
+          ¿No tienes cuenta? Crea una:{" "}
         </p>
         <span className="Main__Login--Form--Register">
           <small>
