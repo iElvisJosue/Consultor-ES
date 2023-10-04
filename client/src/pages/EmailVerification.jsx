@@ -3,9 +3,17 @@ import { useGlobal } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 import { handleResponseMessages } from "../helpers/globalFunctions";
+import HeaderForm from "../components/Form/HeaderForm";
+import ButtonSubmitForm from "../components/Form/ButtonSubmitForm";
+
+import "../styles/EmailVerification.css";
 // eslint-disable-next-line react/prop-types
 export default function ConsultantEmailVerification({ title, role }) {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { registerEmail } = useGlobal();
   const navigate = useNavigate();
 
@@ -30,12 +38,39 @@ export default function ConsultantEmailVerification({ title, role }) {
     }
   });
 
+  console.log(title);
+
+  const emailVerificationHeaderProps = {
+    url: "./Login",
+    imgUrl: "./EnviarEmail.png",
+    imgAlt: "Enviar Email Icon",
+    title: "Verificación de Correo Electrónico. 🖐️",
+    subtitle:
+      "(Enviaremos un código de 6 dígitos a tu correo para verificar tu cuenta)",
+  };
+
   return (
-    <main className="Main">
-      <form onSubmit={sendEmail}>
-        <p>{title} Ingresa tu correo</p>
-        <input type="email" {...register("email", { required: true })} />
-        <button type="submit">Enviar código</button>
+    <main className="Main__EmailVerification">
+      <form onSubmit={sendEmail} className="Main__Form EmailVerification">
+        <HeaderForm {...emailVerificationHeaderProps} />
+        <div className="Main__Form--ContainerInputs">
+          <span className="Main__Form--Inputs--Icon">
+            <ion-icon name="mail-outline"></ion-icon>
+          </span>
+
+          <input
+            type="email"
+            {...register("email", { required: true })}
+            className="Main__Form--Inputs EmailVerification"
+            placeholder="Correo"
+          />
+        </div>
+        {errors.email && (
+          <small className="Main__Form--SmallError">
+            El correo es requerido. ⚠️
+          </small>
+        )}
+        <ButtonSubmitForm text="Enviar código" />
       </form>
       <Toaster richColors position="top-right" />
     </main>

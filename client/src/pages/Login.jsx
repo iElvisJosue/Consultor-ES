@@ -1,20 +1,23 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { useGlobal } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { handleResponseMessages } from "../helpers/globalFunctions";
+import HeaderForm from "../components/Form/HeaderForm";
+import ButtonSubmitForm from "../components/Form/ButtonSubmitForm";
+
 import "../styles/Login.css";
-import { useState } from "react";
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
   const {
-    register,
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm();
   const { login } = useGlobal();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSuccessResponse = (res) => {
     toast.success(`¡Bienvenido ${res.userName}!`);
@@ -25,6 +28,7 @@ export default function Login() {
   };
 
   const checkDataLogin = handleSubmit(async (data) => {
+    console.log(data);
     try {
       const res = await login(data);
       if (res.response) {
@@ -39,65 +43,74 @@ export default function Login() {
     }
   });
 
-  const typeInputPassword = showPassword ? "text" : "password";
   const iconInputPassword = showPassword ? "eye-off-outline" : "eye-outline";
+
+  const loginHeaderProps = {
+    url: "/",
+    imgUrl: "./LogoConsultores.png",
+    imgAlt: "Consultor-ES Logo",
+    title: "¡Hola de nuevo 👋!",
+  };
+  const loginInputsPros = [
+    {
+      icon: "person-outline",
+      inputType: "text",
+      inputName: "yourUserName",
+      placeholder: "Usuario",
+      messageError: "El nombre de usuario es requerido. ⚠️",
+      secondIcon: false,
+    },
+    {
+      icon: "lock-closed-outline",
+      inputType: "password",
+      inputName: "yourPassword",
+      placeholder: "Contraseña",
+      messageError: "La contraseña es requerida. ⚠️",
+      secondIcon: true,
+    },
+  ];
 
   return (
     <main className="Main__Login">
-      <form onSubmit={checkDataLogin} className="Main__Login--Form">
-        <a href="/" className="Main__Login--Form--Back">
-          <ion-icon name="chevron-back-outline"></ion-icon>
-        </a>
-        <img
-          src="./LogoConsultores.png"
-          alt="Consultor-ES Logo"
-          className="Main__Login--Form--Logo"
-        />
-        <h2 className="Main__Login--Form--Title">¡Hola de nuevo 👋!</h2>
-        <hr />
+      <form onSubmit={checkDataLogin} className="Main__Form Login">
+        <HeaderForm {...loginHeaderProps} />
 
-        <div className="Main__Login--Form--Inputs">
-          <span className="Main__Login--Form--Inputs--Icon">
-            <ion-icon name="person-outline"></ion-icon>
-          </span>
-          <input
-            type="text"
-            {...register("yourUserName", { required: true })}
-            className="Main__Inputs Login"
-            placeholder="Usuario"
-          />
-        </div>
-        {errors.yourUserName && (
-          <small className="Main__Login--Form--Inputs--Error">
-            El nombre de usuario es requerido. ⚠️
-          </small>
+        {loginInputsPros.map(
+          ({
+            icon,
+            inputType,
+            inputName,
+            messageError,
+            placeholder,
+            secondIcon,
+          }) => (
+            <>
+              <div className="Main__Form--ContainerInputs">
+                <span className="Main__Form--Inputs--Icon">
+                  <ion-icon name={icon}></ion-icon>
+                </span>
+                {secondIcon && (
+                  <span
+                    className="Main__Form--Inputs--Icon Eye"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    <ion-icon name={iconInputPassword}></ion-icon>
+                  </span>
+                )}
+                <input
+                  type={inputType}
+                  {...register(inputName, { required: true })}
+                  className="Main__Form--Inputs Login"
+                  placeholder={placeholder}
+                />
+              </div>
+              {errors[inputName] && (
+                <small className="Main__Form--SmallError">{messageError}</small>
+              )}
+            </>
+          )
         )}
-
-        <div className="Main__Login--Form--Inputs">
-          <span className="Main__Login--Form--Inputs--Icon">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-          </span>
-          <span
-            className="Main__Login--Form--Inputs--Icon Eye"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            <ion-icon name={iconInputPassword}></ion-icon>
-          </span>
-          <input
-            type={typeInputPassword}
-            {...register("yourPassword", { required: true })}
-            className="Main__Inputs Login"
-            placeholder="Contraseña"
-          />
-        </div>
-        {errors.yourPassword && (
-          <small className="Main__Login--Form--Inputs--Error">
-            La contraseña es requerida. ⚠️
-          </small>
-        )}
-        <button type="submit" className="Main__Button">
-          Iniciar sesión
-        </button>
+        <ButtonSubmitForm text="Iniciar Sesión" />
         <p className="Main__Login--Form--RegisterTitle">
           ¿No tienes cuenta? Crea una:{" "}
         </p>
