@@ -8,7 +8,7 @@ import ButtonSubmitForm from "../components/Form/ButtonSubmitForm";
 
 import "../styles/EmailVerification.css";
 // eslint-disable-next-line react/prop-types
-export default function ConsultantEmailVerification({ title, role }) {
+export default function ConsultantEmailVerification({ role }) {
   const {
     register,
     handleSubmit,
@@ -37,8 +37,6 @@ export default function ConsultantEmailVerification({ title, role }) {
       handleResponseMessages({ status, data });
     }
   });
-
-  console.log(title);
 
   const emailVerificationHeaderProps = {
     url: "./Login",

@@ -12,9 +12,8 @@ import ProtectedForClients from "./protection/ProtectedForClients";
 import ProtectedForConsultants from "./protection/ProtectedForConsultants";
 import EmailVerification from "./pages/EmailVerification";
 import CodeVerification from "./pages/CodeVerification";
-import ConsultantRegisterData from "./pages/ConsultantRegisterData";
 import Profile from "./pages/Profile";
-import ClientRegisterData from "./pages/ClientRegisterData";
+import RegisterData from "./pages/RegisterData";
 
 export default function App() {
   return (
@@ -29,13 +28,11 @@ export default function App() {
               <Route path="/WhyConsultant" element={<WhyConsultant />} />
               <Route
                 path="/ConsultantEmailVerification"
-                element={
-                  <EmailVerification title="Consultor" role="Consultant" />
-                }
+                element={<EmailVerification role="Consultant" />}
               />
               <Route
                 path="/ClientEmailVerification"
-                element={<EmailVerification title="Cliente" role="Client" />}
+                element={<EmailVerification role="Client" />}
               />
 
               <Route element={<ProtectedByCookies />}>
@@ -46,7 +43,7 @@ export default function App() {
                   />
                   <Route
                     path="/ConsultantRegisterData"
-                    element={<ConsultantRegisterData />}
+                    element={<RegisterData role="Consultant" />}
                   />
                 </Route>
                 <Route element={<ProtectedForClients />}>
@@ -56,7 +53,7 @@ export default function App() {
                   />
                   <Route
                     path="/ClientRegisterData"
-                    element={<ClientRegisterData />}
+                    element={<RegisterData role="Client" />}
                   />
                 </Route>
                 <Route path="/Profile" element={<Profile />} />

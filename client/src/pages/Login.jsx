@@ -28,7 +28,6 @@ export default function Login() {
   };
 
   const checkDataLogin = handleSubmit(async (data) => {
-    console.log(data);
     try {
       const res = await login(data);
       if (res.response) {

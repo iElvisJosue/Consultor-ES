@@ -59,7 +59,6 @@ export const GlobalProvider = ({ children }) => {
         }
         return;
       } catch (error) {
-        console.log(error);
         setError();
         return;
       }
@@ -75,7 +74,6 @@ export const GlobalProvider = ({ children }) => {
       Cookies.set("accessToken", res.data.accessToken);
       return setSuccess(res.data.user);
     } catch (error) {
-      console.log(error);
       setError();
       return error;
     }
