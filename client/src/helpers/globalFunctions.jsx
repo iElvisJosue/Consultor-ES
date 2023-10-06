@@ -192,6 +192,25 @@ export const listOfChallenges = challenges.map((challenge, index) =>
     </option>
   )
 );
+
+// LISTA DE NIVELES EDUCATIVOS
+const educationalLevels = [
+  "Educación Superior - Licenciatura",
+  "Educación Superior - Especialidad",
+  "Educación Superior - Maestría",
+  "Educación Superior - Doctorado",
+];
+export const listOfEducationalLevels = educationalLevels.map((level, index) =>
+  index === 0 ? (
+    <option key={index} value={level} defaultValue={true}>
+      {level}
+    </option>
+  ) : (
+    <option key={index} value={level}>
+      {level}
+    </option>
+  )
+);
 export const handleResponseMessages = ({ status, data: message }) => {
   switch (status) {
     case 200:

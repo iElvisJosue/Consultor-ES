@@ -96,6 +96,7 @@ export default function ConsultantRegisterData({ role }) {
     imgAlt: "Información personal Logo",
     title: "Ingresa tus datos personales para finalizar tu registro. ✍️",
   };
+
   const sharedFields = [
     {
       icon: "person-outline",
@@ -240,7 +241,6 @@ export default function ConsultantRegisterData({ role }) {
                       className="Main__Form--Inputs RegisterData"
                       style={{
                         fontWeight: "bold",
-                        content: "Prueba",
                       }}
                     >
                       {typeList}

@@ -45,6 +45,12 @@ input {
   color: var(--MainPurple);
   font-weight: bold;
 }
+.Main__Form--TitleInput {
+  width: 100%;
+  font-size: 1.6em;
+  color: var(--MainPurple);
+  font-weight: bold;
+}
 .Main__Form--Divisor {
   width: 100%;
   height: 2px;
@@ -124,4 +130,9 @@ input {
 }
 .Main__Form--Terms--Checkbox {
   cursor: pointer;
+}
+.Main__Form--ContainerDates {
+  display: flex;
+  gap: 10px;
+  width: 100%;
 }
