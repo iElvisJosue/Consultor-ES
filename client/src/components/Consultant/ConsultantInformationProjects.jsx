@@ -25,7 +25,7 @@ export default function ConsultantInformationProjects({
   }, []);
 
   if (searching) {
-    return <Loader />;
+    return <Loader text="Buscando proyectos..." />;
   }
   if (projectsAvailable) {
     const { clientInformation, projectInformation } = projectsAvailable;
@@ -82,6 +82,15 @@ export default function ConsultantInformationProjects({
       </div>
     );
   } else {
-    return <h1>No hay proyectos disponibles para ti</h1>;
+    return (
+      <h1
+        style={{
+          marginTop: 75,
+          textAlign: "center",
+        }}
+      >
+        No hay proyectos disponibles para ti
+      </h1>
+    );
   }
 }

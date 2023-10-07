@@ -68,6 +68,6 @@ export default function ClientProfile() {
       </div>
     );
   } else {
-    return <Loader />;
+    return <Loader text="Cargando información..." />;
   }
 }

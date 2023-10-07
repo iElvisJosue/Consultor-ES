@@ -1,6 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
-import { listOfMonths, listOfYears } from "../../helpers/globalFunctions";
+import {
+  listOfMonths,
+  listOfMonthsExperience,
+  listOfYears,
+  listOfYearsExperience,
+} from "../../helpers/globalFunctions";
 import { useConsultant } from "../../context/ConsultantContext";
 import { useEffect } from "react";
 import { handleResponseMessages } from "../../helpers/globalFunctions";
@@ -91,10 +96,10 @@ export default function ConsultantAddExperience({
       <p>Fecha de finalización:</p>
       <span>
         <select {...register("experienceMonthEnd", { required: true })}>
-          {listOfMonths}
+          {listOfMonthsExperience}
         </select>
         <select {...register("experienceYearEnd", { required: true })}>
-          {listOfYears}
+          {listOfYearsExperience}
         </select>
       </span>
       <button type="submit">{textButton}</button>

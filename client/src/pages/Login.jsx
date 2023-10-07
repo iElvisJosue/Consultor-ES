@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { useGlobal } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { handleResponseMessages } from "../helpers/globalFunctions";
 import HeaderForm from "../components/Form/HeaderForm";
 import ButtonSubmitForm from "../components/Form/ButtonSubmitForm";
+import ShowPassword from "../hooks/showPassword";
 
 import "../styles/Login.css";
 
@@ -17,7 +17,7 @@ export default function Login() {
   } = useForm();
   const { login } = useGlobal();
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  const { iconInputPassword, changeInputPassword } = ShowPassword();
 
   const handleSuccessResponse = (res) => {
     toast.success(`¡Bienvenido ${res.userName}!`);
@@ -41,8 +41,6 @@ export default function Login() {
       handleResponseMessages({ status, data });
     }
   });
-
-  const iconInputPassword = showPassword ? "eye-off-outline" : "eye-outline";
 
   const loginHeaderProps = {
     url: "/",
@@ -91,17 +89,27 @@ export default function Login() {
                 {secondIcon && (
                   <span
                     className="Main__Form--Inputs--Icon Eye"
-                    onClick={() => setShowPassword(!showPassword)}
+                    onClick={changeInputPassword}
                   >
                     <ion-icon name={iconInputPassword}></ion-icon>
                   </span>
                 )}
-                <input
-                  type={inputType}
-                  {...register(inputName, { required: true })}
-                  className="Main__Form--Inputs Login"
-                  placeholder={placeholder}
-                />
+                {inputType === "text" ? (
+                  <input
+                    type={inputType}
+                    {...register(inputName, { required: true })}
+                    className="Main__Form--Inputs Login"
+                    placeholder={placeholder}
+                  />
+                ) : (
+                  <input
+                    type={inputType}
+                    {...register(inputName, { required: true })}
+                    className="Main__Form--Inputs Login"
+                    placeholder={placeholder}
+                    id="password"
+                  />
+                )}
               </div>
               {errors[inputName] && (
                 <small className="Main__Form--SmallError">{messageError}</small>

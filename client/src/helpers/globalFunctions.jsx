@@ -27,12 +27,37 @@ export const listOfMonths = months.map((month, index) =>
   )
 );
 
+months.unshift("Actualmente");
+export const listOfMonthsExperience = months.map((month, index) =>
+  index === 0 ? (
+    <option key={index} value={month} defaultValue={true}>
+      {month}
+    </option>
+  ) : (
+    <option key={index} value={month}>
+      {month}
+    </option>
+  )
+);
+
 // LISTA DE AÑOS
 const years = [];
 for (let i = new Date().getFullYear(); i >= 1930; i--) {
   years.push(i);
 }
 export const listOfYears = years.map((year, index) =>
+  index === 0 ? (
+    <option key={index} value={year} defaultValue={true}>
+      {year}
+    </option>
+  ) : (
+    <option key={index} value={year}>
+      {year}
+    </option>
+  )
+);
+years.unshift("Trabajando");
+export const listOfYearsExperience = years.map((year, index) =>
   index === 0 ? (
     <option key={index} value={year} defaultValue={true}>
       {year}

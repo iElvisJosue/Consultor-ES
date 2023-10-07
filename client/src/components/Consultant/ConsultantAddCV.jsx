@@ -1,25 +1,33 @@
 import { useForm } from "react-hook-form";
 import { useConsultant } from "../../context/ConsultantContext";
+import { useState } from "react";
 import { handleResponseMessages } from "../../helpers/globalFunctions";
 import {
   listOfMonths,
+  listOfMonthsExperience,
   listOfYears,
+  listOfYearsExperience,
   listOfSpecialtiesAreas,
   listOfEducationalLevels,
 } from "../../helpers/globalFunctions";
 import HeaderForm from "../Form/HeaderForm";
 import ButtonSubmitForm from "../Form/ButtonSubmitForm";
+import HandleStatusSubmitButton from "../../hooks/submitButton";
+import Navbar from "../Navbar";
 
 // eslint-disable-next-line react/prop-types
 export default function ConsultantAddCV({ setCheckCV, checkCV }) {
+  const { isDisabled, submitDisabled } = HandleStatusSubmitButton();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const { createResumeCV } = useConsultant();
+  const [step, setStep] = useState("One");
 
   const addResumeCV = handleSubmit(async (data) => {
+    submitDisabled();
     try {
       const res = await createResumeCV(data);
       if (res.response) {
@@ -28,9 +36,7 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
       } else {
         const { status, data } = res;
         handleResponseMessages({ status, data });
-        setTimeout(() => {
-          setCheckCV(!checkCV);
-        }, 1500);
+        setCheckCV(!checkCV);
       }
     } catch (error) {
       const { status, data } = error.response;
@@ -38,25 +44,34 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
     }
   });
 
+  const classStep = `Main__Form--Steps ${step}`;
+  const changeStep = (e, step) => {
+    e.preventDefault();
+    setStep(step);
+  };
   const resumeHeaderProps = {
     imgUrl: "./ResumenProfesional.png",
     imgAlt: "Resumen De Perfil Logo",
     title: "Resumen de tu perfil profesional:",
+    subtitle: "(Creación de tu CV)",
   };
   const experienceHeaderProps = {
     imgUrl: "./ExperienciaProfesional.png",
     imgAlt: "Experiencia De Perfil Logo",
     title: "Agrega tu experiencia más relevante:",
+    subtitle: "(Creación de tu CV)",
   };
   const educationHeaderProps = {
     imgUrl: "./EducacionPersonal.png",
     imgAlt: "Educación Personal Logo",
     title: "Agrega tu nivel de estudios:",
+    subtitle: "(Creación de tu CV)",
   };
   const skillsHeaderProps = {
     imgUrl: "./EspecialidadPersonal.png",
     imgAlt: "Especialidad Personal Logo",
     title: "Selecciona tu especialidad:",
+    subtitle: "(Creación de tu CV)",
   };
   const resumeInformationData = [
     {
@@ -128,8 +143,17 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
   ];
 
   return (
-    <div>
-      <form onSubmit={addResumeCV} className="Main__Form ConsultantAddCV">
+    <form
+      onSubmit={addResumeCV}
+      className="Main__Form ConsultantAddCV"
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+        }
+      }}
+    >
+      <Navbar />
+      <div className={classStep}>
         <HeaderForm {...resumeHeaderProps} />
         {resumeInformationData.map(
           ({
@@ -158,6 +182,14 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
             </>
           )
         )}
+        <button
+          className="Main__Form--ButtonSubmit"
+          onClick={(e) => changeStep(e, "Two")}
+        >
+          Siguiente
+        </button>
+      </div>
+      <div className={classStep}>
         <HeaderForm {...experienceHeaderProps} />
         {experienceInformationData.map(
           ({
@@ -207,15 +239,31 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
             {...register("experienceMonthEnd", { required: true })}
             className="Main__Form--Inputs Dates"
           >
-            {listOfMonths}
+            {listOfMonthsExperience}
           </select>
           <select
             {...register("experienceYearEnd", { required: true })}
             className="Main__Form--Inputs Dates"
           >
-            {listOfYears}
+            {listOfYearsExperience}
           </select>
         </span>
+        <span className="Main__Form--ButtonStepsContainer">
+          <button
+            className="Main__Form--ButtonSubmit"
+            onClick={(e) => changeStep(e, "One")}
+          >
+            Regresar
+          </button>
+          <button
+            className="Main__Form--ButtonSubmit"
+            onClick={(e) => changeStep(e, "Three")}
+          >
+            Siguiente
+          </button>
+        </span>
+      </div>
+      <div className={classStep}>
         <HeaderForm {...educationHeaderProps} />
         {educationInformationData.map(
           ({
@@ -290,6 +338,22 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
             {listOfYears}
           </select>
         </span>
+        <span className="Main__Form--ButtonStepsContainer">
+          <button
+            className="Main__Form--ButtonSubmit"
+            onClick={(e) => changeStep(e, "Two")}
+          >
+            Regresar
+          </button>
+          <button
+            className="Main__Form--ButtonSubmit"
+            onClick={(e) => changeStep(e, "Four")}
+          >
+            Siguiente
+          </button>
+        </span>
+      </div>
+      <div className={classStep}>
         <HeaderForm {...skillsHeaderProps} />
         {skillsInformationData.map(({ icon, inputName, typeList }) => (
           <>
@@ -311,8 +375,16 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
             </div>
           </>
         ))}
-        <ButtonSubmitForm text="Crear Curriculum" />
-      </form>
-    </div>
+        <span className="Main__Form--ButtonStepsContainer">
+          <button
+            className="Main__Form--ButtonSubmit"
+            onClick={(e) => changeStep(e, "Three")}
+          >
+            Regresar
+          </button>
+          <ButtonSubmitForm text="Finalizar" isDisabled={isDisabled} />
+        </span>
+      </div>
+    </form>
   );
 }

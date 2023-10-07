@@ -30,7 +30,6 @@ export default function ConsultantInformationBank({
           flexDirection: "column",
           alignItems: "center",
           gap: 10,
-          marginTop: 10,
         }}
       >
         <span>

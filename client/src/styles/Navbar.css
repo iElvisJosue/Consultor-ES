@@ -1,0 +1,80 @@
+.Main__Navbar {
+  position: fixed;
+  background-color: var(--MainPurple);
+  font-size: 1em;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 999;
+}
+.Main__Navbar--Logo,
+.Main__Navbar--Settings--Avatar {
+  width: 75px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__Navbar--Logo img,
+.Main__Navbar--Settings--Avatar img {
+  width: 75%;
+  background: white;
+}
+.Main__Navbar--Options {
+  list-style: none;
+
+  display: flex;
+  gap: 10px;
+}
+.Main__Navbar--Options--Item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+  color: var(--White);
+  font-weight: bold;
+  font-size: 1.6em;
+
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+
+  transition: 0.5s ease-in-out all;
+}
+.Main__Navbar--Options--Item ion-icon {
+  font-size: 1.6em;
+}
+.Main__Navbar--Options--Item:hover {
+  background-color: var(--MainYellow);
+  color: var(--MainPurple);
+}
+.Main__Navbar--Settings {
+  display: flex;
+}
+
+.Main__Navbar--Settings--Avatar img {
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+@media (width <= 900px) {
+  .Main__Navbar--Options--Item {
+    font-size: 1.4em;
+  }
+}
+@media (width <= 800px) {
+  .Main__Navbar--Options--Item {
+    font-size: 1.6em;
+  }
+  .Main__Navbar--Options--Item p,
+  .Main__Navbar--Options--Item span {
+    display: none;
+  }
+}

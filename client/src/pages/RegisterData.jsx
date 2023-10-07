@@ -16,21 +16,26 @@ import Cookies from "js-cookie";
 import Loader from "../components/Loader";
 import HeaderForm from "../components/Form/HeaderForm";
 import ButtonSubmitForm from "../components/Form/ButtonSubmitForm";
+import HandleStatusSubmitButton from "../hooks/submitButton";
+import ShowPassword from "../hooks/showPassword";
 
 import "../styles/RegisterData.css";
 
 export default function ConsultantRegisterData({ role }) {
+  const { isDisabled, submitDisabled } = HandleStatusSubmitButton();
   const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { updateUser } = useGlobal();
+  const { updateUser, user } = useGlobal();
   const { registerConsultant } = useConsultant();
   const { registerClient } = useClient();
+  const { iconInputPassword, changeInputPassword } = ShowPassword();
+
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const cookieName = "accessToken";
@@ -40,7 +45,7 @@ export default function ConsultantRegisterData({ role }) {
     setTimeout(() => {
       Cookies.remove(cookieName);
       navigate("/Login");
-    }, 1500);
+    }, 2000);
   };
 
   const updateUserData = handleSubmit(async (data) => {
@@ -50,6 +55,7 @@ export default function ConsultantRegisterData({ role }) {
         data: "Para completar su registro, debe aceptar los términos y condiciones.",
       });
     }
+    submitDisabled();
     try {
       const res = await updateUser(data);
       if (res.response) {
@@ -88,10 +94,9 @@ export default function ConsultantRegisterData({ role }) {
       handleSuccessResponse();
     }
   };
-  const iconInputPassword = showPassword ? "eye-off-outline" : "eye-outline";
 
   const registerDataHeaderProps = {
-    url: "/ConsultantCodeVerification",
+    url: `./${user.data.role}CodeVerification`,
     imgUrl: "./InformacionPersonal.png",
     imgAlt: "Información personal Logo",
     title: "Ingresa tus datos personales para finalizar tu registro. ✍️",
@@ -111,7 +116,6 @@ export default function ConsultantRegisterData({ role }) {
       inputName: "password",
       placeholder: "Contraseña",
       messageError: "La contraseña es requerida. ⚠️",
-      secondIcon: true,
     },
     {
       icon: "person-circle-outline",
@@ -165,16 +169,16 @@ export default function ConsultantRegisterData({ role }) {
       },
       {
         icon: "keypad-outline",
+        inputType: "select",
         inputName: "serviceArea",
         messageError: "El área de servicio es requerida. ⚠️",
-        isSelect: true,
         typeList: listOfServices,
       },
       {
         icon: "keypad-outline",
+        inputType: "select",
         inputName: "businessSector",
         messageError: "El sector de la empresa es requerido. ⚠️",
-        isSelect: true,
         typeList: listOfSector,
       },
       {
@@ -186,9 +190,9 @@ export default function ConsultantRegisterData({ role }) {
       },
       {
         icon: "extension-puzzle-outline",
+        inputType: "select",
         inputName: "challenges",
         messageError: "El reto es requerido. ⚠️",
-        isSelect: true,
         typeList: listOfChallenges,
       },
       {
@@ -204,9 +208,17 @@ export default function ConsultantRegisterData({ role }) {
   return (
     <main className="Main__RegisterData">
       {loading ? (
-        <Loader />
+        <Loader text="Redireccionando..." />
       ) : (
-        <form onSubmit={updateUserData} className="Main__Form RegisterData">
+        <form
+          onSubmit={updateUserData}
+          className="Main__Form RegisterData"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+            }
+          }}
+        >
           <HeaderForm {...registerDataHeaderProps} />
           {registerInformationData[role].map(
             ({
@@ -215,52 +227,60 @@ export default function ConsultantRegisterData({ role }) {
               inputName,
               messageError,
               placeholder,
-              secondIcon,
               required = true,
-              isSelect = false,
               typeList,
-            }) => (
-              <>
-                <div className="Main__Form--ContainerInputs">
-                  <span className="Main__Form--Inputs--Icon">
-                    <ion-icon name={icon}></ion-icon>
-                  </span>
-                  {secondIcon && (
-                    <span
-                      className="Main__Form--Inputs--Icon Eye"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      <ion-icon name={iconInputPassword}></ion-icon>
+            }) => {
+              const commonInputProps = {
+                type: inputType,
+                ...register(inputName, { required: required }),
+                className: "Main__Form--Inputs RegisterData",
+                placeholder: placeholder,
+              };
+
+              return (
+                <>
+                  <div className="Main__Form--ContainerInputs">
+                    <span className="Main__Form--Inputs--Icon">
+                      <ion-icon name={icon}></ion-icon>
                     </span>
+                    <>
+                      {inputType === "select" && (
+                        <select
+                          {...commonInputProps}
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {typeList}
+                        </select>
+                      )}
+
+                      {["text", "number", "password"].includes(inputType) && (
+                        <>
+                          {inputType === "password" && (
+                            <span
+                              className="Main__Form--Inputs--Icon Eye"
+                              onClick={changeInputPassword}
+                            >
+                              <ion-icon name={iconInputPassword}></ion-icon>
+                            </span>
+                          )}
+                          <input
+                            {...commonInputProps}
+                            id={
+                              inputType === "password" ? "password" : undefined
+                            }
+                          />
+                        </>
+                      )}
+                    </>
+                  </div>
+                  {errors[inputName] && (
+                    <small className="Main__Form--SmallError">
+                      {messageError}
+                    </small>
                   )}
-                  {isSelect ? (
-                    <select
-                      {...register(inputName, {
-                        required: required,
-                      })}
-                      className="Main__Form--Inputs RegisterData"
-                      style={{
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {typeList}
-                    </select>
-                  ) : (
-                    <input
-                      type={inputType}
-                      {...register(inputName, { required: required })}
-                      className="Main__Form--Inputs RegisterData"
-                      placeholder={placeholder}
-                    />
-                  )}
-                </div>
-                {errors[inputName] && (
-                  <small className="Main__Form--SmallError">
-                    {messageError}
-                  </small>
-                )}
-              </>
-            )
+                </>
+              );
+            }
           )}
 
           <label className="Main__Form--Terms">
@@ -279,7 +299,7 @@ export default function ConsultantRegisterData({ role }) {
               Acepto los términos y condiciones
             </a>
           </label>
-          <ButtonSubmitForm text="Registrarme" />
+          <ButtonSubmitForm text="Registrarme" isDisabled={isDisabled} />
         </form>
       )}
       <Toaster richColors position="top-right" closeButton />

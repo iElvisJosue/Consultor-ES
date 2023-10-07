@@ -34,7 +34,7 @@ export default function ClientConsultantsAvailable({ clientInformation }) {
   };
 
   if (searching) {
-    return <Loader />;
+    return <Loader text="Buscando consultores..." />;
   }
   if (consultants) {
     const {

@@ -132,7 +132,12 @@ export default function ConsultantInformationCV({
   };
 
   return (
-    <>
+    <div
+      style={{
+        textAlign: "center",
+        marginTop: 75,
+      }}
+    >
       <div className="Main__Consultant__Profile--Header">
         <h2>Información personal</h2>
         <br />
@@ -263,6 +268,6 @@ export default function ConsultantInformationCV({
         <button onClick={seeFormConsultant}>Cerrar formulario</button>
         {listForms[addForm]}
       </div>
-    </>
+    </div>
   );
 }

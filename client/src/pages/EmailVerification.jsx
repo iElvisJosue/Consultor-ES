@@ -5,10 +5,12 @@ import { Toaster } from "sonner";
 import { handleResponseMessages } from "../helpers/globalFunctions";
 import HeaderForm from "../components/Form/HeaderForm";
 import ButtonSubmitForm from "../components/Form/ButtonSubmitForm";
+import HandleStatusSubmitButton from "../hooks/submitButton";
 
 import "../styles/EmailVerification.css";
 // eslint-disable-next-line react/prop-types
 export default function ConsultantEmailVerification({ role }) {
+  const { isDisabled, submitDisabled } = HandleStatusSubmitButton();
   const {
     register,
     handleSubmit,
@@ -18,6 +20,7 @@ export default function ConsultantEmailVerification({ role }) {
   const navigate = useNavigate();
 
   const sendEmail = handleSubmit(async (data) => {
+    submitDisabled();
     try {
       data.role = role;
       const res = await registerEmail(data);
@@ -49,7 +52,15 @@ export default function ConsultantEmailVerification({ role }) {
 
   return (
     <main className="Main__EmailVerification">
-      <form onSubmit={sendEmail} className="Main__Form EmailVerification">
+      <form
+        onSubmit={sendEmail}
+        className="Main__Form EmailVerification"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
+      >
         <HeaderForm {...emailVerificationHeaderProps} />
         <div className="Main__Form--ContainerInputs">
           <span className="Main__Form--Inputs--Icon">
@@ -68,9 +79,9 @@ export default function ConsultantEmailVerification({ role }) {
             El correo es requerido. ⚠️
           </small>
         )}
-        <ButtonSubmitForm text="Enviar código" />
+        <ButtonSubmitForm text="Enviar código" isDisabled={isDisabled} />
       </form>
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-right" closeButton />
     </main>
   );
 }

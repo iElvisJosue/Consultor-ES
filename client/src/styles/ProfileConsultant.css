@@ -1,0 +1,60 @@
+/* SECCIÓN DEL FORMULARIO DE AGREGAR CV */
+.Main__Form.ConsultantAddCV {
+  width: 60em;
+  margin-top: 75px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.Main__Form--Steps {
+  position: relative;
+  min-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: 0.5s ease-in-out all;
+}
+.Main__Form--ButtonStepsContainer {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.Main__Form--Steps.One {
+  left: 0;
+  height: 50em;
+}
+.Main__Form--Steps.Two {
+  left: calc(-100% - 20px);
+}
+.Main__Form--Steps.Three {
+  left: calc(-200% - 40px);
+}
+.Main__Form--Steps.Four {
+  left: calc(-300% - 60px);
+  height: 50em;
+}
+.Main__Form--Inputs.ConsultantAddCV {
+  width: 100%;
+}
+.Main__Form--Inputs.Dates {
+  width: 50%;
+}
+.Main__Form--Inputs.ConsultantAddCV {
+  width: 100%;
+  height: 100%;
+  padding: 10px 50px;
+}
+/* TERMINA SECCIÓN DEL FORMULARIO DE AGREGAR CV */
+
+@media (width <= 768px) {
+  .Main__Form.ConsultantAddCV {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+  }
+}
