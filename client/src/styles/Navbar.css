@@ -71,7 +71,7 @@
 }
 @media (width <= 800px) {
   .Main__Navbar--Options--Item {
-    font-size: 1.6em;
+    font-size: 1.2em;
   }
   .Main__Navbar--Options--Item p,
   .Main__Navbar--Options--Item span {

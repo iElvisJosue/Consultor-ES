@@ -9,7 +9,8 @@ import "../styles/Navbar.css";
 export default function Navbar({ navSection, setDataInfo }) {
   const { user, logout } = useGlobal();
 
-  const closingSession = () => {
+  const closingSession = (e) => {
+    e.preventDefault();
     const promise = new Promise(() => {
       setTimeout(() => {
         logout({ id: user._id });
@@ -34,7 +35,10 @@ export default function Navbar({ navSection, setDataInfo }) {
       </figure>
       {navbarSection[navSection]}
       {/* <div className="Main__Navbar--Settings"> */}
-      <button className="Main__Navbar--Options--Item" onClick={closingSession}>
+      <button
+        className="Main__Navbar--Options--Item"
+        onClick={(e) => closingSession(e)}
+      >
         <ion-icon name="log-out-outline"></ion-icon>
         <span>Salir</span>
       </button>
