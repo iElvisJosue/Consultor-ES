@@ -131,7 +131,7 @@ export default function Login() {
           </small>
         </span>
       </form>
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-right" closeButton />
     </main>
   );
 }

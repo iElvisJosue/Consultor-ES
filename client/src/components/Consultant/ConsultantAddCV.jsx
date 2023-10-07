@@ -190,6 +190,43 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
         </button>
       </div>
       <div className={classStep}>
+        <HeaderForm {...skillsHeaderProps} />
+        {skillsInformationData.map(({ icon, inputName, typeList }) => (
+          <>
+            <div className="Main__Form--ContainerInputs">
+              <span className="Main__Form--Inputs--Icon">
+                <ion-icon name={icon}></ion-icon>
+              </span>
+              <select
+                {...register(inputName, {
+                  required: true,
+                })}
+                className="Main__Form--Inputs ConsultantAddCV"
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                {typeList}
+              </select>
+            </div>
+          </>
+        ))}
+        <span className="Main__Form--ButtonStepsContainer">
+          <button
+            className="Main__Form--ButtonSubmit"
+            onClick={(e) => changeStep(e, "One")}
+          >
+            Regresar
+          </button>
+          <button
+            className="Main__Form--ButtonSubmit"
+            onClick={(e) => changeStep(e, "Three")}
+          >
+            Siguiente
+          </button>
+        </span>
+      </div>
+      <div className={classStep}>
         <HeaderForm {...experienceHeaderProps} />
         {experienceInformationData.map(
           ({
@@ -251,13 +288,13 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
         <span className="Main__Form--ButtonStepsContainer">
           <button
             className="Main__Form--ButtonSubmit"
-            onClick={(e) => changeStep(e, "One")}
+            onClick={(e) => changeStep(e, "Two")}
           >
             Regresar
           </button>
           <button
             className="Main__Form--ButtonSubmit"
-            onClick={(e) => changeStep(e, "Three")}
+            onClick={(e) => changeStep(e, "Four")}
           >
             Siguiente
           </button>
@@ -338,43 +375,6 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
             {listOfYears}
           </select>
         </span>
-        <span className="Main__Form--ButtonStepsContainer">
-          <button
-            className="Main__Form--ButtonSubmit"
-            onClick={(e) => changeStep(e, "Two")}
-          >
-            Regresar
-          </button>
-          <button
-            className="Main__Form--ButtonSubmit"
-            onClick={(e) => changeStep(e, "Four")}
-          >
-            Siguiente
-          </button>
-        </span>
-      </div>
-      <div className={classStep}>
-        <HeaderForm {...skillsHeaderProps} />
-        {skillsInformationData.map(({ icon, inputName, typeList }) => (
-          <>
-            <div className="Main__Form--ContainerInputs">
-              <span className="Main__Form--Inputs--Icon">
-                <ion-icon name={icon}></ion-icon>
-              </span>
-              <select
-                {...register(inputName, {
-                  required: true,
-                })}
-                className="Main__Form--Inputs ConsultantAddCV"
-                style={{
-                  fontWeight: "bold",
-                }}
-              >
-                {typeList}
-              </select>
-            </div>
-          </>
-        ))}
         <span className="Main__Form--ButtonStepsContainer">
           <button
             className="Main__Form--ButtonSubmit"

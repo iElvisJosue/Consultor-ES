@@ -26,17 +26,17 @@
 }
 .Main__Form--Steps.One {
   left: 0;
-  height: 50em;
+  height: 55em;
 }
 .Main__Form--Steps.Two {
   left: calc(-100% - 20px);
+  height: 55em;
 }
 .Main__Form--Steps.Three {
   left: calc(-200% - 40px);
 }
 .Main__Form--Steps.Four {
   left: calc(-300% - 60px);
-  height: 50em;
 }
 .Main__Form--Inputs.ConsultantAddCV {
   width: 100%;
