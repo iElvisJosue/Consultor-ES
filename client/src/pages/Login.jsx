@@ -22,7 +22,7 @@ export default function Login() {
   const handleSuccessResponse = (res) => {
     toast.success(`¡Bienvenido ${res.userName}!`);
     setTimeout(() => {
-      navigate("/Profile");
+      navigate("/Perfil");
     }, 3000);
     return;
   };
@@ -123,11 +123,11 @@ export default function Login() {
         </p>
         <span className="Main__Login--Form--Register">
           <small>
-            <a href="/ConsultantEmailVerification">Consultor</a>
+            <a href="/ConsultorVerificacionDeCorreo">Consultor</a>
           </small>
           <small>|</small>
           <small>
-            <a href="/ClientEmailVerification">Cliente</a>
+            <a href="/ClienteVerificacionDeCorreo">Cliente</a>
           </small>
         </span>
       </form>

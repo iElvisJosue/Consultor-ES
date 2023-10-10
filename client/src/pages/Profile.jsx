@@ -10,16 +10,13 @@ export default function Profile() {
   const { user } = useGlobal();
 
   const profiles = {
-    Consultant: <ConsultantProfile user={user} />,
-    Client: <ClientProfile />,
-    Admin: <AdminProfile />,
+    Consultor: <ConsultantProfile user={user} />,
+    Cliente: <ClientProfile />,
+    Administrador: <AdminProfile />,
   };
 
   return (
     <main className="Main__Profile">
-      {/* <header className="Header">
-          <button onClick={closingSession}>Cerrar sesión</button>
-        </header> */}
       {profiles[user.role]}
       <Toaster richColors position="top-right" closeButton />
     </main>

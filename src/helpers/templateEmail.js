@@ -1,6 +1,6 @@
 export const templateCodeVerification = (nameFromEmail, code, role) => {
   const roleContent = {
-    Consultant: {
+    Consultor: {
       header: `
       <p style="margin: 0; margin-bottom: 16px;"><strong>¡${nameFromEmail} </strong>hemos creado tu perfil, ya formas parte de <strong><span style="color: #5e356f;">Consultor</span><span style="color: #f9a314;">-ES</span></strong>!</p>
       <p style="margin: 0; margin-bottom: 16px;">¡Queremos que <strong>tu talento</strong> esté vigente para aquellos emprendedores y empresarios que buscan <strong>alcanzar el éxito!</strong></p>
@@ -9,7 +9,7 @@ export const templateCodeVerification = (nameFromEmail, code, role) => {
       footer: `<p style="margin: 0; margin-bottom: 16px;">En caso de no continuar tu registro dentro del plazo indicado,&nbsp;<strong>deberás solicitar un nuevo código de&nbsp;</strong><strong>verificación</strong>&nbsp;para recibir un enlace de confirmación nuevo. ¡Gracias por seguir vigente y compartir tu experiencia!</p>
       <p style="margin: 0;"><strong>¡Bienvenido!</strong></p>`,
     },
-    Client: {
+    Cliente: {
       header: `
       <p style="margin: 0; margin-bottom: 16px;">¡Hola ${nameFromEmail}, <strong>Bienvenid@!</strong></p>
       <p style="margin: 0; margin-bottom: 16px;">Como parte de la seguridad que queremos ofrecerte, te solicitamos <strong>verificar tu correo electrónico</strong>, lo que nos permitirá corroborar que eres tú quien realiza tu registro.</p>

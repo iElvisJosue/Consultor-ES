@@ -19,7 +19,6 @@ const usersModel = new mongoose.Schema({
   userName: {
     type: String,
     trim: true,
-    lowercase: true,
     default: "",
   },
   password: {

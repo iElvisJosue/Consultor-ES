@@ -33,6 +33,14 @@ export default function ConsultantAddSkill({
 
   return (
     <form onSubmit={addNewSkill} className="AddArea">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setSeeForm(false);
+        }}
+      >
+        Cerrar formulario
+      </button>
       <h1>Escribe la habilidad:</h1>
       <input {...register("nameSkill", { required: true })} />
       <button type="submit">Agregar</button>

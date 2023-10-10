@@ -19,11 +19,6 @@
   gap: 20px;
   transition: 0.5s ease-in-out all;
 }
-.Main__Form--ButtonStepsContainer {
-  width: 100%;
-  display: flex;
-  gap: 20px;
-}
 .Main__Form--Steps.One {
   left: 0;
   height: 55em;

@@ -33,7 +33,7 @@ export default function ConsultantCodeVerification({ role }) {
       } else {
         setSaving(true);
         setTimeout(() => {
-          return navigate(`/${role}RegisterData`);
+          return navigate(`/${role}RegistroDeDatos`);
         }, 2000);
       }
     } catch (error) {
@@ -43,7 +43,7 @@ export default function ConsultantCodeVerification({ role }) {
   });
 
   const codeVerificationHeaderProps = {
-    url: `./${user.data.role}EmailVerification`,
+    url: `./${user.data.role}VerificacionDeCorreo`,
     imgUrl: "./EmailEnviado.png",
     imgAlt: "Email Enviado Icon",
     title: "Verificación de Correo Electrónico. 🖐️",

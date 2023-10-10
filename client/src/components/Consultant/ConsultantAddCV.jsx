@@ -152,7 +152,7 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
         }
       }}
     >
-      <Navbar />
+      <Navbar navSection={"consultantAddCV"} />
       <div className={classStep}>
         <HeaderForm {...resumeHeaderProps} />
         {resumeInformationData.map(
@@ -211,7 +211,7 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
             </div>
           </>
         ))}
-        <span className="Main__Form--ButtonStepsContainer">
+        <span className="Main__Form--GroupButtons">
           <button
             className="Main__Form--ButtonSubmit"
             onClick={(e) => changeStep(e, "One")}
@@ -285,7 +285,7 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
             {listOfYearsExperience}
           </select>
         </span>
-        <span className="Main__Form--ButtonStepsContainer">
+        <span className="Main__Form--GroupButtons">
           <button
             className="Main__Form--ButtonSubmit"
             onClick={(e) => changeStep(e, "Two")}
@@ -375,7 +375,7 @@ export default function ConsultantAddCV({ setCheckCV, checkCV }) {
             {listOfYears}
           </select>
         </span>
-        <span className="Main__Form--ButtonStepsContainer">
+        <span className="Main__Form--GroupButtons">
           <button
             className="Main__Form--ButtonSubmit"
             onClick={(e) => changeStep(e, "Three")}

@@ -78,6 +78,14 @@ export default function ConsultantAddExperience({
 
   return (
     <form onSubmit={addNewExperience} className="AddExperience">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setSeeForm(false);
+        }}
+      >
+        Cerrar formulario
+      </button>
       <p>Puesto/Cargo:</p>
       <input type="text" {...register("position", { required: true })} />
       <p>Nombre de la empresa:</p>

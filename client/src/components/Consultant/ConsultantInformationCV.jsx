@@ -92,10 +92,6 @@ export default function ConsultantInformationCV({
   );
   const skills = getInfoSkillsCV(consultantSkills, handleDelete, deleteSkill);
 
-  const classForm = seeForm
-    ? "Main__Consultant__Profile--CV--FormLayout Show"
-    : "Main__Consultant__Profile--CV--FormLayout";
-
   const formProps = {
     setSeeForm,
     setCheckCV,
@@ -132,142 +128,146 @@ export default function ConsultantInformationCV({
   };
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: 75,
-      }}
-    >
-      <div className="Main__Consultant__Profile--Header">
-        <h2>Información personal</h2>
-        <br />
-        <picture>
-          <img
-            src="https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg"
-            alt="Esta es mi foto"
-            style={{
-              width: "125px",
-              height: "125px",
-              borderRadius: "50%",
-            }}
-          />
-        </picture>
-        <span className="Main__Consultant__Profile--Header--Information">
-          <p className="Main__Consultant__Profile--Header--Information--Name">
-            {`${consultantInformation.data.consultantInformation.name} ${consultantInformation.data.consultantInformation.lastName} ${consultantInformation.data.consultantInformation.motherLastName}`}
-          </p>
-          <p className="Main__Consultant__Profile--Header--Information--Email">
-            <ion-icon name="mail-outline"></ion-icon> {email}
-          </p>
-          <p className="Main__Consultant__Profile--Header--Information--Number">
-            <ion-icon name="call-outline"></ion-icon>{" "}
-            {`${consultantInformation.data.consultantInformation.number}`}
-          </p>
-          {consultantInformation.data.consultantInformation.LinkedIn && (
-            <a
-              href={consultantInformation.data.consultantInformation.LinkedIn}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <ion-icon name="logo-linkedin"></ion-icon> Perfil LinkedIn
-            </a>
-          )}
-        </span>
-      </div>
-      <br />
-      <hr />
-      <br />
-      <div className="Main__Consultant__Profile--Resume">
-        <h2>
-          <ion-icon name="reader-outline"></ion-icon> Resumen profesional
-        </h2>
-        <br />
-        <p>{consultantResume.profession}</p>
-        <p>{consultantResume.description}</p>
-        <button
-          onClick={() => {
-            setUpdateConfig(
-              "updateResume",
-              consultantInformation.data.consultantInformation.ownerID
-            );
+    <>
+      {seeForm ? (
+        listForms[addForm]
+      ) : (
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: 75,
           }}
         >
-          <ion-icon name="color-wand-outline"></ion-icon>
-        </button>
-      </div>
-      <br />
-      <hr />
-      <br />
-      <div className="Main__Consultant__Profile--Experience">
-        <h2>
-          <ion-icon name="business-outline"></ion-icon> Mi experiencia
-          profesional
-        </h2>
-        <br />
-        {experience}
-        <button onClick={() => seeFormConsultant("addExperience")}>
-          Agregar experiencia
-        </button>
-      </div>
-      <br />
-      <hr />
-      <br />
-      <div className="Main__Consultant__Profile--Studies">
-        <h2>
-          <ion-icon name="school-outline"></ion-icon> Mi estudios
-        </h2>
-        <br />
-        {education}
-        <button onClick={() => seeFormConsultant("addStudy")}>
-          Agregar estudios
-        </button>
-      </div>
-      <br />
-      <hr />
-      <br />
-      <div className="Main__Consultant__Profile--Areas">
-        <h2>
-          <ion-icon name="medal-outline"></ion-icon> Areas de conocimiento
-        </h2>
-        <br />
-        <p>{areas}</p>
-        <br />
-        <button onClick={() => seeFormConsultant("addArea")}>
-          Agregar areas
-        </button>
-      </div>
-      <br />
-      <hr />
-      <br />
-      <div className="Main__Consultant__Profile--Languages">
-        <h2>
-          <ion-icon name="language-outline"></ion-icon> Idiomas
-        </h2>
-        <br />
-        <p>{languages}</p>
-        <br />
-        <button onClick={() => seeFormConsultant("addLanguage")}>
-          Agregar idioma
-        </button>
-      </div>
-      <br />
-      <hr />
-      <br />
-      <div className="Main__Consultant__Profile--Skills">
-        <h2>
-          <ion-icon name="construct-outline"></ion-icon> Habilidades
-        </h2>
-        <br />
-        <p>{skills}</p>
-        <br />
-        <button onClick={() => seeFormConsultant("addSkill")}>
-          Agregar habilidad
-        </button>
-      </div>
-      <div className={classForm}>
-        <button onClick={seeFormConsultant}>Cerrar formulario</button>
-        {listForms[addForm]}
-      </div>
-    </div>
+          <div className="Main__Consultant__Profile--Header">
+            <h2>Información personal</h2>
+            <br />
+            <picture>
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg"
+                alt="Esta es mi foto"
+                style={{
+                  width: "125px",
+                  height: "125px",
+                  borderRadius: "50%",
+                }}
+              />
+            </picture>
+            <span className="Main__Consultant__Profile--Header--Information">
+              <p className="Main__Consultant__Profile--Header--Information--Name">
+                {`${consultantInformation.data.consultantInformation.name} ${consultantInformation.data.consultantInformation.lastName} ${consultantInformation.data.consultantInformation.motherLastName}`}
+              </p>
+              <p className="Main__Consultant__Profile--Header--Information--Email">
+                <ion-icon name="mail-outline"></ion-icon> {email}
+              </p>
+              <p className="Main__Consultant__Profile--Header--Information--Number">
+                <ion-icon name="call-outline"></ion-icon>{" "}
+                {`${consultantInformation.data.consultantInformation.number}`}
+              </p>
+              {consultantInformation.data.consultantInformation.LinkedIn && (
+                <a
+                  href={
+                    consultantInformation.data.consultantInformation.LinkedIn
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ion-icon name="logo-linkedin"></ion-icon> Perfil LinkedIn
+                </a>
+              )}
+            </span>
+          </div>
+          <br />
+          <hr />
+          <br />
+          <div className="Main__Consultant__Profile--Resume">
+            <h2>
+              <ion-icon name="reader-outline"></ion-icon> Resumen profesional
+            </h2>
+            <br />
+            <p>{consultantResume.profession}</p>
+            <p>{consultantResume.description}</p>
+            <button
+              onClick={() => {
+                setUpdateConfig(
+                  "updateResume",
+                  consultantInformation.data.consultantInformation.ownerID
+                );
+              }}
+            >
+              <ion-icon name="color-wand-outline"></ion-icon>
+            </button>
+          </div>
+          <br />
+          <hr />
+          <br />
+          <div className="Main__Consultant__Profile--Experience">
+            <h2>
+              <ion-icon name="business-outline"></ion-icon> Mi experiencia
+              profesional
+            </h2>
+            <br />
+            {experience}
+            <button onClick={() => seeFormConsultant("addExperience")}>
+              Agregar experiencia
+            </button>
+          </div>
+          <br />
+          <hr />
+          <br />
+          <div className="Main__Consultant__Profile--Studies">
+            <h2>
+              <ion-icon name="school-outline"></ion-icon> Mi estudios
+            </h2>
+            <br />
+            {education}
+            <button onClick={() => seeFormConsultant("addStudy")}>
+              Agregar estudios
+            </button>
+          </div>
+          <br />
+          <hr />
+          <br />
+          <div className="Main__Consultant__Profile--Areas">
+            <h2>
+              <ion-icon name="medal-outline"></ion-icon> Areas de conocimiento
+            </h2>
+            <br />
+            <p>{areas}</p>
+            <br />
+            <button onClick={() => seeFormConsultant("addArea")}>
+              Agregar areas
+            </button>
+          </div>
+          <br />
+          <hr />
+          <br />
+          <div className="Main__Consultant__Profile--Languages">
+            <h2>
+              <ion-icon name="language-outline"></ion-icon> Idiomas
+            </h2>
+            <br />
+            <p>{languages}</p>
+            <br />
+            <button onClick={() => seeFormConsultant("addLanguage")}>
+              Agregar idioma
+            </button>
+          </div>
+          <br />
+          <hr />
+          <br />
+          <div className="Main__Consultant__Profile--Skills">
+            <h2>
+              <ion-icon name="construct-outline"></ion-icon> Habilidades
+            </h2>
+            <br />
+            <p>{skills}</p>
+            <br />
+            <button onClick={() => seeFormConsultant("addSkill")}>
+              Agregar habilidad
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

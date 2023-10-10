@@ -23,40 +23,40 @@ export default function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/About" element={<About />} />
-              <Route path="/Login" element={<Login />} />
-              <Route path="/WhyConsultant" element={<WhyConsultant />} />
+              <Route path="/IniciarSesion" element={<Login />} />
+              <Route path="/QuienesSomos" element={<About />} />
+              <Route path="/ParaQueUnConsultor" element={<WhyConsultant />} />
               <Route
-                path="/ConsultantEmailVerification"
-                element={<EmailVerification role="Consultant" />}
+                path="/ConsultorVerificacionDeCorreo"
+                element={<EmailVerification role="Consultor" />}
               />
               <Route
-                path="/ClientEmailVerification"
-                element={<EmailVerification role="Client" />}
+                path="/ClienteVerificacionDeCorreo"
+                element={<EmailVerification role="Cliente" />}
               />
 
               <Route element={<ProtectedByCookies />}>
                 <Route element={<ProtectedForConsultants />}>
                   <Route
-                    path="/ConsultantCodeVerification"
-                    element={<CodeVerification role="Consultant" />}
+                    path="/ConsultorCodigoDeVerificacion"
+                    element={<CodeVerification role="Consultor" />}
                   />
                   <Route
-                    path="/ConsultantRegisterData"
-                    element={<RegisterData role="Consultant" />}
+                    path="/ConsultorRegistroDeDatos"
+                    element={<RegisterData role="Consultor" />}
                   />
                 </Route>
                 <Route element={<ProtectedForClients />}>
                   <Route
-                    path="/ClientCodeVerification"
-                    element={<CodeVerification role="Client" />}
+                    path="/ClienteCodigoDeVerificacion"
+                    element={<CodeVerification role="Cliente" />}
                   />
                   <Route
-                    path="/ClientRegisterData"
-                    element={<RegisterData role="Client" />}
+                    path="/ClienteRegistroDeDatos"
+                    element={<RegisterData role="Cliente" />}
                   />
                 </Route>
-                <Route path="/Profile" element={<Profile />} />
+                <Route path="/Perfil" element={<Profile />} />
               </Route>
             </Routes>
           </BrowserRouter>

@@ -7,7 +7,7 @@ export default function ProtectedRoutes() {
 
   if (loading) return <Loader />;
   if (!loading && !hasCookie) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/IniciarSesion" replace />;
   }
 
   return <Outlet />;

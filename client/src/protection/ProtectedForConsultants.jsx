@@ -22,9 +22,9 @@ export default function ProtectedForClients() {
   // TODO: COMPROBAR QUE EL USUARIO TENGA EL CORREO VERIFICADO
   if (role) {
     if (loading) return <h1>Loading...</h1>;
-    if (!loading && !isLogin && role === "Consultant") {
+    if (!loading && !isLogin && role === "Consultor") {
       return <Outlet />;
     }
-    return <Navigate to="/Login" replace />;
+    return <Navigate to="/IniciarSesion" replace />;
   }
 }

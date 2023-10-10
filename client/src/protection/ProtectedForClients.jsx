@@ -21,9 +21,9 @@ export default function ProtectedForClients() {
 
   if (role) {
     if (loading) return <h1>Loading...</h1>;
-    if (!loading && !isLogin && role === "Client") {
+    if (!loading && !isLogin && role === "Cliente") {
       return <Outlet />;
     }
-    return <Navigate to="/Login" replace />;
+    return <Navigate to="/IniciarSesion" replace />;
   }
 }

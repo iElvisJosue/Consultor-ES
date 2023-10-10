@@ -35,7 +35,6 @@ export default function ConsultantRegisterData({ role }) {
   const { iconInputPassword, changeInputPassword } = ShowPassword();
 
   const [termsAccepted, setTermsAccepted] = useState(false);
-  // const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const cookieName = "accessToken";
@@ -44,7 +43,7 @@ export default function ConsultantRegisterData({ role }) {
     setLoading(true);
     setTimeout(() => {
       Cookies.remove(cookieName);
-      navigate("/Login");
+      navigate("/IniciarSesion");
     }, 2000);
   };
 
@@ -72,11 +71,11 @@ export default function ConsultantRegisterData({ role }) {
 
   const registerData = async (data) => {
     try {
-      if (role === "Consultant") {
+      if (role === "Consultor") {
         const res = await registerConsultant(data);
         checkResult(res);
       }
-      if (role === "Client") {
+      if (role === "Cliente") {
         const res = await registerClient(data);
         checkResult(res);
       }
@@ -96,7 +95,7 @@ export default function ConsultantRegisterData({ role }) {
   };
 
   const registerDataHeaderProps = {
-    url: `./${user.data.role}CodeVerification`,
+    url: `./${user.data.role}CodigoDeVerificacion`,
     imgUrl: "./InformacionPersonal.png",
     imgAlt: "Información personal Logo",
     title: "Ingresa tus datos personales para finalizar tu registro. ✍️",
@@ -148,7 +147,7 @@ export default function ConsultantRegisterData({ role }) {
   ];
 
   const registerInformationData = {
-    Consultant: [
+    Consultor: [
       ...sharedFields,
       {
         icon: "logo-linkedin",
@@ -158,7 +157,7 @@ export default function ConsultantRegisterData({ role }) {
         required: false,
       },
     ],
-    Client: [
+    Cliente: [
       ...sharedFields,
       {
         icon: "business-outline",
@@ -221,15 +220,18 @@ export default function ConsultantRegisterData({ role }) {
         >
           <HeaderForm {...registerDataHeaderProps} />
           {registerInformationData[role].map(
-            ({
-              icon,
-              inputType,
-              inputName,
-              messageError,
-              placeholder,
-              required = true,
-              typeList,
-            }) => {
+            (
+              {
+                icon,
+                inputType,
+                inputName,
+                messageError,
+                placeholder,
+                required = true,
+                typeList,
+              },
+              index
+            ) => {
               const commonInputProps = {
                 type: inputType,
                 ...register(inputName, { required: required }),
@@ -239,7 +241,7 @@ export default function ConsultantRegisterData({ role }) {
 
               return (
                 <>
-                  <div className="Main__Form--ContainerInputs">
+                  <div className="Main__Form--ContainerInputs" key={index}>
                     <span className="Main__Form--Inputs--Icon">
                       <ion-icon name={icon}></ion-icon>
                     </span>
@@ -289,6 +291,7 @@ export default function ConsultantRegisterData({ role }) {
               checked={termsAccepted}
               onChange={() => setTermsAccepted(!termsAccepted)}
               className="Main__Form--Terms--Checkbox"
+              name="TyC"
             />
             <a
               href="./TyC.pdf"

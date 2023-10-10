@@ -33,7 +33,7 @@ export default function ConsultantEmailVerification({ role }) {
           handleResponseMessages({ status, data });
         }
       } else {
-        navigate(`/${role}CodeVerification`);
+        navigate(`/${role}CodigoDeVerificacion`);
       }
     } catch (error) {
       const { status, data } = error.response;
@@ -42,7 +42,7 @@ export default function ConsultantEmailVerification({ role }) {
   });
 
   const emailVerificationHeaderProps = {
-    url: "./Login",
+    url: "./IniciarSesion",
     imgUrl: "./EnviarEmail.png",
     imgAlt: "Enviar Email Icon",
     title: "Verificación de Correo Electrónico. 🖐️",
@@ -72,6 +72,7 @@ export default function ConsultantEmailVerification({ role }) {
             {...register("email", { required: true })}
             className="Main__Form--Inputs EmailVerification"
             placeholder="Correo"
+            autoComplete="on"
           />
         </div>
         {errors.email && (

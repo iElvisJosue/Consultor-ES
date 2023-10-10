@@ -79,6 +79,14 @@ export default function ConsultantAddStudy({
 
   return (
     <form onSubmit={addNewStudy} className="AddStudy">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setSeeForm(false);
+        }}
+      >
+        Cerrar formulario
+      </button>
       <p>Nombre de la institución:</p>
       <input type="text" {...register("institution", { required: true })} />
       {errors.institution && (

@@ -20,7 +20,10 @@ export default function Header() {
         </a>
         <ul className="Main__Header--Menu">
           <li className="Main__Header--Menu--Item">
-            <a href="/WhyConsultant" className="Main__Header--Menu--Item--Link">
+            <a
+              href="/ParaQueUnConsultor"
+              className="Main__Header--Menu--Item--Link"
+            >
               ¿Para qué un consultor?
             </a>
           </li>
@@ -35,7 +38,7 @@ export default function Header() {
             </a>
           </li>
           <li className="Main__Header--Menu--Item">
-            <a href="/About" className="Main__Header--Menu--Item--Link">
+            <a href="/QuienesSomos" className="Main__Header--Menu--Item--Link">
               ¿Quienes somos?
             </a>
           </li>
@@ -45,7 +48,7 @@ export default function Header() {
             </a>
           </li>
           <li className="Main__Header--Menu--Item">
-            <a href="/Login" className="Main__Header--Menu--Item--Link">
+            <a href="/IniciarSesion" className="Main__Header--Menu--Item--Link">
               Iniciar sesión
             </a>
           </li>

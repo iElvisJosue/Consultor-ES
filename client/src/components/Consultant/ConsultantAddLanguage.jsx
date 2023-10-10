@@ -33,6 +33,14 @@ export default function ConsultantAddLanguage({
 
   return (
     <form onSubmit={addNewLanguage} className="AddLanguage">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setSeeForm(false);
+        }}
+      >
+        Cerrar formulario
+      </button>
       <h1>Selecciona el idioma y tu nivel:</h1>
       <select {...register("nameLanguage", { required: true })}>
         {listOfLanguages}

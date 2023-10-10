@@ -50,7 +50,23 @@ export default function ConsultantUpdateResume({
   });
 
   return (
-    <form onSubmit={updateResumeConsultant} className="UpdateResume">
+    <form
+      onSubmit={updateResumeConsultant}
+      className="UpdateResume"
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+        }
+      }}
+    >
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setSeeForm(false);
+        }}
+      >
+        Cerrar formulario
+      </button>
       <h1>Resumen de tu perfil profesional</h1>
       <p>Título breve de tu profesión:</p>
       <input type="text" {...register("profession", { required: true })} />

@@ -16,10 +16,10 @@ const error500 =
   "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde.";
 
 const EMAIL_TEMPLATES = {
-  Consultant: {
+  Consultor: {
     subject: "¡Bienvenido a Consultor-ES!",
   },
-  Client: {
+  Cliente: {
     subject: "¡Ya puedes disponer de el mejor talento Senior",
   },
 };

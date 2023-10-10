@@ -5,7 +5,7 @@ a {
 input {
   accent-color: var(--MainYellow);
 }
-/* CLASES GENERALES */
+/* CLASES GENERALES PARA LOS FORMULARIOS */
 .Main__Form {
   position: relative;
   background: var(--White);
@@ -139,3 +139,21 @@ input {
   gap: 10px;
   width: 100%;
 }
+.Main__Form--GroupButtons {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+/* CLASES GENERALES PARA LA MUESTRA DE INFORMACIÓN
+.Main__DataView {
+  padding-top: 75px;
+  min-height: 100vh;
+  height: auto;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+} */

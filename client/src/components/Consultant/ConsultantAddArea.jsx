@@ -30,6 +30,14 @@ export default function ConsultantAddArea({ setCheckCV, checkCV, setSeeForm }) {
 
   return (
     <form onSubmit={addNewArea} className="AddArea">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setSeeForm(false);
+        }}
+      >
+        Cerrar formulario
+      </button>
       <h1>Selecciona tus areas de especialidad:</h1>
       <select {...register("nameArea", { required: true })}>
         {listOfSpecialtiesAreas}
