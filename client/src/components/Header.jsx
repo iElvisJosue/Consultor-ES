@@ -62,9 +62,9 @@ export default function Header() {
       </header>
       <div className={classMenu}>
         <button onClick={() => setShowMenu(!showMenu)}>Cerrar</button>
-        <a href="/About">¿Quienes somos?</a>
-        <a href="/WhyConsultant">¿Para qué un consultor?</a>
-        <a href="/Login">Iniciar sesión</a>
+        <a href="/QuienesSomos">¿Quienes somos?</a>
+        <a href="/ParaQueUnConsultor">¿Para qué un consultor?</a>
+        <a href="/IniciarSesion">Iniciar sesión</a>
       </div>
     </>
   );
