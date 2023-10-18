@@ -1,3 +1,5 @@
+// IMPORTAMOS EL MODELOS DE LOS USUARIOS
+import userModel from "../models/users.model.js";
 // IMPORTAMOS EL MODELO DE LOS DATOS DEL CONSULTOR
 import consultantProfileModel from "../models/consultants/consultant.model.js";
 // IMPORTAMOS EL MODELO DEL RESUMEN DE CV
@@ -21,7 +23,6 @@ import clientProfileModel from "../models/clients/client.model.js";
 const error500 =
   "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde.";
 
-// ERRORES LISTOS
 export const registerDataConsultant = async (req, res) => {
   try {
     // OBTENEMOS LOS DATOS A ALMACENAR
@@ -63,7 +64,6 @@ export const registerDataConsultant = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const getInformationConsultant = async (req, res) => {
   try {
     const consultantInformation = await consultantProfileModel.findOne({
@@ -115,35 +115,76 @@ export const getInformationConsultant = async (req, res) => {
     res.status(500).json(["ERROR AL OBTENER LA INFORMACIÓN DEL CONSULTOR"]);
   }
 };
+export const updateDataConsultant = async (req, res) => {
+  try {
+    const { name, lastName, motherLastName, number, LinkedIn } = req.body;
+
+    await consultantProfileModel.updateOne(
+      { ownerID: req.user._id },
+      {
+        $set: {
+          name: name,
+          lastName: lastName,
+          motherLastName: motherLastName,
+          number: number,
+          LinkedIn: LinkedIn,
+        },
+      }
+    );
+
+    res.send("Tu información personal ha sido actualizada correctamente.");
+  } catch (error) {
+    res.status(500).json(error500);
+  }
+};
 export const getProjectsAvailableConsultant = async (req, res) => {
   const dataAreas = Object.values(req.body);
 
   try {
-    const projectInformation = await Promise.all(
+    const projectInformationUnfiltered = await Promise.all(
       dataAreas.map(async ({ nameArea }) => {
-        const result = await clientProjectsModel.find({
-          areaProject: nameArea,
-          isDeleted: false,
-          isCompleted: false,
-        });
+        const result = await clientProjectsModel
+          .find({
+            areaProject: nameArea,
+            isDeleted: false,
+            isCompleted: false,
+          })
+          .select(
+            "_id nameProject detailsProject areaProject timeProject paymentProject ownerID"
+          );
         return result;
       })
     );
-    const projectInformationFiltered = projectInformation.flat();
-    if (projectInformationFiltered.length > 0) {
-      const clientInformation = await Promise.all(
-        projectInformationFiltered.map(async ({ ownerID }) => {
-          const result = await clientProfileModel.findOne({
-            ownerID: ownerID,
-          });
-          return result;
+    const projectInformation = projectInformationUnfiltered.flat();
+    if (projectInformation.length > 0) {
+      const allProjectInformation = await Promise.all(
+        projectInformation.map(async ({ ownerID }, index) => {
+          const resultClientInformation = await clientProfileModel
+            .findOne({
+              ownerID: ownerID,
+            })
+            .select("name lastName motherLastName picture number");
+          const resultUserInformation = await userModel
+            .findOne({
+              _id: ownerID,
+            })
+            .select("email");
+          return {
+            idProject: projectInformation[index]._id,
+            nameProject: projectInformation[index].nameProject,
+            detailsProject: projectInformation[index].detailsProject,
+            timeProject: projectInformation[index].timeProject,
+            areaProject: projectInformation[index].areaProject,
+            paymentProject: projectInformation[index].paymentProject,
+            nameClient: resultClientInformation.name,
+            lastNameClient: resultClientInformation.lastName,
+            motherLastNameClient: resultClientInformation.motherLastName,
+            pictureClient: resultClientInformation.picture,
+            emailClient: resultUserInformation.email,
+          };
         })
       );
-      const projectClientInformation = {
-        clientInformation,
-        projectInformation: projectInformationFiltered,
-      };
-      res.send(projectClientInformation);
+      res.send(allProjectInformation);
     } else {
       res.send(["NO HAY PROYECTOS"]);
     }
@@ -151,7 +192,6 @@ export const getProjectsAvailableConsultant = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const createResumeCV = async (req, res) => {
   try {
     const {
@@ -222,7 +262,6 @@ export const createResumeCV = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const updateResume = async (req, res) => {
   try {
     const { profession, description } = req.body;
@@ -242,7 +281,6 @@ export const updateResume = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const updateCVIsDone = async (req, res) => {
   await consultantProfileModel.updateOne(
     { ownerID: req.user._id },
@@ -252,7 +290,6 @@ export const updateCVIsDone = async (req, res) => {
     }
   );
 };
-// ERRORES LISTOS
 export const addNewExperience = async (req, res) => {
   try {
     const {
@@ -283,7 +320,6 @@ export const addNewExperience = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const updateExperience = async (req, res) => {
   try {
     const {
@@ -319,7 +355,6 @@ export const updateExperience = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const deleteExperience = async (req, res) => {
   try {
     await consultantExperienceModel.deleteOne({
@@ -332,7 +367,6 @@ export const deleteExperience = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const addNewStudy = async (req, res) => {
   try {
     const {
@@ -363,7 +397,6 @@ export const addNewStudy = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const updateStudy = async (req, res) => {
   try {
     const {
@@ -399,7 +432,6 @@ export const updateStudy = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const deleteStudy = async (req, res) => {
   try {
     await consultantEducationModel.deleteOne({
@@ -413,7 +445,6 @@ export const deleteStudy = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const addNewArea = async (req, res) => {
   try {
     const { nameArea } = req.body;
@@ -442,7 +473,6 @@ export const addNewArea = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const deleteArea = async (req, res) => {
   try {
     await consultantAreasModel.deleteOne({
@@ -455,7 +485,6 @@ export const deleteArea = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const addNewLanguage = async (req, res) => {
   try {
     const { nameLanguage, levelLanguage } = req.body;
@@ -487,7 +516,6 @@ export const addNewLanguage = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const deleteLanguage = async (req, res) => {
   try {
     await consultantLanguagesModel.deleteOne({
@@ -500,7 +528,6 @@ export const deleteLanguage = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const addNewSkill = async (req, res) => {
   try {
     const { nameSkill } = req.body;
@@ -531,7 +558,6 @@ export const addNewSkill = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const deleteSkill = async (req, res) => {
   try {
     await consultantSkillsModel.deleteOne({
@@ -544,7 +570,6 @@ export const deleteSkill = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const registerDataBank = async (req, res) => {
   try {
     const { account, bank, name, RFC, country, address } = req.body;
@@ -570,7 +595,6 @@ export const registerDataBank = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const updateDataBank = async (req, res) => {
   try {
     const { account, bank, name, RFC, country, address } = req.body;

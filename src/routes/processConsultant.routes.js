@@ -7,6 +7,7 @@ import {
   getInformationConsultant,
   getProjectsAvailableConsultant,
   registerDataConsultant,
+  updateDataConsultant,
   registerDataBank,
   createResumeCV,
   updateCVIsDone,
@@ -41,6 +42,15 @@ router.post(
   emailIsVerified,
   validateData(dataConsultant),
   registerDataConsultant
+);
+
+// RUTA PARA ACTUALIZAR LOS DATOS DEL CONSULTOR
+router.put(
+  "/updateDataConsultant",
+  authRequired,
+  emailIsVerified,
+  validateData(dataConsultant),
+  updateDataConsultant
 );
 
 // RUTA PARA OBTENER LOS DATOS DEL USUARIO

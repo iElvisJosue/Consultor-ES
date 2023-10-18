@@ -34,24 +34,29 @@ const generateCode = () => {
 const sendEmail = async (toEmail, code, role) => {
   const nameFromEmail = toEmail.split("@")[0];
 
-  await transporter.sendMail({
-    from: process.env.EMAIL,
-    to: toEmail,
-    subject: `${EMAIL_TEMPLATES[role].subject}`,
-    html: templateCodeVerification(nameFromEmail, code, role),
-    attachments: [
-      {
-        filename: "EmailHeader.jpg",
-        path: "./public/EmailHeader.jpg",
-        cid: "EmailHeader",
-      },
-      {
-        filename: "EmailFooter.jpg",
-        path: "./public/EmailFooter.jpg",
-        cid: "EmailFooter",
-      },
-    ],
-  });
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: toEmail,
+      subject: `${EMAIL_TEMPLATES[role].subject}`,
+      html: templateCodeVerification(nameFromEmail, code, role),
+      attachments: [
+        {
+          filename: "EmailHeader.jpg",
+          path: "./public/EmailHeader.jpg",
+          cid: "EmailHeader",
+        },
+        {
+          filename: "EmailFooter.jpg",
+          path: "./public/EmailFooter.jpg",
+          cid: "EmailFooter",
+        },
+      ],
+    });
+    console.log("CORREO ENVIADO");
+  } catch (error) {
+    console.log("HUBO UN ERROR AL ENVIAR EL CORREO");
+  }
 };
 // ERRORES LISTOS
 const registerAndSendVerificationCode = async (res, email, role) => {
