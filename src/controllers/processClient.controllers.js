@@ -19,7 +19,6 @@ import consultantSkillsModel from "../models/consultants/consultantSkills.model.
 const error500 =
   "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde.";
 
-// ERRORES LISTOS
 export const registerDataClient = async (req, res) => {
   try {
     const {
@@ -75,6 +74,27 @@ export const registerDataClient = async (req, res) => {
     res.status(500).json(error500);
   }
 };
+export const updateDataClient = async (req, res) => {
+  try {
+    const { name, lastName, motherLastName, number } = req.body;
+
+    await clientProfileModel.updateOne(
+      { ownerID: req.user._id },
+      {
+        $set: {
+          name: name,
+          lastName: lastName,
+          motherLastName: motherLastName,
+          number: number,
+        },
+      }
+    );
+
+    res.send("Tu información personal ha sido actualizada correctamente.");
+  } catch (error) {
+    res.status(500).json(error500);
+  }
+};
 export const getInformationClient = async (req, res) => {
   try {
     const dataClient = await clientProfileModel.findOne({
@@ -93,16 +113,22 @@ export const getInformationClient = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const addNewProject = async (req, res) => {
   try {
-    const { nameProject, detailsProject, timeProject, areaProject } = req.body;
+    const {
+      nameProject,
+      detailsProject,
+      timeProject,
+      areaProject,
+      paymentProject,
+    } = req.body;
 
     const projectDetails = {
       nameProject,
       detailsProject,
       timeProject,
       areaProject,
+      paymentProject,
       ownerID: req.user._id,
     };
 
@@ -111,13 +137,12 @@ export const addNewProject = async (req, res) => {
     await newProject.save();
 
     res.send(
-      "¡Tu proyecto ha sido agregado exitosamente! Siempre puedes consultar tus proyectos en esta sección."
+      "¡Tu proyecto ha sido agregado exitosamente! Te deseamos un gran éxito."
     );
   } catch (error) {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const deleteProject = async (req, res) => {
   try {
     const { idProject } = req.body;
@@ -137,7 +162,6 @@ export const deleteProject = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const completedProject = async (req, res) => {
   try {
     const { idProject } = req.body;
@@ -232,6 +256,36 @@ export const getConsultantsAvailableForProject = async (req, res) => {
     } else {
       res.send(["NO HAY PROYECTOS"]);
     }
+  } catch (error) {
+    res.status(500).json(error500);
+  }
+};
+export const updateDataBusinessClient = async (req, res) => {
+  try {
+    const {
+      businessName,
+      estimatedValue,
+      helpMe,
+      serviceArea,
+      businessSector,
+      challenges,
+    } = req.body;
+
+    await clientProfileModel.updateOne(
+      { ownerID: req.user._id },
+      {
+        $set: {
+          businessName: businessName,
+          estimatedValue: estimatedValue,
+          helpMe: helpMe,
+          serviceArea: serviceArea,
+          businessSector: businessSector,
+          challenges: challenges,
+        },
+      }
+    );
+
+    res.send("Tu información personal ha sido actualizada correctamente.");
   } catch (error) {
     res.status(500).json(error500);
   }

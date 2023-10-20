@@ -8,10 +8,12 @@ import { sendEmailVerificationCode } from "../controllers/global.controllers.js"
 import {
   registerDataClient,
   getInformationClient,
+  updateDataClient,
   getConsultantsAvailableForProject,
   addNewProject,
   deleteProject,
   completedProject,
+  updateDataBusinessClient,
 } from "../controllers/processClient.controllers.js";
 // IMPORTAMOS EL MIDDLEWARE PARA VERIFICAR QUE TENGAS UN TOKEN DE ACCESO
 import { authRequired } from "../middlewares/validateToken.js";
@@ -40,6 +42,22 @@ router.post(
   emailIsVerified,
   validateData(dataClient),
   registerDataClient
+);
+
+// RUTA PARA ACTUALIZAR LOS DATOS DEL CLIENTE
+router.put(
+  "/updateDataClient",
+  authRequired,
+  emailIsVerified,
+  updateDataClient
+);
+
+// RUTA PARA ACTUALIZAR LOS DATOS DE NEGOCIOS DE EL CLIENTE
+router.put(
+  "/updateDataBusinessClient",
+  authRequired,
+  emailIsVerified,
+  updateDataBusinessClient
 );
 
 // RUTA PARA OBTENER LOS CONSULTORES DISPONIBLES PARA UN PROYECTO
