@@ -21,7 +21,7 @@
 .Main__About__Presentation--Content--Image {
   position: relative;
   width: 100%;
-  background-image: url("../../public/CEO.png");
+  background-image: url("/CEO.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

@@ -22,19 +22,19 @@
   background-size: cover;
 }
 .Main__HaveProject__Message--Picture.One {
-  background-image: url("../../public/TienesUnProyectoReto.jpg");
+  background-image: url("/TienesUnProyectoReto.jpg");
   background-position: top;
 }
 .Main__HaveProject__Message--Picture.Two {
-  background-image: url("../../public/TienesUnProyectoGarantia.jpg");
+  background-image: url("/TienesUnProyectoGarantia.jpg");
   background-position: center;
 }
 .Main__HaveProject__Message--Picture.Three {
-  background-image: url("../../public/TienesUnProyectoEfectividad.jpg");
+  background-image: url("/TienesUnProyectoEfectividad.jpg");
   background-position: center;
 }
 .Main__HaveProject__Message--Picture.Four {
-  background-image: url("../../public/TienesUnProyectoAsesores.jpg");
+  background-image: url("/TienesUnProyectoAsesores.jpg");
   background-position: center;
 }
 @media (width <= 768px) {

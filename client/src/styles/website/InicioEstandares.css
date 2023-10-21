@@ -5,7 +5,7 @@
   background-position: center;
 }
 .Main__Home__Standards--Picture {
-  background-image: url("../../public/Estandares.jpg");
+  background-image: url("/Estandares.jpg");
 }
 .Main__Home__Standards--Details {
   width: 100%;

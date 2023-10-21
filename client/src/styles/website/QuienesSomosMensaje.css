@@ -5,7 +5,7 @@
 }
 .Main__About__Message--Picture {
   height: 400px;
-  background-image: url("../../../public/AboutTalent.png");
+  background-image: url("/AboutTalent.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

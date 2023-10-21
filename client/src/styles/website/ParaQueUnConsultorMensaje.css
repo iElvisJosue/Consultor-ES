@@ -23,10 +23,10 @@
   background-position: bottom;
 }
 .Main__WhyConsultant__Message--Picture.One {
-  background-image: url("../../public/WhyConsultantMessage.jpg");
+  background-image: url("/WhyConsultantMessage.jpg");
 }
 .Main__WhyConsultant__Message--Picture.Two {
-  background-image: url("../../public/WhyConsultantManagement.jpg");
+  background-image: url("/WhyConsultantManagement.jpg");
   background-position: center;
 }
 @media (width <= 768px) {

@@ -37,10 +37,10 @@
   background-position: center;
 }
 .Main__About__Information.One .Main__About__Information--Picture {
-  background-image: url("../../public/AboutInformation.jpg");
+  background-image: url("/AboutInformation.jpg");
 }
 .Main__About__Information.Two .Main__About__Information--Picture {
-  background-image: url("../../public/Contacto.jpg");
+  background-image: url("/Contacto.jpg");
 }
 .Main__About__Information--Details {
   width: 100%;

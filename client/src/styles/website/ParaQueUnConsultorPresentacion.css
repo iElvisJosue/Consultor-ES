@@ -20,7 +20,7 @@
 .Main__WhyConsultant__Presentation__Content--Image {
   width: 100%;
   height: 600px;
-  background-image: url("../../public/WhyConsultantPresentation.jpg");
+  background-image: url("/WhyConsultantPresentation.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

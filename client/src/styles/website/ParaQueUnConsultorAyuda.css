@@ -2,7 +2,7 @@
 .Main__WhyConsultant__Help--Picture--Right {
   min-width: 250px;
   height: 600px;
-  background-image: url("../../public/WhyConsultantHelped.jpg");
+  background-image: url("/WhyConsultantHelped.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left;

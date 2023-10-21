@@ -53,7 +53,7 @@
 }
 .Main__WantConsultant__Presentation--Content--Image {
   width: 100%;
-  background-image: url("../../public/WhyConsultantPresentation.jpg");
+  background-image: url("/WhyConsultantPresentation.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

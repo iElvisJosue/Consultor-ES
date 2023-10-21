@@ -16,7 +16,7 @@
   background-position: center;
 }
 .Main__Home__ContactMessage--Picture {
-  background-image: url("../../public/Contacto.jpg");
+  background-image: url("/Contacto.jpg");
 }
 @media (width <= 768px) {
   .Main__Home__ContactMessage--Picture {

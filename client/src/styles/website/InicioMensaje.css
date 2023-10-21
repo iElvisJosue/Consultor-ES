@@ -5,7 +5,7 @@
 }
 .Main__Home__Message--Picture {
   height: 400px;
-  background-image: url("../../public/Mensaje.jpg");
+  background-image: url("/Mensaje.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

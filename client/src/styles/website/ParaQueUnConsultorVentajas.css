@@ -18,7 +18,7 @@
 .Main__WhyConsultant__Advantages--Picture {
   width: 100%;
   height: 600px;
-  background-image: url("../../public/Estandares.jpg");
+  background-image: url("/Estandares.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom;

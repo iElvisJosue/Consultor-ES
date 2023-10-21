@@ -53,7 +53,7 @@
 }
 .Main__Home__Presentation__Content--Image {
   width: 100%;
-  background-image: url("../../public/Presentation.jpg");
+  background-image: url("/Presentation.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

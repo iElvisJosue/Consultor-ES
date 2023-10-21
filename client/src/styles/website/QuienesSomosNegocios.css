@@ -2,7 +2,7 @@
 .Main__About__Business--Picture--Left,
 .Main__About__Business--Picture--Right {
   min-width: 150px;
-  background-image: url("../../public/AboutBusiness.jpg");
+  background-image: url("/AboutBusiness.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left;

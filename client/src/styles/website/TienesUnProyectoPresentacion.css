@@ -53,7 +53,7 @@
 }
 .Main__HaveProject__Presentation--Content--Image {
   width: 100%;
-  background-image: url("../../public/TienesUnProyectoPresentacion.jpg");
+  background-image: url("/TienesUnProyectoPresentacion.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

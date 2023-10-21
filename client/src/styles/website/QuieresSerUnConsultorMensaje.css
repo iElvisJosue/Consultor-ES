@@ -23,19 +23,19 @@
   background-size: cover;
 }
 .Main__WantConsultant__Message--Picture.One {
-  background-image: url("../../public/WhyConsultantInnovation.jpg");
+  background-image: url("/WhyConsultantInnovation.jpg");
   background-position: center;
 }
 .Main__WantConsultant__Message--Picture.Two {
-  background-image: url("../../public/WhyConsultantMessage.jpg");
+  background-image: url("/WhyConsultantMessage.jpg");
   background-position: bottom;
 }
 .Main__WantConsultant__Message--Picture.Three {
-  background-image: url("../../public/TienesUnProyectoEfectividad.jpg");
+  background-image: url("/TienesUnProyectoEfectividad.jpg");
   background-position: center;
 }
 .Main__WantConsultant__Message--Picture.Four {
-  background-image: url("../../public/WhyConsultantManagement.jpg");
+  background-image: url("/WhyConsultantManagement.jpg");
   background-position: center;
 }
 @media (width <= 768px) {

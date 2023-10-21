@@ -7,11 +7,11 @@
   background-position: left;
 }
 .Main__HaveProject__Steps--Picture--Left {
-  background-image: url("../../public/TienesUnProyectoPasosIzquierda.jpg");
+  background-image: url("/TienesUnProyectoPasosIzquierda.jpg");
 }
 .Main__HaveProject__Steps--Picture--Right {
   background-position: center;
-  background-image: url("../../public/TienesUnProyectoPasosDerecha.jpg");
+  background-image: url("/TienesUnProyectoPasosDerecha.jpg");
 }
 .Main__HaveProject__Steps--Content {
   width: 100%;
