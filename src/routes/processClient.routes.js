@@ -11,6 +11,7 @@ import {
   updateDataClient,
   getConsultantsAvailableForProject,
   addNewProject,
+  updateProject,
   deleteProject,
   completedProject,
   updateDataBusinessClient,
@@ -72,6 +73,9 @@ router.get("/getInformationClient", authRequired, getInformationClient);
 
 // RUTA PARA AGREGAR UN NUEVO PROYECTO
 router.post("/addNewProject", authRequired, addNewProject);
+
+// RUTA PARA ACTUALIZAR UN PROYECTO
+router.put("/updateProject", authRequired, updateProject);
 
 // RUTA PARA ELIMINAR UN PROYECTO
 router.put("/deleteProject", authRequired, deleteProject);
