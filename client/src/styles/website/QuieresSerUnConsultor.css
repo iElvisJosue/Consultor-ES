@@ -1,0 +1,50 @@
+.Main__WantConsultant__Presentation,
+.Main__WantConsultant__Message,
+.Main__WantConsultant__Benefits,
+.Main__WantConsultant__Capacity,
+.Main__WantConsultant__Position {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__WantConsultant__Presentation,
+.Main__WantConsultant__Benefits,
+.Main__WantConsultant__Capacity,
+.Main__WantConsultant__Position {
+  flex-direction: row;
+}
+.Main__WantConsultant__Presentation,
+.Main__WantConsultant__Message,
+.Main__WantConsultant__Benefits,
+.Main__WantConsultant__Capacity,
+.Main__WantConsultant__Position {
+  gap: 20px;
+  padding: 40px 0;
+}
+
+/* DISEÑO PARA CELULARES */
+@media (width <= 1470px) {
+  .Main__WantConsultant__Presentation,
+  .Main__WantConsultant__Benefits,
+  .Main__WantConsultant__Message,
+  .Main__WantConsultant__Capacity,
+  .Main__WantConsultant__Position {
+    width: 100%;
+  }
+  .Main__WantConsultant__Benefits,
+  .Main__WantConsultant__Message,
+  .Main__WantConsultant__Capacity,
+  .Main__WantConsultant__Position {
+    padding: 40px 20px;
+  }
+}
+@media (width <= 768px) {
+  .Main__WantConsultant__Benefits,
+  .Main__WantConsultant__Capacity,
+  .Main__WantConsultant__Position {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+}

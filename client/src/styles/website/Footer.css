@@ -1,0 +1,40 @@
+/* ESTILOS PARA EL FOOTER */
+.Main__Footer {
+  width: 1440px;
+  margin: auto;
+  padding: 40px 0px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+.Main__Footer--Text {
+  text-align: center;
+  font-size: 2.5em;
+}
+.Main__Footer--Link {
+  display: flex;
+  gap: 20px;
+  font-size: 2.5em;
+}
+.Main__Footer--Link a ion-icon {
+  transform: translateY(3px);
+  color: var(--Black);
+  transition: 0.3s ease-in-out all;
+  font-size: 1.3em;
+}
+.Main__Footer--Link a:hover ion-icon {
+  transform: translateY(-5px);
+}
+@media (width <= 1470px) {
+  .Main__Footer {
+    width: 100%;
+    padding: 40px 20px;
+  }
+}
+@media (width <= 768px) {
+  .Main__Footer {
+    flex-direction: column;
+  }
+}

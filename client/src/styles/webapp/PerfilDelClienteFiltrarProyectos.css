@@ -1,0 +1,23 @@
+.Main__Profile__Information--Content--ClientProjects--Filter {
+  display: flex;
+  height: 50px;
+}
+.Main__Profile__Information--Content--ClientProjects--Filter--Button {
+  width: 50%;
+  background: transparent;
+  border: none;
+  border-bottom: 4px solid transparent;
+  color: var(--MainPurple);
+  font-size: 1.6em;
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__Profile__Information--Content--ClientProjects--Filter--Button:hover {
+  background: var(--SecondaryPurple);
+}
+.Main__Profile__Information--Content--ClientProjects--Filter--Button.Active {
+  border-bottom-color: var(--MainPurple);
+  background: var(--SecondaryPurple);
+}

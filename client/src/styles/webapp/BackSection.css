@@ -1,0 +1,50 @@
+.Main__Form--BackSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.Main__Form--BackSection--Button {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  border-radius: 10px 0 0 0;
+  background: var(--MainPurple);
+  color: var(--White);
+  padding: 10px;
+  font-weight: bold;
+  border: 2px solid var(--MainPurple);
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: 0.3s ease-in-out all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.Main__Form--BackSection--Button:hover {
+  background-color: transparent;
+  color: var(--MainPurple);
+}
+.Main__Form--BackSection--Img {
+  width: 120px;
+}
+.Main__Form--BackSection--Title {
+  text-align: center;
+  color: var(--MainPurple);
+  font-size: 2.5em;
+}
+.Main__Form--BackSection--Subtitle {
+  text-align: center;
+  font-size: 1.3em;
+  color: var(--MainPurple);
+  font-weight: bold;
+}
+.Main__Form--BackSection--Divisor {
+  width: 100%;
+  height: 2px;
+  border: none;
+  background: var(--SecondaryYellow);
+}

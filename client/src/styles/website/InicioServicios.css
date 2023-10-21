@@ -1,0 +1,72 @@
+.Main__Home__Services--Title {
+  margin: auto;
+  max-width: 60%;
+  text-align: center;
+  font-size: 6.5em;
+}
+.Main__Home__Services--Content {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.Main__Home__Services--Content--Article {
+  position: relative;
+  background: var(--White);
+  grid-column: span 1;
+  min-height: 500px;
+  height: auto;
+  padding: 80px 20px;
+}
+.Main__Home__Services--Content--Article--Picture {
+  position: absolute;
+  top: -60px;
+  left: calc(50% - 60px);
+  width: 120px;
+  height: 120px;
+  padding: 20px;
+  border-radius: 50%;
+  background: var(--Black);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__Home__Services--Content--Article--Picture img {
+  width: 100%;
+}
+.Main__Home__Services--Content--Article--Title {
+  font-size: 4em;
+  text-align: center;
+  font-weight: bold;
+}
+.Main__Home__Services--Content--Article--Details {
+  margin-top: 40px;
+  font-size: 2.5em;
+  text-align: center;
+}
+
+/* DISEÑO PARA CELULARES */
+@media (width <= 1024px) {
+  .Main__Home__Services--Title {
+    max-width: 100%;
+  }
+  .Main__Home__Services--Content {
+    grid-template-columns: 1fr;
+    gap: 120px;
+  }
+  .Main__Home__Services--Content--Article {
+    min-height: 100px;
+  }
+}
+@media (width <= 768px) {
+  .Main__Home__Services--Content {
+    gap: 100px;
+  }
+  .Main__Home__Services--Content--Article--Picture {
+    top: -50px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+  }
+}

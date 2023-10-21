@@ -1,0 +1,16 @@
+.Main__Profile {
+  min-height: 100vh;
+  background-color: var(--BgColor);
+  font-size: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (width <= 768px) {
+  .Main__Profile {
+    display: initial;
+    padding: 0;
+  }
+}

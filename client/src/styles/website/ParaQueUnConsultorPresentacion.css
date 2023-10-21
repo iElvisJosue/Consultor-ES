@@ -1,0 +1,41 @@
+.Main__WhyConsultant__Presentation__Content {
+  display: flex;
+  gap: 20px;
+  margin-top: 75px;
+  padding: 40px 0;
+}
+.Main__WhyConsultant__Presentation__Content--Text {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.Main__WhyConsultant__Presentation__Content--Text--Title {
+  font-size: 6.5em;
+}
+.Main__WhyConsultant__Presentation__Content--Text--SubTitle {
+  font-size: 3.5em;
+}
+.Main__WhyConsultant__Presentation__Content--Image {
+  width: 100%;
+  height: 600px;
+  background-image: url("../../public/WhyConsultantPresentation.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+@media (width <= 768px) {
+  .Main__WhyConsultant__Presentation__Content {
+    flex-direction: column-reverse;
+  }
+
+  .Main__WhyConsultant__Presentation__Content--Image {
+    height: 400px;
+  }
+}
+@media (width <= 500px) {
+  .Main__WhyConsultant__Presentation__Content--Image {
+    height: 300px;
+  }
+}

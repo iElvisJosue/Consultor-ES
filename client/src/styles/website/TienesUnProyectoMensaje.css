@@ -1,0 +1,49 @@
+.Main__HaveProject__Message--Title {
+  font-size: 6.5em;
+  margin: auto;
+  max-width: 80%;
+  text-align: center;
+}
+.Main__HaveProject__Message.Four .Main__HaveProject__Message--Title {
+  order: 2;
+}
+.Main__HaveProject__Message--Title--Text {
+  font-size: 2.5em;
+  margin: auto;
+  max-width: 80%;
+  text-align: center;
+}
+.Main__HaveProject__Message.Four .Main__HaveProject__Message--Title--Text {
+  order: 3;
+}
+.Main__HaveProject__Message--Picture {
+  height: 300px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.Main__HaveProject__Message--Picture.One {
+  background-image: url("../../public/TienesUnProyectoReto.jpg");
+  background-position: top;
+}
+.Main__HaveProject__Message--Picture.Two {
+  background-image: url("../../public/TienesUnProyectoGarantia.jpg");
+  background-position: center;
+}
+.Main__HaveProject__Message--Picture.Three {
+  background-image: url("../../public/TienesUnProyectoEfectividad.jpg");
+  background-position: center;
+}
+.Main__HaveProject__Message--Picture.Four {
+  background-image: url("../../public/TienesUnProyectoAsesores.jpg");
+  background-position: center;
+}
+@media (width <= 768px) {
+  .Main__HaveProject__Message--Picture {
+    width: 100%;
+    height: 100px;
+  }
+  .Main__HaveProject__Message--Title,
+  .Main__HaveProject__Message--Title--Text {
+    max-width: 100%;
+  }
+}

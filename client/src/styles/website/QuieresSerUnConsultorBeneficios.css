@@ -1,0 +1,83 @@
+.Main__WantConsultant__Benefits--Picture--Left,
+.Main__WantConsultant__Benefits--Picture--Right {
+  min-width: 250px;
+  height: 600px;
+  background-image: url("../../public/WhyConsultantHelped.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+}
+.Main__WantConsultant__Benefits--Picture--Right {
+  background-position: right;
+}
+.Main__WantConsultant__Benefits--Content {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.Main__WantConsultant__Benefits--Title {
+  font-size: 6.5em;
+}
+.Main__WantConsultant__Benefits--Title--Text {
+  font-size: 2.5em;
+}
+.Main__WantConsultant__Benefits--Text--Button {
+  position: relative;
+  border: 3px solid var(--Black);
+  color: var(--Black);
+  padding: 0 10px;
+  width: 70%;
+  height: 60px;
+  font-weight: bold;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__WantConsultant__Benefits--Text--Button--Text {
+  z-index: 1;
+  font-size: 2.5em;
+}
+.Main__WantConsultant__Benefits--Text--Button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  height: 1px;
+  width: 1px;
+  background: var(--BgColor);
+  z-index: 0;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__WantConsultant__Benefits--Text--Button:hover::after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (width <= 970px) {
+  .Main__WantConsultant__Benefits--Picture--Left,
+  .Main__WantConsultant__Benefits--Picture--Right {
+    min-width: 200px;
+  }
+}
+@media (width <= 768px) {
+  .Main__WantConsultant__Benefits--Picture--Left,
+  .Main__WantConsultant__Benefits--Picture--Right {
+    width: 100%;
+    height: 100px;
+  }
+  .Main__WantConsultant__Benefits--Text--Button {
+    width: 100%;
+  }
+  .Main__WantConsultant__Benefits--Picture--Left {
+    background-position: top;
+  }
+  .Main__WantConsultant__Benefits--Picture--Right {
+    background-position: bottom;
+  }
+}

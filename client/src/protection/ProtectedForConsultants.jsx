@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useGlobal } from "../context/GlobalContext";
+import Loader from "../components/webapp/global/Loader";
 
 export default function ProtectedForClients() {
   const { loading, getUserProfile, isLogin } = useGlobal();
@@ -21,7 +22,7 @@ export default function ProtectedForClients() {
 
   // TODO: COMPROBAR QUE EL USUARIO TENGA EL CORREO VERIFICADO
   if (role) {
-    if (loading) return <h1>Loading...</h1>;
+    if (loading) return <Loader />;
     if (!loading && !isLogin && role === "Consultor") {
       return <Outlet />;
     }

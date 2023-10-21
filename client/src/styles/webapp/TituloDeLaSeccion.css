@@ -1,0 +1,37 @@
+.Main__Profile__Information--TitleSection {
+  font-size: 2em;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-left: 4px solid var(--MainPurple);
+  color: var(--MainPurple);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-column: span 2;
+}
+.Main__Profile__Information--TitleSection.SemiTitle {
+  font-size: 1.8em;
+  padding: 5px 10px 5px 0;
+  border: none;
+}
+.Main__Profile__Information--TitleSection--Container {
+  display: flex;
+  gap: 10px;
+}
+.Main__Profile__Information--TitleSection--Container--Button {
+  font-size: 1.2em;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--MainPurple);
+  transition: 0.3s ease-in-out all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__Profile__Information--TitleSection--Container--Button:hover {
+  color: var(--MainYellow);
+  transform: scale(1.2);
+}

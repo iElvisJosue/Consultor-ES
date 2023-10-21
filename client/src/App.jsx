@@ -3,60 +3,87 @@ import { GlobalProvider } from "./context/GlobalContext";
 import { ConsultantProvider } from "./context/ConsultantContext";
 import { ClientProvider } from "./context/ClientContext";
 
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Login from "./pages/Login";
-import WhyConsultant from "./pages/WhyConsultant";
+// IMPORTAMOS LAS PÁGINAS DEL WEBSITE
+import Inicio from "./pages/website/Inicio";
+import ParaQueUnConsultor from "./pages/website/ParaQueUnConsultor";
+import QuieresSerUnConsultor from "./pages/website/QuieresSerUnConsultor";
+import TienesUnProyecto from "./pages/website/TienesUnProyecto";
+import QuienesSomos from "./pages/website/QuienesSomos";
+import Preguntanos from "./pages/website/Preguntanos";
+import MisionVision from "./pages/website/MisionVision";
+import CodigoDelConsultor from "./pages/website/CodigoDelConsultor";
+// IMPORTAMOS LAS PÁGINAS DE LA APP
+import IniciarSesion from "./pages/webapp/IniciarSesion";
+import VerificacionDeCorreo from "./pages/webapp/VerificacionDeCorreo";
+import VerificacionDeCodigo from "./pages/webapp/VerificacionDeCodigo";
+import RegistroDeDatos from "./pages/webapp/RegistroDeDatos";
+import Perfil from "./pages/webapp/Perfil";
+// PROTECCIÓN DE RUTAS
 import ProtectedByCookies from "./protection/ProtectedByCookies";
 import ProtectedForClients from "./protection/ProtectedForClients";
 import ProtectedForConsultants from "./protection/ProtectedForConsultants";
-import EmailVerification from "./pages/EmailVerification";
-import CodeVerification from "./pages/CodeVerification";
-import Profile from "./pages/Profile";
-import RegisterData from "./pages/RegisterData";
+import ProtectedByUserStatus from "./protection/ProtectedByUserStatus";
 
-export default function App() {
+// IMPORTAMOS LOS ESTILOS DE LA PAGINA
+import "./index.css";
+
+function App() {
   return (
     <GlobalProvider>
       <ConsultantProvider>
         <ClientProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/IniciarSesion" element={<Login />} />
-              <Route path="/QuienesSomos" element={<About />} />
-              <Route path="/ParaQueUnConsultor" element={<WhyConsultant />} />
+              <Route path="/" element={<Inicio />} />
               <Route
-                path="/ConsultorVerificacionDeCorreo"
-                element={<EmailVerification role="Consultor" />}
+                path="/ParaQueUnConsultor"
+                element={<ParaQueUnConsultor />}
               />
+              <Route
+                path="/QuieresSerUnConsultor"
+                element={<QuieresSerUnConsultor />}
+              />
+              <Route path="/TienesUnProyecto" element={<TienesUnProyecto />} />
+              <Route path="/QuienesSomos" element={<QuienesSomos />} />
+              <Route path="/Preguntanos" element={<Preguntanos />} />
+              <Route path="/MisionVision" element={<MisionVision />} />
+              <Route
+                path="/CodigoDelConsultor"
+                element={<CodigoDelConsultor />}
+              />
+              <Route path="/IniciarSesion" element={<IniciarSesion />} />
               <Route
                 path="/ClienteVerificacionDeCorreo"
-                element={<EmailVerification role="Cliente" />}
+                element={<VerificacionDeCorreo role="Cliente" />}
               />
-
+              <Route
+                path="/ConsultorVerificacionDeCorreo"
+                element={<VerificacionDeCorreo role="Consultor" />}
+              />
               <Route element={<ProtectedByCookies />}>
                 <Route element={<ProtectedForConsultants />}>
                   <Route
-                    path="/ConsultorCodigoDeVerificacion"
-                    element={<CodeVerification role="Consultor" />}
+                    path="/ConsultorVerificacionDeCodigo"
+                    element={<VerificacionDeCodigo role="Consultor" />}
                   />
                   <Route
                     path="/ConsultorRegistroDeDatos"
-                    element={<RegisterData role="Consultor" />}
+                    element={<RegistroDeDatos role="Consultor" />}
                   />
                 </Route>
                 <Route element={<ProtectedForClients />}>
                   <Route
-                    path="/ClienteCodigoDeVerificacion"
-                    element={<CodeVerification role="Cliente" />}
+                    path="/ClienteVerificacionDeCodigo"
+                    element={<VerificacionDeCodigo role="Cliente" />}
                   />
                   <Route
                     path="/ClienteRegistroDeDatos"
-                    element={<RegisterData role="Cliente" />}
+                    element={<RegistroDeDatos role="Cliente" />}
                   />
                 </Route>
-                <Route path="/Perfil" element={<Profile />} />
+                <Route element={<ProtectedByUserStatus />}>
+                  <Route path="/Perfil" element={<Perfil />} />
+                </Route>
               </Route>
             </Routes>
           </BrowserRouter>
@@ -65,3 +92,5 @@ export default function App() {
     </GlobalProvider>
   );
 }
+
+export default App;

@@ -4,9 +4,21 @@ import axios from "./axios";
 export const registerDataClientRequest = (data) =>
   axios.post("/client/registerDataClient", data);
 
+// PETICIÓN PARA ACTUALIZAR LOS DATOS DE USUARIO DEL CLIENTE
+export const updateDataClientRequest = (data) =>
+  axios.put("/client/updateDataClient", data);
+
+// PETICIÓN PARA ACTUALIZAR LOS DATOS DE NEGOCIO DEL CLIENTE
+export const updateDataBusinessClientRequest = (data) =>
+  axios.put("/client/updateDataBusinessClient", data);
+
 // PETICIÓN PARA AGREGAR UN PROYECTO
 export const addNewProjectRequest = (data) =>
   axios.post("/client/addNewProject", data);
+
+// PETICIÓN PARA EDITAR UN PROYECTO
+export const updateProjectRequest = (data) =>
+  axios.put("/client/updateProject", data);
 
 // PETICIÓN PARA OBTENER LOS DATOS DEL CLIENTE
 export const getInformationClientRequest = () =>

@@ -5,12 +5,14 @@
 :root {
   --Black: #222222;
   --White: #ffffff;
+  --Gray: #f9fafb;
   --BgColor: #e7dfd8;
   --MainPurple: #5f366e;
   --SecondaryPurple: #f2efff;
   --MainYellow: #ffa30c;
   --SecondaryYellow: #ebc06a60;
   --Red: #ff5f56;
+  --Green: #408a15;
   --BorderRadius: 2rem;
 }
 * {
@@ -18,8 +20,121 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Raleway", sans-serif;
-  outline: none;
+}
+a {
+  text-decoration: none;
+  color: var(--MainPurple);
+}
+input {
+  accent-color: var(--MainYellow);
 }
 body {
   background: var(--BgColor);
+}
+::-webkit-scrollbar {
+  width: 12px; /* Ancho del scroll */
+}
+::-webkit-scrollbar-thumb {
+  background: var(--MainPurple); /* Color del scroll thumb */
+}
+::-webkit-scrollbar-track {
+  background: var(--SecondaryPurple); /* Color del track */
+}
+.Main__Brown {
+  background: var(--BgColor);
+}
+.Main__White {
+  background: var(--White);
+}
+.Main__Home,
+.Main__WhyConsultant,
+.Main__WantConsultant,
+.Main__HaveProject,
+.Main__About,
+.Main__AskUs,
+.Main__Mission,
+.Main__CodeConsultant,
+.Main__Header,
+.Main__Footer {
+  font-size: 10px;
+}
+@keyframes elementAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (width <= 1337px) {
+  .Main__Home,
+  .Main__WhyConsultant,
+  .Main__WantConsultant,
+  .Main__HaveProject,
+  .Main__About,
+  .Main__AskUs,
+  .Main__Mission,
+  .Main__CodeConsultant,
+  .Main__Header,
+  .Main__Footer {
+    font-size: 8.5px;
+  }
+}
+@media (width <= 1024px) {
+  .Main__Home,
+  .Main__WhyConsultant,
+  .Main__WantConsultant,
+  .Main__HaveProject,
+  .Main__About,
+  .Main__AskUs,
+  .Main__Mission,
+  .Main__CodeConsultant,
+  .Main__Header,
+  .Main__Footer {
+    font-size: 8px;
+  }
+}
+@media (width <= 768px) {
+  .Main__Home,
+  .Main__WhyConsultant,
+  .Main__WantConsultant,
+  .Main__HaveProject,
+  .Main__About,
+  .Main__AskUs,
+  .Main__Mission,
+  .Main__CodeConsultant,
+  .Main__Header,
+  .Main__Footer {
+    font-size: 7.5px;
+  }
+}
+@media (width <= 500px) {
+  .Main__Home,
+  .Main__WhyConsultant,
+  .Main__WantConsultant,
+  .Main__HaveProject,
+  .Main__About,
+  .Main__AskUs,
+  .Main__Mission,
+  .Main__CodeConsultant,
+  .Main__Header,
+  .Main__Footer {
+    font-size: 7px;
+  }
+}
+@media (width <= 378px) {
+  .Main__Home,
+  .Main__WhyConsultant,
+  .Main__WantConsultant,
+  .Main__HaveProject,
+  .Main__About,
+  .Main__AskUs,
+  .Main__Mission,
+  .Main__CodeConsultant,
+  .Main__Header,
+  .Main__Footer {
+    font-size: 6.5px;
+  }
 }

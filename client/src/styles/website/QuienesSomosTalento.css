@@ -1,0 +1,40 @@
+/* ESTILOS PARA EL CONTENIDO DE LAS VENTAJAS  */
+.Main__About__Talent--Title {
+  margin: auto;
+  max-width: 80%;
+  text-align: center;
+  font-size: 6.5em;
+}
+.Main__About__Talent--Title,
+.Main__About__Talent--Title--Text {
+  margin: auto;
+  max-width: 60%;
+  text-align: center;
+}
+.Main__About__Talent--Title {
+  font-size: 6.5em;
+}
+.Main__About__Talent--Title--Text {
+  font-size: 2.5em;
+}
+.Main__About__Talent--Picture {
+  width: 100%;
+  height: 200px;
+  background-image: url("../../../public/AboutLive.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+/* ESTILOS PARA CELULARES */
+@media (width <= 1024px) {
+  .Main__About__Talent--Title,
+  .Main__About__Talent--Title--Text {
+    max-width: 100%;
+  }
+}
+@media (width <= 768px) {
+  .Main__About__Talent--Picture {
+    height: 100px;
+  }
+}

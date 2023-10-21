@@ -1,0 +1,23 @@
+.Main__WithoutInfo {
+  background-color: var(--White);
+  border-radius: 15px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.Main__WithoutInfo--Picture {
+  width: 150px;
+  height: 150px;
+}
+.Main__WithoutInfo--Picture img {
+  width: 100%;
+  height: 100%;
+}
+.Main__WithoutInfo--Text {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--Red);
+}

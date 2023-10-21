@@ -1,0 +1,22 @@
+.Main__WhyConsultant__Innovation--Details {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.Main__WhyConsultant__Innovation--Details--Text {
+  font-size: 2.5em;
+}
+.Main__WhyConsultant__Innovation--Picture {
+  width: 100%;
+  height: 600px;
+  background-image: url("../../public/WhyConsultantInnovation.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+@media (width <= 768px) {
+  .Main__WhyConsultant__Innovation--Picture {
+    height: 200px;
+  }
+}

@@ -1,0 +1,44 @@
+.Main__Home__Presentation,
+.Main__Home__Advantages,
+.Main__Home__Services,
+.Main__Home__Message {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__Home__Standards,
+.Main__Home__ContactMessage {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+}
+.Main__Home__Advantages,
+.Main__Home__Services,
+.Main__Home__Message,
+.Main__Home__Standards,
+.Main__Home__ContactMessage {
+  gap: 20px;
+  padding: 40px 0px;
+}
+
+/* DISEÑO PARA CELULARES */
+@media (width <= 1470px) {
+  .Main__Home__Presentation,
+  .Main__Home__Advantages,
+  .Main__Home__Services,
+  .Main__Home__Message,
+  .Main__Home__Standards,
+  .Main__Home__ContactMessage {
+    width: 100%;
+  }
+  .Main__Home__Advantages,
+  .Main__Home__Services,
+  .Main__Home__Message,
+  .Main__Home__Standards,
+  .Main__Home__ContactMessage {
+    padding: 40px 20px;
+  }
+}

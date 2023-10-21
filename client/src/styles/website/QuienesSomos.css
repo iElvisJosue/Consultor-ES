@@ -1,0 +1,85 @@
+/* ESTILOS PARA LAS SECCIONES */
+.Main__About__Presentation,
+.Main__About__Business,
+.Main__About__Talent,
+.Main__About__Message,
+.Main__About__Information {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__About__Business,
+.Main__About__Information {
+  flex-direction: row;
+}
+.Main__About__Business,
+.Main__About__Talent,
+.Main__About__Message,
+.Main__About__Information {
+  gap: 20px;
+  padding: 40px 0px;
+}
+.Main__About__Information {
+  align-items: center;
+}
+.Main__About__Information.Two {
+  flex-direction: row-reverse;
+}
+
+/* ESTILOS PARA ESTÁNDARES Y EL MENSAJE PARA CONTACTAR */
+.Main__About__Information--Picture {
+  width: 100%;
+  min-height: 500px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Main__About__Information.One .Main__About__Information--Picture {
+  background-image: url("../../public/AboutInformation.jpg");
+}
+.Main__About__Information.Two .Main__About__Information--Picture {
+  background-image: url("../../public/Contacto.jpg");
+}
+.Main__About__Information--Details {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.Main__About__Information--Details--Text {
+  font-size: 2.5em;
+  text-align: center;
+}
+
+/* DISEÑO PARA CELULARES */
+@media (width <= 1470px) {
+  .Main__About__Presentation,
+  .Main__About__Business,
+  .Main__About__Talent,
+  .Main__About__Message,
+  .Main__About__Information {
+    width: 100%;
+  }
+  .Main__About__Presentation--Content,
+  .Main__About__Business,
+  .Main__About__Talent,
+  .Main__About__Message,
+  .Main__About__Information {
+    padding: 40px 20px;
+  }
+}
+@media (width <= 768px) {
+  .Main__About__Business {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+  .Main__About__Information {
+    flex-direction: column;
+  }
+  .Main__About__Information--Picture {
+    min-height: 200px;
+  }
+}

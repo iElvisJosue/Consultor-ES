@@ -1,0 +1,92 @@
+.Main__Home__Presentation__Content {
+  display: flex;
+  margin-top: 75px;
+}
+.Main__Home__Presentation__Content--Text {
+  width: 100%;
+  padding: 40px 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.Main__Home__Presentation__Content--Text--Title {
+  font-size: 6.5em;
+}
+.Main__Home__Presentation__Content--Text--SubTitle {
+  font-size: 3.5em;
+}
+.Main__Home__Presentation__Content--Text--Button {
+  position: relative;
+  border: 3px solid var(--Black);
+  color: var(--Black);
+  width: 250px;
+  height: 60px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Main__Home__Presentation__Content--Text--Button--Text {
+  z-index: 1;
+  font-size: 2.5em;
+}
+.Main__Home__Presentation__Content--Text--Button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  height: 1px;
+  width: 1px;
+  background: var(--White);
+  z-index: 0;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__Home__Presentation__Content--Text--Button:hover::after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.Main__Home__Presentation__Content--Image {
+  width: 100%;
+  background-image: url("../../public/Presentation.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+/* DISEÑO PARA CELULARES */
+@media (width <= 1470px) {
+  .Main__Home__Presentation__Content--Text {
+    padding: 40px 20px;
+  }
+}
+@media (width <= 1337px) {
+  .Main__Home__Presentation__Content--Text--Button {
+    width: 200px;
+  }
+}
+@media (width <= 1024px) {
+  .Main__Home__Presentation__Content--Text--Button {
+    width: 150px;
+  }
+}
+@media (width <= 768px) {
+  .Main__Home__Presentation__Content {
+    flex-direction: column-reverse;
+  }
+  .Main__Home__Presentation__Content--Image {
+    height: 400px;
+  }
+}
+@media (width <= 500px) {
+  .Main__Home__Presentation__Content--Image {
+    height: 300px;
+  }
+  .Main__Home__Presentation__Content--Text--Button {
+    height: 50px;
+  }
+}

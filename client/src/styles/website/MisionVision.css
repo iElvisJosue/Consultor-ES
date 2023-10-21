@@ -1,0 +1,39 @@
+.Main__Mission__Presentation,
+.Main__Mission__Advantages,
+.Main__Mission__Values,
+.Main__Mission__Access {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__Mission__Access {
+  flex-direction: row;
+}
+.Main__Mission__Presentation {
+  margin-top: 75px;
+}
+.Main__Mission__Presentation,
+.Main__Mission__Advantages,
+.Main__Mission__Values,
+.Main__Mission__Access {
+  gap: 20px;
+  padding: 40px 0;
+}
+
+/* DISEÑO PARA CELULARES */
+@media (width <= 1440px) {
+  .Main__Mission__Presentation,
+  .Main__Mission__Advantages,
+  .Main__Mission__Values,
+  .Main__Mission__Access {
+    width: 100%;
+    padding: 40px 20px;
+  }
+}
+@media (width <= 768px) {
+  .Main__Mission__Access {
+    flex-direction: column;
+  }
+}

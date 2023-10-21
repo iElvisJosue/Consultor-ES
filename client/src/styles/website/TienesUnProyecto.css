@@ -1,0 +1,42 @@
+.Main__HaveProject__Presentation,
+.Main__HaveProject__Steps,
+.Main__HaveProject__Message,
+.Main__HaveProject__Performance {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__HaveProject__Steps,
+.Main__HaveProject__Performance {
+  flex-direction: row;
+}
+.Main__HaveProject__Steps,
+.Main__HaveProject__Message,
+.Main__HaveProject__Performance {
+  gap: 20px;
+  padding: 40px 0;
+}
+
+/* DISEÑO PARA CELULARES */
+@media (width <= 1470px) {
+  .Main__HaveProject__Presentation,
+  .Main__HaveProject__Steps,
+  .Main__HaveProject__Message,
+  .Main__HaveProject__Performance {
+    width: 100%;
+  }
+  .Main__HaveProject__Steps,
+  .Main__HaveProject__Message,
+  .Main__HaveProject__Performance {
+    padding: 40px 20px;
+  }
+}
+@media (width <= 768px) {
+  .Main__HaveProject__Steps,
+  .Main__HaveProject__Performance {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+}

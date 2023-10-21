@@ -1,0 +1,28 @@
+.Main__About__Information--Details {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.Main__About__Information--Details--Text {
+  font-size: 2.5em;
+  text-align: center;
+}
+.Main__About__Information--Picture {
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Main__About__Information--Picture {
+  background-image: url("../../public/Contacto.jpg");
+}
+@media (width <= 768px) {
+  .Main__About__Information--Picture {
+    height: 200px;
+  }
+  .Main__About__Information {
+    flex-direction: column;
+  }
+}

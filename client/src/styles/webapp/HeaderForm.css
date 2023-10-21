@@ -1,0 +1,36 @@
+.Main__Form--Back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--MainPurple);
+  color: var(--White);
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__Form--Back ion-icon {
+  font-size: 2em;
+}
+.Main__Form--Img {
+  width: 90px;
+}
+.Main__Form--Title {
+  text-align: center;
+  color: var(--MainPurple);
+  font-size: 2.5em;
+}
+.Main__Form--Subtitle {
+  text-align: center;
+  font-size: 1.3em;
+  color: var(--MainPurple);
+  font-weight: bold;
+}
+.Main__Form--Divisor {
+  width: 100%;
+  height: 2px;
+  border: none;
+  background: var(--SecondaryYellow);
+}

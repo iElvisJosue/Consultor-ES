@@ -1,0 +1,99 @@
+.Main__Profile__Information--Menu {
+  grid-column: span 1;
+}
+.Main__Profile__Information--Menu--Profile {
+  position: relative;
+  padding: 20px;
+  background: var(--White);
+  border-bottom: 2px solid var(--SecondaryPurple);
+  border-radius: 15px 15px 0 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.Main__Profile__Information--Menu.Show
+  .Main__Profile__Information--Menu--Profile {
+  border-bottom: 2px solid var(--SecondaryPurple);
+  border-radius: 15px 15px 0 0;
+}
+.Main__Profile__Information--Menu--Profile--Picture {
+  min-width: 100px;
+  width: 100px;
+  min-height: 100px;
+  height: 100px;
+}
+.Main__Profile__Information--Menu--Profile--Picture img {
+  border-radius: 50%;
+  width: 100%;
+}
+.Main__Profile__Information--Menu--Profile--Name {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--MainPurple);
+}
+.Main__Profile__Information--Menu--Profile--Button {
+  border: none;
+  background: none;
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--MainPurple);
+  display: none;
+  cursor: pointer;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__Profile__Information--Menu.Show
+  .Main__Profile__Information--Menu--Profile--Button {
+  transform: rotate(-180deg);
+}
+.Main__Profile__Information--Menu--Options {
+  list-style: none;
+  padding: 20px 0;
+  background: var(--White);
+  border-radius: 0 0 15px 15px;
+  overflow: hidden;
+}
+.Main__Profile__Information--Menu.Show
+  .Main__Profile__Information--Menu--Options {
+  display: block;
+}
+.Main__Profile__Information--Menu--Options--Item {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--MainPurple);
+  font-size: 1.6em;
+  font-weight: bold;
+  border-left: 4px solid transparent;
+  transition: 0.3s ease-in-out all;
+}
+.Main__Profile__Information--Menu--Options--Item ion-icon {
+  font-size: 1.6em;
+}
+.Main__Profile__Information--Menu--Options--Item:hover {
+  border-left-color: var(--MainPurple);
+  background-color: var(--SecondaryPurple);
+  cursor: pointer;
+}
+.Main__Profile__Information--Menu--Options--Item.Active {
+  border-left-color: var(--MainPurple);
+  background-color: var(--SecondaryPurple);
+  cursor: pointer;
+}
+@media (width <= 800px) {
+  .Main__Profile__Information--Menu--Profile {
+    border: 0;
+    border-radius: 15px;
+  }
+  .Main__Profile__Information--Menu--Options {
+    display: none;
+  }
+  .Main__Profile__Information--Menu--Profile--Button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

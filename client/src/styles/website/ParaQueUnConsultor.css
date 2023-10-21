@@ -1,0 +1,51 @@
+/* ESTILOS PARA LAS SECCIONES */
+.Main__WhyConsultant__Presentation,
+.Main__WhyConsultant__Help,
+.Main__WhyConsultant__Message,
+.Main__WhyConsultant__Advantages,
+.Main__WhyConsultant__Innovation {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__WhyConsultant__Help,
+.Main__WhyConsultant__Advantages,
+.Main__WhyConsultant__Innovation {
+  flex-direction: row;
+}
+.Main__WhyConsultant__Help,
+.Main__WhyConsultant__Advantages,
+.Main__WhyConsultant__Message,
+.Main__WhyConsultant__Innovation {
+  gap: 20px;
+  padding: 40px 0px;
+}
+/* DISEÑO PARA CELULARES */
+@media (width <= 1470px) {
+  .Main__WhyConsultant__Presentation,
+  .Main__WhyConsultant__Help,
+  .Main__WhyConsultant__Advantages,
+  .Main__WhyConsultant__Message,
+  .Main__WhyConsultant__Innovation {
+    width: 100%;
+  }
+  .Main__WhyConsultant__Presentation__Content,
+  .Main__WhyConsultant__Help,
+  .Main__WhyConsultant__Advantages,
+  .Main__WhyConsultant__Message,
+  .Main__WhyConsultant__Innovation {
+    padding: 40px 20px;
+  }
+}
+@media (width <= 768px) {
+  .Main__WhyConsultant__Advantages,
+  .Main__WhyConsultant__Innovation {
+    flex-direction: column;
+  }
+  .Main__WhyConsultant__Help {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+}

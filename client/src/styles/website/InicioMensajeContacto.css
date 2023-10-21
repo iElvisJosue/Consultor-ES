@@ -1,0 +1,28 @@
+.Main__Home__ContactMessage--Details {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.Main__Home__ContactMessage--Details--Text {
+  font-size: 2.5em;
+  text-align: center;
+}
+.Main__Home__ContactMessage--Picture {
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Main__Home__ContactMessage--Picture {
+  background-image: url("../../public/Contacto.jpg");
+}
+@media (width <= 768px) {
+  .Main__Home__ContactMessage--Picture {
+    height: 200px;
+  }
+  .Main__Home__ContactMessage {
+    flex-direction: column;
+  }
+}

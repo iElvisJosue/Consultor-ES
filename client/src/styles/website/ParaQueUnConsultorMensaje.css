@@ -1,0 +1,41 @@
+.Main__WhyConsultant__Message--Title {
+  font-size: 6.5em;
+  margin: auto;
+  max-width: 80%;
+  text-align: center;
+}
+.Main__WhyConsultant__Message.Two .Main__WhyConsultant__Message--Title {
+  order: 1;
+}
+.Main__WhyConsultant__Message--Title--Text {
+  font-size: 2.5em;
+  margin: auto;
+  max-width: 80%;
+  text-align: center;
+}
+.Main__WhyConsultant__Message.Two .Main__WhyConsultant__Message--Title--Text {
+  order: 2;
+}
+.Main__WhyConsultant__Message--Picture {
+  height: 300px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+.Main__WhyConsultant__Message--Picture.One {
+  background-image: url("../../public/WhyConsultantMessage.jpg");
+}
+.Main__WhyConsultant__Message--Picture.Two {
+  background-image: url("../../public/WhyConsultantManagement.jpg");
+  background-position: center;
+}
+@media (width <= 768px) {
+  .Main__WhyConsultant__Message--Picture {
+    width: 100%;
+    height: 100px;
+  }
+  .Main__WhyConsultant__Message--Title,
+  .Main__WhyConsultant__Message--Title--Text {
+    max-width: 100%;
+  }
+}

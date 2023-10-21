@@ -1,0 +1,34 @@
+.Main__CodeConsultant__Message,
+.Main__CodeConsultant__Eslogan {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.Main__Brown.CodeConsultant {
+  margin-top: 75px;
+}
+.Main__Mission__Access,
+.Main__CodeConsultant__Eslogan {
+  flex-direction: row;
+}
+.Main__CodeConsultant__Message,
+.Main__CodeConsultant__Eslogan {
+  gap: 20px;
+  padding: 40px 0;
+}
+
+/* DISEÑO PARA CELULARES */
+@media (width <= 1440px) {
+  .Main__CodeConsultant__Message,
+  .Main__CodeConsultant__Eslogan {
+    width: 100%;
+    padding: 40px 20px;
+  }
+}
+@media (width <= 768px) {
+  .Main__CodeConsultant__Eslogan {
+    flex-direction: column;
+  }
+}

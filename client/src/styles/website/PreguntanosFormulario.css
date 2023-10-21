@@ -1,0 +1,106 @@
+.Main__AskUs__Form--Presentation {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+}
+.Main__AskUs__Form--Presentation--Title {
+  text-align: center;
+  font-size: 5.5em;
+}
+.Main__AskUs__Form--Presentation--Subtitle {
+  text-align: center;
+  font-size: 2.5em;
+}
+.Main__AskUs__Form--Form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.Main__AskUs__Form--Form--ContainerInputs {
+  position: relative;
+  width: 100%;
+  height: 65px;
+}
+.Main__AskUs__Form--Form--ContainerInputs--Icon {
+  position: absolute;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__AskUs__Form--Form--ContainerInputs--Icon ion-icon {
+  color: var(--Black);
+  width: 50px;
+  font-size: 2em;
+}
+.Main__AskUs__Form--Form--ContainerInputs--Inputs {
+  font-size: 1.6em;
+  width: 100%;
+  min-height: 65px;
+  padding: 0 50px;
+  background-color: transparent;
+  border: 2px solid var(--Black);
+  color: var(--Black);
+  outline: none;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__AskUs__Form--Form--ContainerInputs--Error {
+  font-weight: bold;
+  font-size: 1.4em;
+  color: var(--Red);
+}
+.Main__AskUs__Form--Form--ContainerInputs--Inputs.textArea {
+  padding: 10px;
+  min-height: 200px;
+  max-height: 700px;
+  resize: vertical;
+}
+.Main__AskUs__Form--Form--ContainerInputs::placeholder {
+  font-weight: bold;
+  color: var(--Black);
+}
+.Main__AskUs__Form--Form--ContainerInputs:focus {
+  border-color: var(--MainPurple);
+}
+.Main__AskUs__Form--Form--Button {
+  position: relative;
+  border: 3px solid var(--Black);
+  background-color: transparent;
+  color: var(--Black);
+  height: 65px;
+  font-weight: bold;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Main__AskUs__Form--Form--Button--Text {
+  z-index: 1;
+  font-size: 1.4em;
+}
+.Main__AskUs__Form--Form--Button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  height: 1px;
+  width: 1px;
+  background: var(--White);
+  z-index: 0;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__AskUs__Form--Form--Button:hover::after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}

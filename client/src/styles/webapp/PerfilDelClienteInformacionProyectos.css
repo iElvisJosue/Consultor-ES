@@ -1,0 +1,10 @@
+.Main__Profile__Information--Content--ClientProjects {
+  position: relative;
+  padding: 20px;
+  background: var(--White);
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

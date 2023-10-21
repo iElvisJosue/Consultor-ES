@@ -1,0 +1,22 @@
+.Main__Form__Footer--Title {
+  width: 100%;
+  color: var(--MainPurple);
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.6em;
+}
+.Main__Form__Footer--Options {
+  display: flex;
+  gap: 10px;
+}
+.Main__Form__Footer--Options small {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: var(--MainPurple);
+}
+.Main__Form__Footer--Options small a {
+  transition: 0.3s ease-in-out all;
+}
+.Main__Form__Footer--Options small:hover a {
+  color: var(--MainYellow);
+}

@@ -1,0 +1,50 @@
+/* ESTILOS PARA EL CONTENIDO DE LA PRESENTACIÓN */
+.Main__About__Presentation--Content {
+  display: flex;
+  gap: 20px;
+  margin-top: 75px;
+  padding: 40px 0;
+}
+.Main__About__Presentation--Content--Text {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.Main__About__Presentation--Content--Text--Title {
+  font-size: 6.5em;
+}
+.Main__About__Presentation--Content--Text--SubTitle {
+  font-size: 3.5em;
+}
+.Main__About__Presentation--Content--Image {
+  position: relative;
+  width: 100%;
+  background-image: url("../../public/CEO.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.Main__About__Presentation--Content--Image::after {
+  content: "CEO. LUIS REY INFANTE";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--BgColor);
+  padding: 10px 0;
+  font-size: 2.5em;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+/* ESTILOS PARA CELULARES */
+@media (width <= 768px) {
+  .Main__About__Presentation--Content {
+    flex-direction: column-reverse;
+  }
+  .Main__About__Presentation--Content--Image {
+    height: 400px;
+  }
+}

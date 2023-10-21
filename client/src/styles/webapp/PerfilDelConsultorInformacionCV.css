@@ -1,0 +1,15 @@
+.Main__Profile__Information--Content--CVResume,
+.Main__Profile__Information--Content--CVExperience,
+.Main__Profile__Information--Content--CVEducation,
+.Main__Profile__Information--Content--CVAbilities,
+.Main__Profile__Information--Content--CVLanguages,
+.Main__Profile__Information--Content--CVAreas {
+  position: relative;
+  padding: 20px;
+  background: var(--White);
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

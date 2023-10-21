@@ -1,0 +1,97 @@
+.Main__RegisterData {
+  min-height: 100vh;
+  background-color: var(--BgColor);
+  font-size: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Main__RegisterData__Form {
+  position: relative;
+  background: var(--White);
+  padding: 20px;
+  width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  animation: elementAppear 1s forwards;
+}
+.Main__RegisterData__Form--ContainerInputs {
+  position: relative;
+  width: 100%;
+  min-height: 65px;
+  height: 65px;
+}
+.Main__RegisterData__Form--ContainerInputs--Icon {
+  position: absolute;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__RegisterData__Form--ContainerInputs--Icon.Eye {
+  right: 0;
+  cursor: pointer;
+}
+.Main__RegisterData__Form--ContainerInputs--Icon ion-icon {
+  color: var(--MainPurple);
+  width: 50px;
+  font-size: 2em;
+}
+.Main__RegisterData__Form--ContainerInputs--Inputs {
+  font-size: 1.6em;
+  height: 65px;
+  background-color: var(--Gray);
+  border: 2px solid var(--Gray);
+  color: var(--MainPurple);
+  width: 100%;
+  height: 100%;
+  padding: 10px 50px;
+  outline: none;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__RegisterData__Form--ContainerInputs--Inputs::placeholder {
+  font-weight: bold;
+  color: var(--MainPurple);
+}
+.Main__RegisterData__Form--ContainerInputs--Inputs:focus {
+  border-color: var(--MainPurple);
+}
+.Main__RegisterData__Form--SmallError {
+  width: 100%;
+  font-size: 1.3em;
+  color: var(--Red);
+  font-weight: bold;
+}
+.Main__RegisterData__Form--Terms {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.Main__RegisterData__Form--Terms--Link {
+  font-size: 1.3em;
+  color: var(--MainYellow);
+  font-weight: bold;
+}
+.Main__RegisterData__Form--Terms--Checkbox {
+  cursor: pointer;
+}
+@media (width <= 768px) {
+  .Main__RegisterData {
+    display: initial;
+  }
+  .Main__RegisterData__Form {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+  }
+}

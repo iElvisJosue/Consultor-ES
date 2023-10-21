@@ -1,0 +1,26 @@
+.Main__CodeConsultant__Eslogan--Title {
+  font-size: 6.5em;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+}
+
+.Main__CodeConsultant__Eslogan--Picture {
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Main__CodeConsultant__Eslogan--Picture {
+  background-image: url("../../public/Contacto.jpg");
+}
+@media (width <= 768px) {
+  .Main__CodeConsultant__Eslogan--Picture {
+    height: 200px;
+  }
+  .Main__CodeConsultant__Eslogan {
+    flex-direction: column;
+  }
+}

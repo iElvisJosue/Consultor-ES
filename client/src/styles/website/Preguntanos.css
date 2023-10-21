@@ -1,0 +1,31 @@
+.Main__AskUs__Form,
+.Main__AskUs__Notice {
+  width: 1440px;
+  margin: auto;
+
+  display: flex;
+  gap: 20px;
+}
+.Main__AskUs__Form {
+  margin-top: 75px;
+  padding: 40px 0px;
+}
+.Main__AskUs__Notice {
+  padding: 40px 0px;
+}
+/* DISEÑO PARA CELULARES */
+@media (width <= 1470px) {
+  .Main__AskUs__Form,
+  .Main__AskUs__Notice {
+    width: 100%;
+    padding: 40px 20px;
+  }
+}
+@media (width <= 768px) {
+  .Main__AskUs__Form {
+    flex-direction: column;
+  }
+  .Main__AskUs__Notice {
+    flex-direction: column-reverse;
+  }
+}

@@ -1,0 +1,24 @@
+/* ESTILOS PARA EL MENSAJE */
+.Main__About__Message--Title {
+  text-align: center;
+  font-size: 6.5em;
+}
+.Main__About__Message--Picture {
+  height: 400px;
+  background-image: url("../../../public/AboutTalent.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ESTILOS PARA CELULARES */
+@media (width <= 1024px) {
+  .Main__About__Message--Picture {
+    height: 300px;
+  }
+}
+@media (width <= 768px) {
+  .Main__About__Message--Picture {
+    height: 200px;
+  }
+}

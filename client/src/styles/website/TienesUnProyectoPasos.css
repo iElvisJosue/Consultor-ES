@@ -1,0 +1,85 @@
+.Main__HaveProject__Steps--Picture--Left,
+.Main__HaveProject__Steps--Picture--Right {
+  min-width: 250px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+}
+.Main__HaveProject__Steps--Picture--Left {
+  background-image: url("../../public/TienesUnProyectoPasosIzquierda.jpg");
+}
+.Main__HaveProject__Steps--Picture--Right {
+  background-position: center;
+  background-image: url("../../public/TienesUnProyectoPasosDerecha.jpg");
+}
+.Main__HaveProject__Steps--Content {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.Main__HaveProject__Steps--Title {
+  font-size: 6.5em;
+}
+.Main__HaveProject__Steps--Title--Text {
+  font-size: 2.5em;
+}
+.Main__HaveProject__Steps--Text--Button {
+  position: relative;
+  border: 3px solid var(--Black);
+  color: var(--Black);
+  padding: 0 20px;
+  height: 60px;
+  font-weight: bold;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__HaveProject__Steps--Text--Button--Text {
+  z-index: 1;
+  font-size: 2.5em;
+}
+.Main__HaveProject__Steps--Text--Button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  height: 1px;
+  width: 1px;
+  background: var(--BgColor);
+  z-index: 0;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__HaveProject__Steps--Text--Button:hover::after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (width <= 970px) {
+  .Main__HaveProject__Steps--Picture--Left,
+  .Main__HaveProject__Steps--Picture--Right {
+    min-width: 200px;
+  }
+}
+@media (width <= 768px) {
+  .Main__HaveProject__Steps--Picture--Left,
+  .Main__HaveProject__Steps--Picture--Right {
+    width: 100%;
+    height: 100px;
+  }
+  .Main__HaveProject__Steps--Text--Button {
+    width: 100%;
+  }
+  .Main__HaveProject__Steps--Picture--Left {
+    background-position: top;
+  }
+  .Main__HaveProject__Steps--Picture--Right {
+    background-position: bottom;
+  }
+}

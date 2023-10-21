@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "Raleway";
+  src: url("../public/Raleway.ttf") format("truetype");
+}
+:root {
+  --Black: #222222;
+  --White: #ffffff;
+  --BgColor: #e7dfd8;
+  --MainPurple: #5f366e;
+  --SecondaryPurple: #f2efff;
+  --MainYellow: #ffa30c;
+  --SecondaryYellow: #ebc06a60;
+  --Red: #ff5f56;
+  --BorderRadius: 2rem;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  font-family: "Raleway", sans-serif;
+}
+a {
+  text-decoration: none;
+}
+body {
+  background: var(--BgColor);
+}
+.Main,
+.Main__About {
+  position: relative;
+  overflow: hidden;
+}
+.Main__Brown {
+  background: var(--BgColor);
+}
+.Main__White {
+  background: var(--White);
+}
+/* DISEÑO PARA CELULARES */
+@media (width <= 1440px) {
+  .Main__Presentation,
+  .Main__Advantages,
+  .Main__Services,
+  .Main__Message,
+  .Main__Standards,
+  .Main__ContactMessage {
+    width: 100%;
+  }
+  .Main__Advantages,
+  .Main__Services,
+  .Main__Message,
+  .Main__Standards,
+  .Main__ContactMessage,
+  .Main__Presentation__Content--Text {
+    padding: 40px 20px;
+  }
+}
+@media (width <= 1337px) {
+  * {
+    font-size: 8.5px;
+  }
+}
+@media (width <= 1024px) {
+  * {
+    font-size: 8px;
+  }
+}
+@media (width <= 768px) {
+  * {
+    font-size: 7.5px;
+  }
+}
+@media (width <= 500px) {
+  * {
+    font-size: 7px;
+  }
+}
+@media (width <= 378px) {
+  * {
+    font-size: 6.5px;
+  }
+}

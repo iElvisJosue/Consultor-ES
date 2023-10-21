@@ -1,0 +1,7 @@
+.Main__Profile__Information--TextSection {
+  font-size: 1.6em;
+  color: var(--MainPurple);
+}
+.Main__Profile__Information--TextSection strong {
+  font-style: normal;
+}

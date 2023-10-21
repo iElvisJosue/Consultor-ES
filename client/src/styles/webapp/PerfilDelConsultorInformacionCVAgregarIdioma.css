@@ -1,0 +1,36 @@
+.Main__Profile__Information--Content--CVLanguage--Add {
+  padding: 20px;
+  background: var(--White);
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.Main__Profile__Information--Content--CVLanguage--Add--TitleInput {
+  width: 100%;
+  font-size: 1.6em;
+  color: var(--MainPurple);
+  font-weight: bold;
+}
+.Main__Profile__Information--Content--CVLanguage--Add--ContainerInputs {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.Main__Profile__Information--Content--CVLanguage--Add--ContainerInputs--Inputs {
+  font-size: 1.6em;
+  min-height: 65px;
+  height: 65px;
+  background-color: var(--Gray);
+  border: 2px solid var(--Gray);
+  color: var(--MainPurple);
+  width: 100%;
+  padding: 0;
+  outline: none;
+
+  transition: 0.3s ease-in-out all;
+}
+.Main__Profile__Information--Content--CVLanguage--Add--ContainerInputs--Inputs:focus {
+  border-color: var(--MainPurple);
+}
