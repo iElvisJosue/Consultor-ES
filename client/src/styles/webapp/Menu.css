@@ -1,5 +1,6 @@
 .Main__Profile__Information--Menu {
   grid-column: span 1;
+  height: auto;
 }
 .Main__Profile__Information--Menu--Profile {
   position: relative;
