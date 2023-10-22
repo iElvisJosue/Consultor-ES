@@ -39,7 +39,8 @@ export default function PerfilDelClienteInformacionConsultoresCVResume({
       </h2>
       <span className="Main__Profile__Information--Content--ConsultantCV--Resume--Contact">
         <a href={`mailto:${emailConsultant}`}>
-          <ion-icon name="mail-outline"></ion-icon>Mi Correo
+          <ion-icon name="mail-outline"></ion-icon>
+          <span>Mi Correo</span>
         </a>
         <a
           href={`https://wa.me/${numberConsultant}`}
@@ -47,11 +48,12 @@ export default function PerfilDelClienteInformacionConsultoresCVResume({
           rel="noreferrer"
         >
           <ion-icon name="logo-whatsapp"></ion-icon>
-          {numberConsultant}
+          <span>{numberConsultant}</span>
         </a>
         {LinkedInConsultant && (
           <a href={LinkedInConsultant} target="_blank" rel="noreferrer">
-            <ion-icon name="logo-linkedin"></ion-icon>Mi LinkedIn
+            <ion-icon name="logo-linkedin"></ion-icon>
+            <span>Mi LinkedIn</span>
           </a>
         )}
       </span>

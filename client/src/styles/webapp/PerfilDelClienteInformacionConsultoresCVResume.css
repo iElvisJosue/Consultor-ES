@@ -78,3 +78,13 @@
   color: var(--MainPurple);
   font-weight: normal;
 }
+@media (width <= 400px) {
+  .Main__Profile__Information--Content--ConsultantCV--Resume--Contact a {
+    flex-direction: column;
+  }
+}
+@media (width <= 325px) {
+  .Main__Profile__Information--Content--ConsultantCV--Resume--Contact a span {
+    display: none;
+  }
+}
