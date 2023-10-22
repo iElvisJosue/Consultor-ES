@@ -1,0 +1,24 @@
+.Main__Profile__Information--Content--ConsultantCV--Education {
+  background: var(--White);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.Main__Profile__Information--Content--ConsultantCV--Education--Title {
+  font-size: 2.5em;
+  color: var(--MainPurple);
+  font-weight: bold;
+}
+.Main__Profile__Information--Content--ConsultantCV--Education--Area {
+  font-size: 1.8em;
+  color: var(--Green);
+  font-style: italic;
+  font-weight: bold;
+}
+.Main__Profile__Information--Content--ConsultantCV--Education--Institution,
+.Main__Profile__Information--Content--ConsultantCV--Education--EducationLevel,
+.Main__Profile__Information--Content--ConsultantCV--Education--Date {
+  font-size: 1.6em;
+  color: var(--MainPurple);
+}

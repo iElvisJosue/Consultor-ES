@@ -1,0 +1,16 @@
+.Main__Profile__Information--Content--ConsultantCV--Languages {
+  background: var(--White);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.Main__Profile__Information--Content--ConsultantCV--Languages--Title {
+  font-size: 2.5em;
+  color: var(--MainPurple);
+  font-weight: bold;
+}
+.Main__Profile__Information--Content--ConsultantCV--Languages--NameLevel {
+  font-size: 1.8em;
+  color: var(--MainPurple);
+}

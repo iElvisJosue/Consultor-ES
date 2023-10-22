@@ -11,6 +11,10 @@
   color: var(--MainPurple);
   gap: 10px;
 }
+.Main__Loader.Small {
+  padding: 20px 0;
+  height: auto;
+}
 .loader {
   width: 50px;
   aspect-ratio: 1;

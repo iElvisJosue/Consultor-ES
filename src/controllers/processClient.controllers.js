@@ -1,3 +1,5 @@
+// IMPORTAMOS EL MODELO DEL USUARIO
+import userModel from "../models/users.model.js";
 // IMPORTAMOS EL MODEL DEL CLIENTE
 import clientProfileModel from "../models/clients/client.model.js";
 // IMPORTAMOS EL MODELO DE LOS PROYECTOS DEL CLIENTE
@@ -143,7 +145,6 @@ export const addNewProject = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-
 export const updateProject = async (req, res) => {
   try {
     const {
@@ -181,7 +182,6 @@ export const updateProject = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-
 export const deleteProject = async (req, res) => {
   try {
     const { idProject } = req.body;
@@ -276,16 +276,23 @@ export const getConsultantsAvailableForProject = async (req, res) => {
                   ownerID: ownerID,
                 })
                 .select("nameSkill");
+              const resultUserConsultant = await userModel
+                .findOne({
+                  _id: ownerID,
+                })
+                .select("email");
               return {
                 consultantInformation: {
                   professionConsultant: resultResumeConsultant.profession,
                   descriptionConsultant: resultResumeConsultant.description,
+                  pictureConsultant: resultProfileConsultant.picture,
                   nameConsultant: resultProfileConsultant.name,
                   lastNameConsultant: resultProfileConsultant.lastName,
                   motherLastNameConsultant:
                     resultProfileConsultant.motherLastName,
                   numberConsultant: resultProfileConsultant.number,
                   LinkedInConsultant: resultProfileConsultant.LinkedIn,
+                  emailConsultant: resultUserConsultant.email,
                   experienceConsultant: resultExperienceConsultant,
                   educationConsultant: resultEducationConsultant,
                   languagesConsultant: resultLanguagesConsultant,

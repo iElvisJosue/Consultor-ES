@@ -1,0 +1,26 @@
+.Main__Profile__Information--Content--ConsultantCV--Experience {
+  background: var(--White);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.Main__Profile__Information--Content--ConsultantCV--Experience--Title {
+  font-size: 2.5em;
+  color: var(--MainPurple);
+  font-weight: bold;
+}
+.Main__Profile__Information--Content--ConsultantCV--Experience--PositionCompany {
+  font-size: 1.8em;
+  color: var(--Green);
+  font-style: italic;
+  font-weight: bold;
+}
+.Main__Profile__Information--Content--ConsultantCV--Experience--Resume {
+  font-size: 1.6em;
+  color: var(--MainPurple);
+}
+.Main__Profile__Information--Content--ConsultantCV--Experience--Date {
+  font-size: 1.6em;
+  color: var(--MainPurple);
+}

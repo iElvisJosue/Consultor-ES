@@ -18,7 +18,7 @@ export default function PerfilDelConsultorInformacionProyectos({
   const consultantAreas = consultantInformation.data.consultantAreas;
   const { projectsAvailable, searching } = useGetProjects({ consultantAreas });
 
-  if (searching) return <Loader text="Buscando Proyectos..." />;
+  if (searching) return <Loader small={true} text="Buscando Proyectos..." />;
   if (projectsAvailable) {
     const amountProjects = projectsAvailable.length;
     return (

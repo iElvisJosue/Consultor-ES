@@ -35,6 +35,7 @@ export default function PerfilDelClienteInformacion({
   } = useModalDelete();
   const { classModalComplete, setShowModalComplete } = useModalComplete();
   const { elementID, setElementID } = useID();
+  const { picture } = clientInformation.data.dataClient;
 
   const clientProfileCommonProps = {
     clientInformation,
@@ -90,6 +91,7 @@ export default function PerfilDelClienteInformacion({
         setElementID={setElementID}
         changeMenu={changeMenu}
         menu={menu}
+        picture={picture}
       />
       <section className="Main__Profile__Information--Content">
         <ProfileSectionToRender {...clientProfileCommonProps} />

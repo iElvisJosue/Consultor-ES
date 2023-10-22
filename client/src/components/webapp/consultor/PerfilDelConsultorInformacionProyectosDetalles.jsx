@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // COMPONENTES A USAR
 import BackSection from "../global/BackSection";
+import Divisor from "../global/Divisor";
 
 // AYUDAS A USAR
 import { formatPayment } from "../../../helpers/FormatoDePago";
@@ -52,6 +53,7 @@ export default function PerfilDelConsultorInformacionProyectosDetalles({
           </strong>
           y te voy a contar un poco más de mi proyecto. 🗣️
         </header>
+        <Divisor />
         <p className="Main__Profile__Information--Content--ProjectsDetails--Content--Text">
           <strong>💼 Nombre: </strong>
           {projectDetails.nameProject.toUpperCase()}
@@ -63,21 +65,13 @@ export default function PerfilDelConsultorInformacionProyectosDetalles({
         <p className="Main__Profile__Information--Content--ProjectsDetails--Content--Text">
           <strong>💰 Pago: </strong>
           {formatPayment(projectDetails.paymentProject)}
-          <strong
-            style={{
-              marginLeft: 20,
-            }}
-          >
-            🕰️ Tiempo:{" "}
-          </strong>
+        </p>
+        <p className="Main__Profile__Information--Content--ProjectsDetails--Content--Text">
+          <strong>🕰️ Tiempo: </strong>
           {projectDetails.timeProject}
-          <strong
-            style={{
-              marginLeft: 20,
-            }}
-          >
-            🛠️ Área:{" "}
-          </strong>
+        </p>
+        <p className="Main__Profile__Information--Content--ProjectsDetails--Content--Text">
+          <strong>🛠️ Área: </strong>
           {projectDetails.areaProject}
         </p>
       </div>

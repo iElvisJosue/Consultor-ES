@@ -13,7 +13,12 @@ import PerfilMenuCliente from "./PerfilMenuCliente";
 // ESTILOS A USAR
 import "../../../styles/webapp/Menu.css";
 
-export default function PerfilMenu({ setElementID, changeMenu, menu }) {
+export default function PerfilMenu({
+  setElementID,
+  changeMenu,
+  menu,
+  picture,
+}) {
   const { showMenu, setShowMenu } = useShowMenu();
   const { user } = useGlobal();
   const { userName, role } = user;
@@ -40,7 +45,7 @@ export default function PerfilMenu({ setElementID, changeMenu, menu }) {
     <aside className={classMenuOptions}>
       <div className="Main__Profile__Information--Menu--Profile">
         <picture className="Main__Profile__Information--Menu--Profile--Picture">
-          <img src="./CEO.png" alt="Imagen de perfil" />
+          <img src={picture} alt="Imagen de perfil" />
         </picture>
         <p className="Main__Profile__Information--Menu--Profile--Name">
           {userName}

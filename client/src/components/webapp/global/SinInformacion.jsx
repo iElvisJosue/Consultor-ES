@@ -7,7 +7,7 @@ export default function SinInformacion({ children }) {
       <picture className="Main__WithoutInfo--Picture">
         <img src="./SinInformacion.png" alt="Sin información" />
       </picture>
-      <p className="Main__WithoutInfo--Text">{children}</p>
+      <p className="Main__WithoutInfo--Text">{children} ☹️</p>
     </div>
   );
 }

@@ -1,4 +1,8 @@
 /* eslint-disable react/prop-types */
+
+// COMPONENTES A USAR
+import Divisor from "./Divisor";
+
 // ESTILOS A USAR
 import "../../../styles/webapp/BackSection.css";
 
@@ -46,7 +50,7 @@ export default function BackSection({
         />
       )}
       {title && <h2 className="Main__Form--BackSection--Title">{title}</h2>}
-      <hr className="Main__Form--BackSection--Divisor" />
+      <Divisor />
     </header>
   );
 }

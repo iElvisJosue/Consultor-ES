@@ -37,6 +37,7 @@ export default function PerfilDelConsultorInformacion({
     setTypeElementDelete,
   } = useModalDelete();
   const { elementID, setElementID } = useID();
+  const { picture } = consultantInformation.data.consultantInformation;
 
   const consultantProfileCommonProps = {
     consultantInformation,
@@ -86,6 +87,7 @@ export default function PerfilDelConsultorInformacion({
         setElementID={setElementID}
         changeMenu={changeMenu}
         menu={menu}
+        picture={picture}
       />
       <section className="Main__Profile__Information--Content">
         <ProfileSectionToRender {...consultantProfileCommonProps} />

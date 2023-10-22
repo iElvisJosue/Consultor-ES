@@ -4,8 +4,6 @@
   background: var(--White);
   border-radius: 15px;
 
-  /* display: flex;
-    flex-direction: column; */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
@@ -28,6 +26,11 @@
   color: var(--MainPurple);
   text-align: center;
   border-bottom: 2px solid var(--SecondaryPurple);
+  transition: 0.3s ease-in-out all;
+}
+.Main__Profile__Information--Content--ConsultantsAvailable--Container:hover
+  .Main__Profile__Information--Content--ConsultantsAvailable--Container--Project {
+  border-color: var(--MainPurple);
 }
 .Main__Profile__Information--Content--ConsultantsAvailable--Container--Project
   i {

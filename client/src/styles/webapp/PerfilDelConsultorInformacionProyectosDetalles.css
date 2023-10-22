@@ -12,12 +12,7 @@
   flex-direction: column;
   gap: 20px;
 }
-.Main__Profile__Information--Content--ProjectsDetails--Content--Header {
-  border-bottom: 2px solid var(--SecondaryYellow);
-  font-size: 1.8em;
-  color: var(--MainPurple);
-  padding-bottom: 20px;
-}
+.Main__Profile__Information--Content--ProjectsDetails--Content--Header,
 .Main__Profile__Information--Content--ProjectsDetails--Content--Text {
   font-size: 1.8em;
   color: var(--MainPurple);
