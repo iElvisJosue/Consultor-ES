@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 
-// import useUpdateImage from "../../../hooks/useUpdateImage";
+import useUpdateImage from "../../../hooks/useUpdateImage";
 
 export default function ModalImagen({ setShowModalImage, classModalImage }) {
-  // const {
-  //   hasImage,
-  //   handleFileChange,
-  //   showError,
-  //   resetModalImage,
-  //   validateImage,
-  // } = useUpdateImage({ setShowModalImage });
+  const {
+    hasImage,
+    handleFileChange,
+    updateImage,
+    showError,
+    resetModalImage,
+  } = useUpdateImage({ setShowModalImage });
 
   return (
     <form
       className={classModalImage}
-      // onSubmit={validateImage}
+      onSubmit={updateImage}
       encType="multipart/form-data"
     >
       <div className="Main__Modal--Content">
@@ -24,26 +24,26 @@ export default function ModalImagen({ setShowModalImage, classModalImage }) {
         </picture>
         <p className="Main__Modal--Content--Description">
           Por favor, selecciona una imagen en formato PNG, JPG o JPEG con un
-          tamaño máximo de 1MB.
+          tamaño máximo de 2MB.
         </p>
         <label className="Main__Modal--Content--InputFile">
           <input
             type="file"
             accept="image/*"
             name="userPicture"
-            // onChange={handleFileChange}
+            onChange={handleFileChange}
           />
-          {/* {hasImage ? hasImage?.name : "Seleccionar Imagen"} */}
+          {hasImage ? hasImage?.name : "Seleccionar Imagen"}
         </label>
-        {/* {showError && (
+        {showError && (
           <span className="Main__Modal--Content--SmallError">
             ¡Por favor, selecciona una imagen! ⚠️
           </span>
-        )} */}
+        )}
         <span className="Main__Modal--Content--Buttons">
           <button
             className="Main__Modal--Content--Buttons--Cancel Image"
-            // onClick={resetModalImage}
+            onClick={resetModalImage}
           >
             Cancelar
           </button>
