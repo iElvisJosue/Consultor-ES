@@ -55,7 +55,7 @@ export default function PerfilDelClienteInformacion({
   };
 
   const menuProps = {
-    setShowModalImage,
+    // setShowModalImage,
     setElementID,
     changeMenu,
     menu,
