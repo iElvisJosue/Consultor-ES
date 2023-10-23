@@ -37,9 +37,9 @@ app.use(cors({ origin: allowedOrigins, credentials: true }));
 // APLICAMOS MORGAN
 app.use(morgan("dev"));
 // DEFINIMOS LA RUTA DE NUESTRAS IMÁGENES
-// app.set("public", path.join(__dirname, "public"));
+app.set("public", path.join(__dirname, "public"));
 // RUTA PARA PROBAR EL LADO DEL CLIENTE
-app.set("public", path.join(__dirname, "../client/public"));
+// app.set("public", path.join(__dirname, "../client/public"));
 // APLICAMOS VISUALIZADO JSON
 app.use(express.json());
 // APLICAMOS EL VISUALIZADO DE COOKIES

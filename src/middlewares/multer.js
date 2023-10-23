@@ -10,9 +10,9 @@ const __dirname = dirname(__filename);
 
 const storage = multer.diskStorage({
   // RUTA PARA PRUEBA EN PRODUCCIÓN
-  destination: path.join(__dirname, "../../client/public/usersPictures"),
+  // destination: path.join(__dirname, "../../client/public/usersPictures"),
   // RUTA ORIGINAL
-  // destination: path.join(__dirname, "../public/usersPictures"),
+  destination: path.join(__dirname, "../public/usersPictures"),
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
