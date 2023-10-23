@@ -31,8 +31,9 @@ export default function PerfilDelClienteInformacionConsultoresCVResume({
       <img
         src={
           pictureConsultant
-            ? `http://localhost:4000/usersPictures/${pictureConsultant}`
-            : "./CEO.png"
+            ? `https://consultor-es.onrender.com/usersPictures/${pictureConsultant}`
+            : // `http://localhost:4000/usersPictures/${pictureConsultant}`
+              "./CEO.png"
         }
         alt={`${nameConsultant} ${lastNameConsultant} ${motherLastNameConsultant} Foto de perfil`}
         className="Main__Profile__Information--Content--ConsultantCV--Resume--Img"

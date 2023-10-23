@@ -39,7 +39,7 @@ export default function PerfilDelClienteInformacionConsultoresDisponibles({
                     <img
                       src={
                         consultantInformation.pictureConsultant
-                          ? // ? `http://localhost:4000/usersPictures/${cconsultantInformation.pictureConsultant}`
+                          ? // ? `http://localhost:4000/usersPictures/${consultantInformation.pictureConsultant}`
                             `https://consultor-es.onrender.com/usersPictures/${consultantInformation.pictureConsultant}`
                           : "./CEO.png"
                       }
