@@ -26,4 +26,4 @@ export const registerUserUpdate = (data) =>
 export const verifyToken = () => axios.get("/global/verifyToken");
 
 // PETICIÓN PARA CERRAR SESIÓN
-export const logoutUser = (id) => axios.put("/global/logout", id);
+export const logoutUser = () => axios.put("/global/logout");

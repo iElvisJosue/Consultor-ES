@@ -29,6 +29,7 @@ export default function PerfilDelConsultorInformacion({
   consultantInformation,
   setCheckCV,
   checkCV,
+  user,
 }) {
   const { changeMenu, menu } = useMenu();
   const {
@@ -39,7 +40,7 @@ export default function PerfilDelConsultorInformacion({
   } = useModalDelete();
   const { elementID, setElementID } = useID();
   const { classModalImage, setShowModalImage } = useModalImage();
-  const { picture } = consultantInformation.data.consultantInformation;
+  const { picture } = user.picture;
 
   const consultantProfileCommonProps = {
     consultantInformation,

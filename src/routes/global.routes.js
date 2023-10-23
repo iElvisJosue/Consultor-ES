@@ -8,6 +8,7 @@ import {
   updateUserImage,
   login,
   getUserProfile,
+  // getUserImage,
   logout,
   verifyToken,
 } from "../controllers/global.controllers.js";
@@ -56,7 +57,12 @@ router.put(
 );
 
 // RUTA PARA SUBIR UNA IMAGEN DE PERFIL
-router.post("/updateUserImage", upload.single("userPicture"), updateUserImage);
+router.post(
+  "/updateUserImage",
+  authRequired,
+  upload.single("userPicture"),
+  updateUserImage
+);
 
 // RUTA PARA OBTENER LOS DATOS DEL USUARIO
 router.get("/getUserProfile", authRequired, getUserProfile);
@@ -65,7 +71,7 @@ router.get("/getUserProfile", authRequired, getUserProfile);
 router.post("/login", validateData(dataLogin), login);
 
 // RUTA PARA CERRAR SESIÓN
-router.put("/logout", logout);
+router.put("/logout", authRequired, logout);
 
 // RUTA PARA VERIFICAR EL TOKEN DEL CONSULTOR
 router.get("/verifyToken", verifyToken);

@@ -250,7 +250,7 @@ export const getConsultantsAvailableForProject = async (req, res) => {
                 .findOne({
                   ownerID: ownerID,
                 })
-                .select("name lastName motherLastName picture number LinkedIn");
+                .select("name lastName motherLastName number LinkedIn");
               const resultResumeConsultant = await consultantResumeModel
                 .findOne({
                   ownerID: ownerID,
@@ -280,12 +280,11 @@ export const getConsultantsAvailableForProject = async (req, res) => {
                 .findOne({
                   _id: ownerID,
                 })
-                .select("email");
+                .select("email picture");
               return {
                 consultantInformation: {
                   professionConsultant: resultResumeConsultant.profession,
                   descriptionConsultant: resultResumeConsultant.description,
-                  pictureConsultant: resultProfileConsultant.picture,
                   nameConsultant: resultProfileConsultant.name,
                   lastNameConsultant: resultProfileConsultant.lastName,
                   motherLastNameConsultant:
@@ -293,6 +292,7 @@ export const getConsultantsAvailableForProject = async (req, res) => {
                   numberConsultant: resultProfileConsultant.number,
                   LinkedInConsultant: resultProfileConsultant.LinkedIn,
                   emailConsultant: resultUserConsultant.email,
+                  pictureConsultant: resultUserConsultant.picture,
                   experienceConsultant: resultExperienceConsultant,
                   educationConsultant: resultEducationConsultant,
                   languagesConsultant: resultLanguagesConsultant,

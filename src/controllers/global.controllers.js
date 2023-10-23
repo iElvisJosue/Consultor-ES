@@ -290,6 +290,7 @@ const startSession = async (req, res, id) => {
       role: userSession.role,
       knowUs: userSession.knowUs,
       online: userSession.online,
+      picture: userSession.picture,
     };
   } catch (error) {
     res.status(500).json(error500);
@@ -314,7 +315,7 @@ export const getUserProfile = async (req, res) => {
 };
 export const logout = async (req, res) => {
   try {
-    await userModel.findByIdAndUpdate(req.body.id, {
+    await userModel.findByIdAndUpdate(req.user._id, {
       online: false,
     });
     res.cookie("accessToken", "", {

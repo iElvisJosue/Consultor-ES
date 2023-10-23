@@ -163,12 +163,12 @@ export const getProjectsAvailableConsultant = async (req, res) => {
             .findOne({
               ownerID: ownerID,
             })
-            .select("name lastName motherLastName picture number");
+            .select("name lastName motherLastName number");
           const resultUserInformation = await userModel
             .findOne({
               _id: ownerID,
             })
-            .select("email");
+            .select("email picture");
           return {
             idProject: projectInformation[index]._id,
             nameProject: projectInformation[index].nameProject,
@@ -179,8 +179,8 @@ export const getProjectsAvailableConsultant = async (req, res) => {
             nameClient: resultClientInformation.name,
             lastNameClient: resultClientInformation.lastName,
             motherLastNameClient: resultClientInformation.motherLastName,
-            pictureClient: resultClientInformation.picture,
             emailClient: resultUserInformation.email,
+            pictureClient: resultUserInformation.picture,
           };
         })
       );

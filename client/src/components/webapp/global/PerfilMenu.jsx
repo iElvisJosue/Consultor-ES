@@ -46,7 +46,7 @@ export default function PerfilMenu({
     <aside className={classMenuOptions}>
       <div className="Main__Profile__Information--Menu--Profile">
         <picture className="Main__Profile__Information--Menu--Profile--Picture">
-          <img src={picture} alt="Imagen de perfil" />
+          <img src={picture || "./CEO.png"} alt="Imagen de perfil" />
           <button
             className="Main__Profile__Information--Menu--Profile--Picture--Button"
             onClick={() => setShowModalImage(true)}

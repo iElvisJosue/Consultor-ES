@@ -131,8 +131,8 @@ export const GlobalProvider = ({ children }) => {
       return error;
     }
   };
-  const logout = async (id) => {
-    await logoutUser(id);
+  const logout = async () => {
+    await logoutUser();
     return setError();
   };
 

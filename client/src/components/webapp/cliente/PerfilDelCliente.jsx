@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // HOOKS
 import useProfileClient from "../../../hooks/cliente/useProfileClient";
 
@@ -5,7 +6,7 @@ import useProfileClient from "../../../hooks/cliente/useProfileClient";
 import Loader from "../global/Loader";
 import PerfilDelClienteInformacion from "./PerfilDelClienteInformacion";
 
-export default function PerfilDelCliente() {
+export default function PerfilDelCliente({ user }) {
   const { clientInformation, setCheckClient, checkClient } = useProfileClient();
   if (clientInformation) {
     return (
@@ -13,6 +14,7 @@ export default function PerfilDelCliente() {
         clientInformation={clientInformation}
         setCheckClient={setCheckClient}
         checkClient={checkClient}
+        user={user}
       />
     );
   } else {

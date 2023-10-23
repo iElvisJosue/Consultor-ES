@@ -7,7 +7,7 @@ import Loader from "../global/Loader";
 // HOOKS A USAR
 import useProfileConsultant from "../../../hooks/consultor/useProfileConsultant";
 
-export default function PerfilDelConsultor() {
+export default function PerfilDelConsultor({ user }) {
   const { consultantInformation, cvIsDone, setCheckCV, checkCV } =
     useProfileConsultant();
 
@@ -19,6 +19,7 @@ export default function PerfilDelConsultor() {
             consultantInformation={consultantInformation}
             setCheckCV={setCheckCV}
             checkCV={checkCV}
+            user={user}
           />
         ) : (
           <PerfilDelConsultorAgregarCV

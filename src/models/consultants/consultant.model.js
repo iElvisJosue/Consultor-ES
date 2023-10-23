@@ -18,10 +18,6 @@ const consultantProfileModel = new mongoose.Schema(
       trim: true,
       default: "",
     },
-    picture: {
-      type: String,
-      default: "",
-    },
     number: {
       type: String,
       trim: true,
