@@ -9,7 +9,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, "../public/usersPictures"),
+  // RUTA PARA PRUEBA EN PRODUCCIÓN
+  destination: path.join(__dirname, "../../client/public/usersPictures"),
+  // RUTA ORIGINAL
+  // destination: path.join(__dirname, "../public/usersPictures"),
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
