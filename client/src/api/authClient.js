@@ -8,6 +8,10 @@ export const registerDataClientRequest = (data) =>
 export const updateDataClientRequest = (data) =>
   axios.put("/client/updateDataClient", data);
 
+// PETICIÓN PARA ACTUALIZAR LA IMAGEN DE PERFIL DEL CLIENTE
+export const updateImageClientRequest = (data) =>
+  axios.post("/client/updateImageClient", data);
+
 // PETICIÓN PARA ACTUALIZAR LOS DATOS DE NEGOCIO DEL CLIENTE
 export const updateDataBusinessClientRequest = (data) =>
   axios.put("/client/updateDataBusinessClient", data);

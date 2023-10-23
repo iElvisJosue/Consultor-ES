@@ -27,7 +27,6 @@ export default function PerfilDelClienteInformacion({
   clientInformation,
   setCheckClient,
   checkClient,
-  user,
 }) {
   const { changeMenu, menu } = useMenu();
   const {
@@ -39,7 +38,7 @@ export default function PerfilDelClienteInformacion({
   const { classModalComplete, setShowModalComplete } = useModalComplete();
   const { classModalImage, setShowModalImage } = useModalImage();
   const { elementID, setElementID } = useID();
-  const { picture } = user.picture;
+  const { picture } = clientInformation.data.dataClient;
 
   const clientProfileCommonProps = {
     clientInformation,
@@ -66,6 +65,8 @@ export default function PerfilDelClienteInformacion({
   const modalImageProps = {
     setShowModalImage,
     classModalImage,
+    setCheckClient,
+    checkClient,
     setElementID,
     elementID,
     picture,

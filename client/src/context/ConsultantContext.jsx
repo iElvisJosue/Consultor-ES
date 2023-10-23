@@ -4,6 +4,7 @@ import {
   getProjectsAvailableRequest,
   registerDataConsultantRequest,
   updateDataConsultantRequest,
+  updateImageConsultantRequest,
   registerDataBankRequest,
   addResumeCVRequest,
   addNewExperienceRequest,
@@ -76,6 +77,15 @@ export const ConsultantProvider = ({ children }) => {
       console.log(error);
       //   setError();
       console.log("ERROR GET PROJECTS AVAILABLE 2");
+      return error;
+    }
+  };
+
+  const updateImageConsultant = async (data) => {
+    try {
+      const res = await updateImageConsultantRequest(data);
+      return res;
+    } catch (error) {
       return error;
     }
   };
@@ -337,6 +347,7 @@ export const ConsultantProvider = ({ children }) => {
         addLanguage,
         addSkill,
         updateProfileConsultant,
+        updateImageConsultant,
         updateResume,
         updateExperience,
         updateEducation,

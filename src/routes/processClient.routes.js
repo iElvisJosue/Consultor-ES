@@ -9,6 +9,7 @@ import {
   registerDataClient,
   getInformationClient,
   updateDataClient,
+  updateImageClient,
   getConsultantsAvailableForProject,
   addNewProject,
   updateProject,
@@ -27,6 +28,9 @@ import {
   emailVerificationCode,
   dataClient,
 } from "../validators/data.validator.js";
+// IMPORTAMOS MULTER
+import multer from "multer";
+const upload = multer({ dest: "../public/usersPictures" });
 
 // RUTA PARA ENVIAR VERIFICACIÓN DEL CORREO
 router.post(
@@ -66,6 +70,14 @@ router.post(
   "/getConsultantsAvailableForProject",
   authRequired,
   getConsultantsAvailableForProject
+);
+
+// RUTA PARA ACTUALIZAR LA IMAGEN DE PERFIL DEL CLIENTE
+router.post(
+  "/updateImageClient",
+  authRequired,
+  upload.single("userPicture"),
+  updateImageClient
 );
 
 // RUTA PARA OBTENER LOS DATOS DEL CLIENTE

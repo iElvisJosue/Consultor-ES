@@ -27,10 +27,6 @@ const usersModel = new mongoose.Schema(
       trim: true,
       default: "",
     },
-    picture: {
-      type: String,
-      default: "",
-    },
     role: {
       type: String,
     },

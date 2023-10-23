@@ -6,7 +6,7 @@ import useProfileClient from "../../../hooks/cliente/useProfileClient";
 import Loader from "../global/Loader";
 import PerfilDelClienteInformacion from "./PerfilDelClienteInformacion";
 
-export default function PerfilDelCliente({ user }) {
+export default function PerfilDelCliente() {
   const { clientInformation, setCheckClient, checkClient } = useProfileClient();
   if (clientInformation) {
     return (
@@ -14,7 +14,6 @@ export default function PerfilDelCliente({ user }) {
         clientInformation={clientInformation}
         setCheckClient={setCheckClient}
         checkClient={checkClient}
-        user={user}
       />
     );
   } else {

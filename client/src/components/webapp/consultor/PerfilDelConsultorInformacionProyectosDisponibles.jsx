@@ -43,7 +43,15 @@ export default function PerfilDelConsultorInformacionProyectosDisponibles({
             </span>
             <div className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details">
               <picture className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details--Picture">
-                <img src={pictureClient} alt="Foto Del Cliente" />
+                <img
+                  src={
+                    pictureClient
+                      ? // ? `http://localhost:4000/usersPictures/${pictureClient}`
+                        `https://consultor-es.onrender.com/usersPictures/${pictureClient}`
+                      : "./CEO.png"
+                  }
+                  alt="Foto Del Cliente"
+                />
               </picture>
               <div className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details--Info">
                 <p className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details--Name">

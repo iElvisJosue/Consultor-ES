@@ -16,7 +16,16 @@ export default function PerfilDelConsultorInformacionProyectos({
   changeMenu,
 }) {
   const consultantAreas = consultantInformation.data.consultantAreas;
-  const { projectsAvailable, searching } = useGetProjects({ consultantAreas });
+  const {
+    projectsAvailable,
+    searching,
+    setCheckProjectsAvailable,
+    checkProjectsAvailable,
+  } = useGetProjects({ consultantAreas });
+
+  setTimeout(() => {
+    setCheckProjectsAvailable(!checkProjectsAvailable);
+  }, 5000);
 
   if (searching) return <Loader small={true} text="Buscando Proyectos..." />;
   if (projectsAvailable) {
@@ -35,6 +44,8 @@ export default function PerfilDelConsultorInformacionProyectos({
             projectsAvailable={projectsAvailable}
             amountProjects={amountProjects}
             setElementID={setElementID}
+            setCheckProjectsAvailable={setCheckProjectsAvailable}
+            checkProjectsAvailable={checkProjectsAvailable}
           />
         )}
       </>

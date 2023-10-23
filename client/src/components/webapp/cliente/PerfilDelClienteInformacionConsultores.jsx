@@ -13,11 +13,21 @@ export default function PerfilDelClienteInformacionConsultores({
   setElementID,
   elementID,
 }) {
-  const { searching, consultants } = useGetConsultants({ clientInformation });
+  const {
+    searching,
+    consultants,
+    checkConsultantsAvailable,
+    setCheckConsultantsAvailable,
+  } = useGetConsultants({ clientInformation });
 
   if (searching) {
     return <Loader small={true} text="Buscando consultores..." />;
   }
+
+  setTimeout(() => {
+    setCheckConsultantsAvailable(!checkConsultantsAvailable);
+  }, 5000);
+
   if (consultants) {
     return (
       <>
@@ -31,15 +41,15 @@ export default function PerfilDelClienteInformacionConsultores({
           <PerfilDelClienteInformacionConsultoresDisponibles
             consultants={consultants}
             setElementID={setElementID}
+            checkConsultantsAvailable={checkConsultantsAvailable}
+            setCheckConsultantsAvailable={setCheckConsultantsAvailable}
           />
         )}
       </>
     );
   } else {
     return (
-      <SinInformacion>
-        ¡Sin proyectos no podemos asignar consultores!
-      </SinInformacion>
+      <SinInformacion>¡No hay consultores disponibles para ti!</SinInformacion>
     );
   }
 }

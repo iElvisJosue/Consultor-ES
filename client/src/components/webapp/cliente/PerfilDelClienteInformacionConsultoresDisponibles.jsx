@@ -38,7 +38,10 @@ export default function PerfilDelClienteInformacionConsultoresDisponibles({
                   <picture className="Main__Profile__Information--Content--ConsultantsAvailable--Container--Details--Picture">
                     <img
                       src={
-                        consultantInformation.pictureConsultant || "/CEO.png"
+                        consultantInformation.pictureConsultant
+                          ? // ? `http://localhost:4000/usersPictures/${cconsultantInformation.pictureConsultant}`
+                            `https://consultor-es.onrender.com/usersPictures/${consultantInformation.pictureConsultant}`
+                          : "./CEO.png"
                       }
                       alt="Foto Del Consultor"
                     />

@@ -5,10 +5,8 @@ import {
   sendEmailVerificationCode,
   emailVerification,
   updateUser,
-  updateUserImage,
   login,
   getUserProfile,
-  // getUserImage,
   logout,
   verifyToken,
 } from "../controllers/global.controllers.js";
@@ -27,9 +25,6 @@ import {
 import { dataUser, dataLogin } from "../validators/data.validator.js";
 // ALMACENAMOS EL ENRUTADOR
 const router = Router();
-// IMPORTAMOS MULTER
-import multer from "multer";
-const upload = multer({ dest: "../public/usersPictures" });
 
 // RUTA PARA ENVIAR VERIFICACIÓN DEL CORREO
 router.post(
@@ -56,14 +51,6 @@ router.put(
   updateUser
 );
 
-// RUTA PARA SUBIR UNA IMAGEN DE PERFIL
-router.post(
-  "/updateUserImage",
-  authRequired,
-  upload.single("userPicture"),
-  updateUserImage
-);
-
 // RUTA PARA OBTENER LOS DATOS DEL USUARIO
 router.get("/getUserProfile", authRequired, getUserProfile);
 
@@ -71,7 +58,7 @@ router.get("/getUserProfile", authRequired, getUserProfile);
 router.post("/login", validateData(dataLogin), login);
 
 // RUTA PARA CERRAR SESIÓN
-router.put("/logout", authRequired, logout);
+router.put("/logout", logout);
 
 // RUTA PARA VERIFICAR EL TOKEN DEL CONSULTOR
 router.get("/verifyToken", verifyToken);

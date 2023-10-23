@@ -2,14 +2,27 @@
 
 import useUpdateImage from "../../../hooks/useUpdateImage";
 
-export default function ModalImagen({ setShowModalImage, classModalImage }) {
+export default function ModalImagen({
+  setCheckCV,
+  checkCV,
+  setShowModalImage,
+  classModalImage,
+  setCheckClient,
+  checkClient,
+}) {
   const {
     hasImage,
     handleFileChange,
     validateImage,
     showError,
     resetModalImage,
-  } = useUpdateImage({ setShowModalImage });
+  } = useUpdateImage({
+    setShowModalImage,
+    setCheckClient,
+    checkClient,
+    setCheckCV,
+    checkCV,
+  });
 
   return (
     <form

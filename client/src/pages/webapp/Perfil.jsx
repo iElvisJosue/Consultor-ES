@@ -16,9 +16,9 @@ export default function Perfil() {
   const { user } = useGlobal();
 
   const profiles = {
-    Consultor: <PerfilDelConsultor user={user} />,
-    Cliente: <PerfilDelCliente user={user} />,
-    Administrador: <PerfilDelAdmin user={user} />,
+    Consultor: <PerfilDelConsultor />,
+    Cliente: <PerfilDelCliente />,
+    Administrador: <PerfilDelAdmin />,
   };
 
   return (

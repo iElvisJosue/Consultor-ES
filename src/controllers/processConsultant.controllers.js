@@ -137,6 +137,23 @@ export const updateDataConsultant = async (req, res) => {
     res.status(500).json(error500);
   }
 };
+export const updateImageConsultant = async (req, res) => {
+  try {
+    await consultantProfileModel.findOneAndUpdate(
+      { ownerID: req.user._id },
+      {
+        picture: req.file.originalname,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json("¡Tu imagen ha sido actualizada exitosamente!");
+  } catch (error) {
+    res.status(500).json(error500);
+  }
+};
 export const getProjectsAvailableConsultant = async (req, res) => {
   const dataAreas = Object.values(req.body);
 
@@ -163,12 +180,12 @@ export const getProjectsAvailableConsultant = async (req, res) => {
             .findOne({
               ownerID: ownerID,
             })
-            .select("name lastName motherLastName number");
+            .select("name lastName picture motherLastName number");
           const resultUserInformation = await userModel
             .findOne({
               _id: ownerID,
             })
-            .select("email picture");
+            .select("email");
           return {
             idProject: projectInformation[index]._id,
             nameProject: projectInformation[index].nameProject,
@@ -178,9 +195,9 @@ export const getProjectsAvailableConsultant = async (req, res) => {
             paymentProject: projectInformation[index].paymentProject,
             nameClient: resultClientInformation.name,
             lastNameClient: resultClientInformation.lastName,
+            pictureClient: resultClientInformation.picture,
             motherLastNameClient: resultClientInformation.motherLastName,
             emailClient: resultUserInformation.email,
-            pictureClient: resultUserInformation.picture,
           };
         })
       );

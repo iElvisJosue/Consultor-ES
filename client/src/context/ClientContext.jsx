@@ -5,6 +5,7 @@ import {
   updateDataClientRequest,
   getInformationClientRequest,
   getConsultantsAvailableForProjectRequest,
+  updateImageClientRequest,
   updateProjectRequest,
   deleteProjectRequest,
   completedProjectRequest,
@@ -30,6 +31,15 @@ export const ClientProvider = ({ children }) => {
       if (!res.data) {
         return console.log("HUBO UN ERROR EN EL REGISTRO");
       }
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const updateImageClient = async (data) => {
+    try {
+      const res = await updateImageClientRequest(data);
       return res;
     } catch (error) {
       return error;
@@ -150,6 +160,7 @@ export const ClientProvider = ({ children }) => {
         getInformationClient,
         updateProfileClient,
         getConsultantsAvailableForProject,
+        updateImageClient,
         addProject,
         updateProject,
         deleteProject,

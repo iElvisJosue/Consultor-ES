@@ -18,6 +18,7 @@ import consultantAreasModel from "../models/consultants/consultantAreas.model.js
 import consultantLanguagesModel from "../models/consultants/consultantLanguages.model.js";
 // IMPORTAMOS EL MODELO DE LAS HABILIDADES DEL CONSULTOR
 import consultantSkillsModel from "../models/consultants/consultantSkills.model.js";
+import { boolean } from "zod";
 const error500 =
   "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde.";
 
@@ -93,6 +94,23 @@ export const updateDataClient = async (req, res) => {
     );
 
     res.send("Tu información personal ha sido actualizada correctamente.");
+  } catch (error) {
+    res.status(500).json(error500);
+  }
+};
+export const updateImageClient = async (req, res) => {
+  try {
+    await clientProfileModel.findOneAndUpdate(
+      { ownerID: req.user._id },
+      {
+        picture: req.file.originalname,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json("¡Tu imagen ha sido actualizada exitosamente!");
   } catch (error) {
     res.status(500).json(error500);
   }
@@ -234,77 +252,88 @@ export const getConsultantsAvailableForProject = async (req, res) => {
             _id: _id,
           })
           .select("nameProject");
-        return {
-          resultConsultantAreas,
-          nameProject: resultClientProject.nameProject,
-        };
+        if (resultConsultantAreas.length > 0) {
+          return {
+            resultConsultantAreas,
+            nameProject: resultClientProject.nameProject,
+          };
+        } else {
+          return false;
+        }
       })
     );
 
-    if (consultantArea.length > 0) {
+    const consultantAreaFiltered = consultantArea.filter(Boolean);
+
+    if (consultantAreaFiltered.length > 0) {
       const allConsultantInformation = await Promise.all(
-        consultantArea.map(async ({ resultConsultantAreas, nameProject }) => {
-          const profileConsultant = await Promise.all(
-            resultConsultantAreas.map(async ({ ownerID }) => {
-              const resultProfileConsultant = await consultantProfileModel
-                .findOne({
-                  ownerID: ownerID,
-                })
-                .select("name lastName motherLastName number LinkedIn");
-              const resultResumeConsultant = await consultantResumeModel
-                .findOne({
-                  ownerID: ownerID,
-                })
-                .select("profession description");
-              const resultExperienceConsultant = await consultantExperienceModel
-                .find({
-                  ownerID: ownerID,
-                })
-                .select("position company resume startDate endDate");
-              const resultEducationConsultant = await consultantEducationModel
-                .find({
-                  ownerID: ownerID,
-                })
-                .select("institution educationLevel area startDate endDate");
-              const resultLanguagesConsultant = await consultantLanguagesModel
-                .find({
-                  ownerID: ownerID,
-                })
-                .select("nameLanguage levelLanguage");
-              const resultSkillsConsultant = await consultantSkillsModel
-                .find({
-                  ownerID: ownerID,
-                })
-                .select("nameSkill");
-              const resultUserConsultant = await userModel
-                .findOne({
-                  _id: ownerID,
-                })
-                .select("email picture");
-              return {
-                consultantInformation: {
-                  professionConsultant: resultResumeConsultant.profession,
-                  descriptionConsultant: resultResumeConsultant.description,
-                  nameConsultant: resultProfileConsultant.name,
-                  lastNameConsultant: resultProfileConsultant.lastName,
-                  motherLastNameConsultant:
-                    resultProfileConsultant.motherLastName,
-                  numberConsultant: resultProfileConsultant.number,
-                  LinkedInConsultant: resultProfileConsultant.LinkedIn,
-                  emailConsultant: resultUserConsultant.email,
-                  pictureConsultant: resultUserConsultant.picture,
-                  experienceConsultant: resultExperienceConsultant,
-                  educationConsultant: resultEducationConsultant,
-                  languagesConsultant: resultLanguagesConsultant,
-                  skillsConsultant: resultSkillsConsultant,
-                  ownerID,
-                },
-                nameProject,
-              };
-            })
-          );
-          return profileConsultant;
-        })
+        consultantAreaFiltered.map(
+          async ({ resultConsultantAreas, nameProject }) => {
+            const profileConsultant = await Promise.all(
+              resultConsultantAreas.map(async ({ ownerID }) => {
+                const resultProfileConsultant = await consultantProfileModel
+                  .findOne({
+                    ownerID: ownerID,
+                  })
+                  .select(
+                    "name lastName motherLastName picture number LinkedIn"
+                  );
+                const resultResumeConsultant = await consultantResumeModel
+                  .findOne({
+                    ownerID: ownerID,
+                  })
+                  .select("profession description");
+                const resultExperienceConsultant =
+                  await consultantExperienceModel
+                    .find({
+                      ownerID: ownerID,
+                    })
+                    .select("position company resume startDate endDate");
+                const resultEducationConsultant = await consultantEducationModel
+                  .find({
+                    ownerID: ownerID,
+                  })
+                  .select("institution educationLevel area startDate endDate");
+                const resultLanguagesConsultant = await consultantLanguagesModel
+                  .find({
+                    ownerID: ownerID,
+                  })
+                  .select("nameLanguage levelLanguage");
+                const resultSkillsConsultant = await consultantSkillsModel
+                  .find({
+                    ownerID: ownerID,
+                  })
+                  .select("nameSkill");
+                const resultUserConsultant = await userModel
+                  .findOne({
+                    _id: ownerID,
+                  })
+                  .select("email");
+                return {
+                  consultantInformation: {
+                    professionConsultant: resultResumeConsultant.profession,
+                    descriptionConsultant: resultResumeConsultant.description,
+                    nameConsultant: resultProfileConsultant.name,
+                    lastNameConsultant: resultProfileConsultant.lastName,
+                    motherLastNameConsultant:
+                      resultProfileConsultant.motherLastName,
+                    pictureConsultant: resultProfileConsultant.picture,
+                    numberConsultant: resultProfileConsultant.number,
+                    LinkedInConsultant: resultProfileConsultant.LinkedIn,
+                    emailConsultant: resultUserConsultant.email,
+                    experienceConsultant: resultExperienceConsultant,
+                    educationConsultant: resultEducationConsultant,
+                    languagesConsultant: resultLanguagesConsultant,
+                    skillsConsultant: resultSkillsConsultant,
+                    ownerID,
+                  },
+                  nameProject,
+                };
+              })
+            );
+            return profileConsultant;
+          }
+        )
       );
 
       res.send(allConsultantInformation);

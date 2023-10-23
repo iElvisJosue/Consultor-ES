@@ -1,13 +1,23 @@
 import { useState } from "react";
 
 // CONTEXTOS A USAR
+import { useClient } from "../context/ClientContext";
+import { useConsultant } from "../context/ConsultantContext";
 import { useGlobal } from "../context/GlobalContext";
 
 // AYUDAS A USAR
 import { handleResponseMessages } from "../helpers/Respuestas";
 
-export default function useUpdateImage({ setShowModalImage }) {
-  const { updateUserImage } = useGlobal();
+export default function useUpdateImage({
+  setShowModalImage,
+  setCheckCV,
+  checkCV,
+  setCheckClient,
+  checkClient,
+}) {
+  const { updateImageClient } = useClient();
+  const { updateImageConsultant } = useConsultant();
+  const { user } = useGlobal();
   const [hasImage, setHasImage] = useState(null);
   const [showError, setShowError] = useState(false);
 
@@ -44,16 +54,22 @@ export default function useUpdateImage({ setShowModalImage }) {
     try {
       const formData = new FormData();
       formData.append("userPicture", hasImage);
-      const res = await updateUserImage(formData);
+      const res = await handleImageProfile[user.role](formData);
       const { status, data } = res;
       handleResponseMessages({ status, data });
+      user.role === "Cliente"
+        ? setCheckClient(!checkClient)
+        : setCheckCV(!checkCV);
       resetModalImage(e);
     } catch (error) {
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
     }
   };
-
+  const handleImageProfile = {
+    Cliente: (formData) => updateImageClient(formData),
+    Consultor: (formData) => updateImageConsultant(formData),
+  };
   const resetModalImage = (e) => {
     e.preventDefault();
     setShowError(false);

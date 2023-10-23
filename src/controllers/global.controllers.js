@@ -79,7 +79,6 @@ const registerAndSendVerificationCode = async (res, email, role) => {
       role: newUserModelSaved.role,
       knowUs: newUserModelSaved.knowUs,
       online: newUserModelSaved.online,
-      picture: newUserModelSaved.picture,
     };
 
     // CREAMOS EL ID EN UN TOKEN
@@ -160,7 +159,6 @@ export const emailVerification = async (req, res) => {
         role: updatedEmailVerification.role,
         knowUs: updatedEmailVerification.knowUs,
         online: updatedEmailVerification.online,
-        picture: updatedEmailVerification.picture,
       };
 
       // CREAMOS EL ID EN UN TOKEN
@@ -213,14 +211,6 @@ export const updateUser = async (req, res) => {
           "El nombre de usuario ingresado ya existe, por favor, inténtalo con otro nombre."
         );
     }
-  } catch (error) {
-    res.status(500).json(error500);
-  }
-};
-export const updateUserImage = async (req, res) => {
-  try {
-    console.log(req.file);
-    res.status(200).json("¡Tu imagen ha sido actualizada correctamente!.");
   } catch (error) {
     res.status(500).json(error500);
   }
@@ -292,7 +282,6 @@ const startSession = async (req, res, id) => {
       role: userSession.role,
       knowUs: userSession.knowUs,
       online: userSession.online,
-      picture: userSession.picture,
     };
   } catch (error) {
     res.status(500).json(error500);
@@ -317,7 +306,7 @@ export const getUserProfile = async (req, res) => {
 };
 export const logout = async (req, res) => {
   try {
-    await userModel.findByIdAndUpdate(req.user._id, {
+    await userModel.findByIdAndUpdate(req.body.id, {
       online: false,
     });
     res.cookie("accessToken", "", {

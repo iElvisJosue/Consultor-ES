@@ -9,6 +9,8 @@ import { useClient } from "../../context/ClientContext";
 export default function useGetConsultants({ clientInformation }) {
   const [searching, setSearching] = useState(true);
   const [consultants, setConsultants] = useState(false);
+  const [checkConsultantsAvailable, setCheckConsultantsAvailable] =
+    useState(false);
   const { getConsultantsAvailableForProject } = useClient();
 
   useEffect(() => {
@@ -20,6 +22,8 @@ export default function useGetConsultants({ clientInformation }) {
           const res = await getConsultantsAvailableForProject(allAreas);
           if (res.data !== "NO HAY PROYECTOS") {
             setConsultants(res.data);
+          } else {
+            setConsultants(false);
           }
         } catch (error) {
           console.log(error);
@@ -28,7 +32,7 @@ export default function useGetConsultants({ clientInformation }) {
       setSearching(false);
     }
     getConsultantsAvailable();
-  }, []);
+  }, [checkConsultantsAvailable]);
 
   const getProjectAreas = (projectsClient) => {
     const projectArea = [];
@@ -43,5 +47,7 @@ export default function useGetConsultants({ clientInformation }) {
   return {
     searching,
     consultants,
+    setCheckConsultantsAvailable,
+    checkConsultantsAvailable,
   };
 }

@@ -52,6 +52,10 @@ const clientProfileModel = new mongoose.Schema(
       trim: true,
       default: "",
     },
+    picture: {
+      type: String,
+      default: "",
+    },
     ownerID: {
       type: String,
     },

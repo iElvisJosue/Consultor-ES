@@ -35,7 +35,6 @@ export default function PerfilMenu({
     Cliente: PerfilMenuCliente,
     //   Administrador: <PerfilMenuAdmin />,
   };
-
   const MenuToRender = profileMenuToRender[role];
 
   const classMenuOptions = showMenu
@@ -46,7 +45,15 @@ export default function PerfilMenu({
     <aside className={classMenuOptions}>
       <div className="Main__Profile__Information--Menu--Profile">
         <picture className="Main__Profile__Information--Menu--Profile--Picture">
-          <img src={picture || "./CEO.png"} alt="Imagen de perfil" />
+          <img
+            src={
+              picture
+                ? // ? `http://localhost:4000/usersPictures/${picture}`
+                  `https://consultor-es.onrender.com/usersPictures/${picture}`
+                : "./CEO.png"
+            }
+            alt="Imagen de perfil"
+          />
           <button
             className="Main__Profile__Information--Menu--Profile--Picture--Button"
             onClick={() => setShowModalImage(true)}

@@ -29,7 +29,11 @@ export default function PerfilDelClienteInformacionConsultoresCVResume({
         Regresar
       </button>
       <img
-        src={pictureConsultant || "/CEO.png"}
+        src={
+          pictureConsultant
+            ? `http://localhost:4000/usersPictures/${pictureConsultant}`
+            : "./CEO.png"
+        }
         alt={`${nameConsultant} ${lastNameConsultant} ${motherLastNameConsultant} Foto de perfil`}
         className="Main__Profile__Information--Content--ConsultantCV--Resume--Img"
       />

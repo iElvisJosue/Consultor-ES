@@ -9,7 +9,7 @@ import { useGlobal } from "../context/GlobalContext";
 
 export default function useLogout() {
   const [loading, setLoading] = useState(false);
-  const { logout } = useGlobal();
+  const { user, logout } = useGlobal();
   const navigate = useNavigate();
 
   const cookieName = "accessToken";
@@ -26,7 +26,7 @@ export default function useLogout() {
     e.preventDefault();
     const promise = new Promise(() => {
       setTimeout(() => {
-        logout();
+        logout({ id: user._id });
         Cookies.remove(cookieName);
         return;
       }, 1500);

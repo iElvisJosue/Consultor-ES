@@ -32,6 +32,10 @@ const consultantProfileModel = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    picture: {
+      type: String,
+      default: "",
+    },
     ownerID: {
       type: String,
     },

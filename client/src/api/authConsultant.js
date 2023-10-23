@@ -12,6 +12,10 @@ export const updateDataConsultantRequest = (data) =>
 export const getConsultantRequest = () =>
   axios.get("/consultant/getInformationConsultant");
 
+// PETICIÓN PARA ACTUALIZAR LA IMAGEN DE PERFIL DEL CONSULTOR
+export const updateImageConsultantRequest = (data) =>
+  axios.post("/consultant/updateImageConsultant", data);
+
 // PETICIÓN PARA OBTENER LOS PROYECTOS DISPONIBLES DEL CONSULTOR
 export const getProjectsAvailableRequest = (data) =>
   axios.post("/consultant/getProjectsAvailableConsultant", data);

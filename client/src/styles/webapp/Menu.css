@@ -29,6 +29,8 @@
 .Main__Profile__Information--Menu--Profile--Picture img {
   border-radius: 50%;
   width: 100%;
+  height: 100%;
+  background: var(--MainPurple);
 }
 .Main__Profile__Information--Menu--Profile--Picture--Button {
   position: absolute;

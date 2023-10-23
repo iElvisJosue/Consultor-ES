@@ -7,6 +7,7 @@ import {
   getInformationConsultant,
   getProjectsAvailableConsultant,
   registerDataConsultant,
+  updateImageConsultant,
   updateDataConsultant,
   registerDataBank,
   createResumeCV,
@@ -34,6 +35,9 @@ import { validateData } from "../middlewares/validateData.js";
 import { emailIsVerified } from "../middlewares/checkEmailVerified.js";
 // IMPORTAMOS LOS VALIDADORES DE DATOS
 import { dataConsultant, dataResumeCV } from "../validators/data.validator.js";
+// IMPORTAMOS MULTER
+import multer from "multer";
+const upload = multer({ dest: "../public/usersPictures" });
 
 // RUTA PARA REGISTRAR LOS DATOS DEL CONSULTOR
 router.post(
@@ -55,6 +59,14 @@ router.put(
 
 // RUTA PARA OBTENER LOS DATOS DEL USUARIO
 router.get("/getInformationConsultant", authRequired, getInformationConsultant);
+
+// RUTA PARA ACTUALIZAR LA IMAGEN DE PERFIL DEL CONSULTOR
+router.post(
+  "/updateImageConsultant",
+  authRequired,
+  upload.single("userPicture"),
+  updateImageConsultant
+);
 
 // RUTA PARA CREAR EL RESUMEN DE TU CV
 router.post(
