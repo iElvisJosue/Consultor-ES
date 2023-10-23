@@ -38,6 +38,8 @@ app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(morgan("dev"));
 // DEFINIMOS LA RUTA DE NUESTRAS IMÁGENES
 app.set("public", path.join(__dirname, "public"));
+// DEFINIMOS LA RUTA PARA SER ACCESIBLE DESDE EL NAVEGADOR
+app.use(express.static(path.join(__dirname, "public")));
 // RUTA PARA PROBAR EL LADO DEL CLIENTE
 // app.set("public", path.join(__dirname, "../client/public"));
 // APLICAMOS VISUALIZADO JSON
