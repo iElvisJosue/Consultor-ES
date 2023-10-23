@@ -44,7 +44,6 @@ export const GlobalProvider = ({ children }) => {
     async function checkCookie() {
       const cookies = Cookies.get();
       if (!cookies.accessToken) {
-        console.log("NO HAY COOKIE :(");
         setError();
         return;
       }
@@ -72,7 +71,7 @@ export const GlobalProvider = ({ children }) => {
       if (!res.data) {
         return setError();
       }
-      Cookies.set("accessToken", res.data.accessToken);
+      // Cookies.set("accessToken", res.data.accessToken);
       return setSuccess(res.data.user);
     } catch (error) {
       setError();
@@ -124,7 +123,7 @@ export const GlobalProvider = ({ children }) => {
       if (!res.data) {
         return setError();
       }
-      Cookies.set("accessToken", res.data.accessToken);
+      // Cookies.set("accessToken", res.data.accessToken);
       return setSuccess(res.data.user);
     } catch (error) {
       setError();

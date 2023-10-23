@@ -79,6 +79,7 @@ const registerAndSendVerificationCode = async (res, email, role) => {
       role: newUserModelSaved.role,
       knowUs: newUserModelSaved.knowUs,
       online: newUserModelSaved.online,
+      picture: newUserModelSaved.picture,
     };
 
     // CREAMOS EL ID EN UN TOKEN
@@ -159,6 +160,7 @@ export const emailVerification = async (req, res) => {
         role: updatedEmailVerification.role,
         knowUs: updatedEmailVerification.knowUs,
         online: updatedEmailVerification.online,
+        picture: updatedEmailVerification.picture,
       };
 
       // CREAMOS EL ID EN UN TOKEN
