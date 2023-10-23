@@ -6,7 +6,7 @@ export default function ModalImagen({ setShowModalImage, classModalImage }) {
   const {
     hasImage,
     handleFileChange,
-    updateImage,
+    validateImage,
     showError,
     resetModalImage,
   } = useUpdateImage({ setShowModalImage });
@@ -14,7 +14,7 @@ export default function ModalImagen({ setShowModalImage, classModalImage }) {
   return (
     <form
       className={classModalImage}
-      onSubmit={updateImage}
+      onSubmit={validateImage}
       encType="multipart/form-data"
     >
       <div className="Main__Modal--Content">

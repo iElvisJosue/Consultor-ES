@@ -3,6 +3,7 @@
 // COMPONENTES A USAR
 import ModalEliminar from "../global/ModalEliminar";
 import PerfilMenu from "../global/PerfilMenu";
+import ModalImagen from "../global/ModalImagen";
 import PerfilDelConsultorInformacionCV from "./PerfilDelConsultorInformacionCV";
 import PerfilDelConsultorInformacionPerfil from "./PerfilDelConsultorInformacionPerfil";
 import PerfilDelConsultorInformacionBanco from "./PerfilDelConsultorInformacionBanco";
@@ -18,8 +19,8 @@ import PerfilDelConsultorInformacionCVAdministrarIdioma from "./PerfilDelConsult
 // HOOKS A USAR
 import useMenu from "../../../hooks/useMenu";
 import useID from "../../../hooks/useID";
-("../../../hooks/useID");
 import useModalDelete from "../../../hooks/consultor/useModalDelete";
+import useModalImage from "../../../hooks/useModalImage";
 
 // ESTILOS A USAR
 import "../../../styles/webapp/PerfilDelConsultorInformacion.css";
@@ -37,6 +38,7 @@ export default function PerfilDelConsultorInformacion({
     setTypeElementDelete,
   } = useModalDelete();
   const { elementID, setElementID } = useID();
+  const { classModalImage, setShowModalImage } = useModalImage();
   const { picture } = consultantInformation.data.consultantInformation;
 
   const consultantProfileCommonProps = {
@@ -50,6 +52,22 @@ export default function PerfilDelConsultorInformacion({
     setShowModalDelete,
     typeElementDelete,
     setTypeElementDelete,
+  };
+
+  const menuProps = {
+    setShowModalImage,
+    setElementID,
+    changeMenu,
+    menu,
+    picture,
+  };
+
+  const modalImageProps = {
+    setShowModalImage,
+    classModalImage,
+    setElementID,
+    elementID,
+    picture,
   };
 
   const modalDeleteProps = {
@@ -83,12 +101,8 @@ export default function PerfilDelConsultorInformacion({
   return (
     <div className="Main__Profile__Information">
       <ModalEliminar {...modalDeleteProps} />
-      <PerfilMenu
-        setElementID={setElementID}
-        changeMenu={changeMenu}
-        menu={menu}
-        picture={picture}
-      />
+      <ModalImagen {...modalImageProps} />
+      <PerfilMenu {...menuProps} />
       <section className="Main__Profile__Information--Content">
         <ProfileSectionToRender {...consultantProfileCommonProps} />
       </section>

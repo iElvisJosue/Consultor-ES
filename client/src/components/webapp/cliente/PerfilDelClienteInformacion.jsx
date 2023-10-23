@@ -16,9 +16,9 @@ import PerfilDelClienteInformacionConfiguracion from "./PerfilDelClienteInformac
 // HOOKS A USAR
 import useMenu from "../../../hooks/useMenu";
 import useID from "../../../hooks/useID";
-import useChangeImg from "../../../hooks/useChangeImg";
 import useModalDelete from "../../../hooks/consultor/useModalDelete";
 import useModalComplete from "../../../hooks/cliente/useModalComplete";
+import useModalImage from "../../../hooks/useModalImage";
 
 // ESTILOS A USAR (SON LOS MISMOS QUE EL DEL CONSULTOR)
 import "../../../styles/webapp/PerfilDelConsultorInformacion.css";
@@ -36,7 +36,7 @@ export default function PerfilDelClienteInformacion({
     setTypeElementDelete,
   } = useModalDelete();
   const { classModalComplete, setShowModalComplete } = useModalComplete();
-  const { classModalImage, setShowModalImage } = useChangeImg();
+  const { classModalImage, setShowModalImage } = useModalImage();
   const { elementID, setElementID } = useID();
   const { picture } = clientInformation.data.dataClient;
 
@@ -104,9 +104,9 @@ export default function PerfilDelClienteInformacion({
 
   return (
     <div className="Main__Profile__Information">
-      <ModalImagen {...modalImageProps} />
       <ModalEliminar {...modalDeleteProps} />
       <ModalCompletar {...modalCompleteProps} />
+      <ModalImagen {...modalImageProps} />
       <PerfilMenu {...menuProps} />
       <section className="Main__Profile__Information--Content">
         <ProfileSectionToRender {...clientProfileCommonProps} />
