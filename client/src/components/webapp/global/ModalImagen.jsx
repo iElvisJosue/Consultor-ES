@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 
-import useUpdateImage from "../../../hooks/useUpdateImage";
+// import useUpdateImage from "../../../hooks/useUpdateImage";
 
 export default function ModalImagen({ setShowModalImage, classModalImage }) {
-  const {
-    hasImage,
-    handleFileChange,
-    showError,
-    resetModalImage,
-    validateImage,
-  } = useUpdateImage({ setShowModalImage });
+  // const {
+  //   hasImage,
+  //   handleFileChange,
+  //   showError,
+  //   resetModalImage,
+  //   validateImage,
+  // } = useUpdateImage({ setShowModalImage });
 
   return (
     <form
       className={classModalImage}
-      onSubmit={validateImage}
+      // onSubmit={validateImage}
       encType="multipart/form-data"
     >
       <div className="Main__Modal--Content">
@@ -31,19 +31,19 @@ export default function ModalImagen({ setShowModalImage, classModalImage }) {
             type="file"
             accept="image/*"
             name="userPicture"
-            onChange={handleFileChange}
+            // onChange={handleFileChange}
           />
-          {hasImage ? hasImage?.name : "Seleccionar Imagen"}
+          {/* {hasImage ? hasImage?.name : "Seleccionar Imagen"} */}
         </label>
-        {showError && (
+        {/* {showError && (
           <span className="Main__Modal--Content--SmallError">
             ¡Por favor, selecciona una imagen! ⚠️
           </span>
-        )}
+        )} */}
         <span className="Main__Modal--Content--Buttons">
           <button
             className="Main__Modal--Content--Buttons--Cancel Image"
-            onClick={resetModalImage}
+            // onClick={resetModalImage}
           >
             Cancelar
           </button>
