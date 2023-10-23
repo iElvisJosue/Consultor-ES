@@ -42,17 +42,21 @@ export default function PerfilDelConsultorInformacionProyectosDisponibles({
               </p>
             </span>
             <div className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details">
-              <picture className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details--Picture">
+              <figure className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details--Picture">
                 <img
+                  // src={
+                  //   pictureClient
+                  //     ? `http://localhost:4000/usersPictures/${pictureClient}`
+                  //     : "./CEO.png"
+                  // }
                   src={
                     pictureClient
-                      ? // ? `http://localhost:4000/usersPictures/${pictureClient}`
-                        `https://consultor-es.onrender.com/usersPictures/${pictureClient}`
+                      ? `https://consultor-es.onrender.com/usersPictures/${pictureClient}`
                       : "./CEO.png"
                   }
                   alt="Foto Del Cliente"
                 />
-              </picture>
+              </figure>
               <div className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details--Info">
                 <p className="Main__Profile__Information--Content--ProjectsAvailable--Container--Details--Name">
                   {nameProject}

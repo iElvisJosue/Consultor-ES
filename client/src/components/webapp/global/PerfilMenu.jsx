@@ -44,23 +44,27 @@ export default function PerfilMenu({
   return (
     <aside className={classMenuOptions}>
       <div className="Main__Profile__Information--Menu--Profile">
-        <picture className="Main__Profile__Information--Menu--Profile--Picture">
+        <figure className="Main__Profile__Information--Menu--Profile--Picture">
           <img
+            // src={
+            //   picture
+            //     ? `http://localhost:4000/usersPictures/${picture}`
+            //     : "./CEO.png"
+            // }
             src={
               picture
-                ? // ? `http://localhost:4000/usersPictures/${picture}`
-                  `https://consultor-es.onrender.com/usersPictures/${picture}`
+                ? `https://consultor-es.onrender.com/usersPictures/${picture}`
                 : "./CEO.png"
             }
             alt="Imagen de perfil"
           />
-          <button
-            className="Main__Profile__Information--Menu--Profile--Picture--Button"
-            onClick={() => setShowModalImage(true)}
-          >
-            <ion-icon name="brush-outline"></ion-icon>
-          </button>
-        </picture>
+        </figure>
+        <button
+          className="Main__Profile__Information--Menu--Profile--Picture--Button"
+          onClick={() => setShowModalImage(true)}
+        >
+          <ion-icon name="brush-outline"></ion-icon>
+        </button>
         <p className="Main__Profile__Information--Menu--Profile--Name">
           {userName}
         </p>

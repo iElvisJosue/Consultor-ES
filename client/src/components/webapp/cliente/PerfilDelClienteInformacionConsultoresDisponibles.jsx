@@ -35,17 +35,21 @@ export default function PerfilDelClienteInformacionConsultoresDisponibles({
                   </p>
                 </span>
                 <div className="Main__Profile__Information--Content--ConsultantsAvailable--Container--Details">
-                  <picture className="Main__Profile__Information--Content--ConsultantsAvailable--Container--Details--Picture">
+                  <figure className="Main__Profile__Information--Content--ConsultantsAvailable--Container--Details--Picture">
                     <img
+                      // src={
+                      //   consultantInformation.pictureConsultant
+                      //     ? `http://localhost:4000/usersPictures/${consultantInformation.pictureConsultant}`
+                      //     :  "./CEO.png"
+                      // }
                       src={
                         consultantInformation.pictureConsultant
-                          ? // ? `http://localhost:4000/usersPictures/${consultantInformation.pictureConsultant}`
-                            `https://consultor-es.onrender.com/usersPictures/${consultantInformation.pictureConsultant}`
+                          ? `https://consultor-es.onrender.com/usersPictures/${consultantInformation.pictureConsultant}`
                           : "./CEO.png"
                       }
                       alt="Foto Del Consultor"
                     />
-                  </picture>
+                  </figure>
                   <div className="Main__Profile__Information--Content--ConsultantsAvailable--Container--Details--Info">
                     <p className="Main__Profile__Information--Content--ConsultantsAvailable--Container--Details--Name">
                       {`${consultantInformation.nameConsultant} ${consultantInformation.lastNameConsultant} ${consultantInformation.motherLastNameConsultant}`}

@@ -28,16 +28,21 @@ export default function PerfilDelClienteInformacionConsultoresCVResume({
         <ion-icon name="chevron-back-outline"></ion-icon>
         Regresar
       </button>
-      <img
-        src={
-          pictureConsultant
-            ? `https://consultor-es.onrender.com/usersPictures/${pictureConsultant}`
-            : // `http://localhost:4000/usersPictures/${pictureConsultant}`
-              "./CEO.png"
-        }
-        alt={`${nameConsultant} ${lastNameConsultant} ${motherLastNameConsultant} Foto de perfil`}
-        className="Main__Profile__Information--Content--ConsultantCV--Resume--Img"
-      />
+      <figure className="Main__Profile__Information--Content--ConsultantCV--Resume--Picture">
+        <img
+          // src={
+          //   pictureConsultant
+          //     ? `http://localhost:4000/usersPictures/${pictureConsultant}`
+          //     : "./CEO.png"
+          // }
+          src={
+            pictureConsultant
+              ? `https://consultor-es.onrender.com/usersPictures/${pictureConsultant}`
+              : "./CEO.png"
+          }
+          alt={`${nameConsultant} ${lastNameConsultant} ${motherLastNameConsultant} Foto de perfil`}
+        />
+      </figure>
       <h1 className="Main__Profile__Information--Content--ConsultantCV--Resume--Title">{`${nameConsultant} ${lastNameConsultant} ${motherLastNameConsultant}`}</h1>
       <h2 className="Main__Profile__Information--Content--ConsultantCV--Resume--SubTitle">
         {professionConsultant}
