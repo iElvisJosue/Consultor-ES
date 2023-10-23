@@ -27,6 +27,7 @@ export default function useLogout() {
     const promise = new Promise(() => {
       setTimeout(() => {
         logout();
+        Cookies.remove(cookieName);
         return;
       }, 1500);
     });
