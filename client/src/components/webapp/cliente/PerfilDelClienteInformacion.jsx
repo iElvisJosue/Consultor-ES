@@ -3,6 +3,7 @@
 // COMPONENTES A USAR
 import ModalEliminar from "../global/ModalEliminar";
 import ModalCompletar from "../global/ModalCompletar";
+import ModalImagen from "../global/ModalImagen";
 import PerfilMenu from "../global/PerfilMenu";
 import PerfilDelClienteInformacionPerfil from "./PerfilDelClienteInformacionPerfil";
 import PerfilDelClienteInformacionProyectos from "./PerfilDelClienteInformacionProyectos";
@@ -17,6 +18,7 @@ import useMenu from "../../../hooks/useMenu";
 import useID from "../../../hooks/useID";
 import useModalDelete from "../../../hooks/consultor/useModalDelete";
 import useModalComplete from "../../../hooks/cliente/useModalComplete";
+import useModalImage from "../../../hooks/useModalImage";
 
 // ESTILOS A USAR (SON LOS MISMOS QUE EL DEL CONSULTOR)
 import "../../../styles/webapp/PerfilDelConsultorInformacion.css";
@@ -34,6 +36,7 @@ export default function PerfilDelClienteInformacion({
     setTypeElementDelete,
   } = useModalDelete();
   const { classModalComplete, setShowModalComplete } = useModalComplete();
+  const { classModalImage, setShowModalImage } = useModalImage();
   const { elementID, setElementID } = useID();
   const { picture } = clientInformation.data.dataClient;
 
@@ -49,6 +52,22 @@ export default function PerfilDelClienteInformacion({
     setShowModalComplete,
     typeElementDelete,
     setTypeElementDelete,
+  };
+
+  const menuProps = {
+    setShowModalImage,
+    setElementID,
+    changeMenu,
+    menu,
+    picture,
+  };
+
+  const modalImageProps = {
+    setShowModalImage,
+    classModalImage,
+    setElementID,
+    elementID,
+    picture,
   };
 
   const modalCompleteProps = {
@@ -87,12 +106,8 @@ export default function PerfilDelClienteInformacion({
     <div className="Main__Profile__Information">
       <ModalEliminar {...modalDeleteProps} />
       <ModalCompletar {...modalCompleteProps} />
-      <PerfilMenu
-        setElementID={setElementID}
-        changeMenu={changeMenu}
-        menu={menu}
-        picture={picture}
-      />
+      <ModalImagen {...modalImageProps} />
+      <PerfilMenu {...menuProps} />
       <section className="Main__Profile__Information--Content">
         <ProfileSectionToRender {...clientProfileCommonProps} />
       </section>

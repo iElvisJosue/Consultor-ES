@@ -3,6 +3,7 @@ import {
   sendEmailVerificationCode,
   emailVerification,
   loginUser,
+  updateUserImageRequest,
   registerUserUpdate,
   getProfile,
   verifyToken,
@@ -108,6 +109,15 @@ export const GlobalProvider = ({ children }) => {
       return error;
     }
   };
+
+  const updateUserImage = async (data) => {
+    try {
+      const res = await updateUserImageRequest(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
   const login = async (data) => {
     try {
       const res = await loginUser(data);
@@ -133,6 +143,7 @@ export const GlobalProvider = ({ children }) => {
         checkVerificationCode,
         getUserProfile,
         updateUser,
+        updateUserImage,
         login,
         logout,
         user,

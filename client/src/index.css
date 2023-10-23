@@ -31,6 +31,9 @@ input {
 body {
   background: var(--BgColor);
 }
+input[type="file"] {
+  display: none;
+}
 ::-webkit-scrollbar {
   width: 12px; /* Ancho del scroll */
 }

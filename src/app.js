@@ -14,6 +14,14 @@ import clientRoutes from "./routes/processClient.routes.js";
 import globalRoutes from "./routes/global.routes.js";
 // IMPORTAMOS POLÍTICAS DE CORS
 import cors from "cors";
+// IMPORTAMOS LA CONFIGURACIÓN DE MULTER
+import { multerConfig } from "./middlewares/multer.js";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
+
+// CONFIGURAMOS EL PATH
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // CREAR SERVIDOR
 const app = express();
@@ -29,12 +37,14 @@ const allowedOrigins = [
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 // APLICAMOS MORGAN
 app.use(morgan("dev"));
+// DEFINIMOS LA RUTA DE NUESTRAS IMÁGENES
+app.set("public", path.join(__dirname, "public"));
 // APLICAMOS VISUALIZADO JSON
 app.use(express.json());
 // APLICAMOS EL VISUALIZADO DE COOKIES
 app.use(cookieParser());
-// APLICAMOS EL VISUALIZADO DE MULTIMEDIA
-// app.use(express.static("public"));
+// APLICAMOS MULTER
+app.use(multerConfig);
 
 // DEFINIMOS RUTAS PARA CONSULTORES
 app.use("/api/consultant", consultantRoutes);

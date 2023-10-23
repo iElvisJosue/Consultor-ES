@@ -5,6 +5,7 @@ import {
   sendEmailVerificationCode,
   emailVerification,
   updateUser,
+  updateUserImage,
   login,
   getUserProfile,
   logout,
@@ -25,6 +26,9 @@ import {
 import { dataUser, dataLogin } from "../validators/data.validator.js";
 // ALMACENAMOS EL ENRUTADOR
 const router = Router();
+// IMPORTAMOS MULTER
+import multer from "multer";
+const upload = multer({ dest: "../public/usersPictures" });
 
 // RUTA PARA ENVIAR VERIFICACIÓN DEL CORREO
 router.post(
@@ -50,6 +54,9 @@ router.put(
   validateData(dataUser),
   updateUser
 );
+
+// RUTA PARA SUBIR UNA IMAGEN DE PERFIL
+router.post("/updateUserImage", upload.single("userPicture"), updateUserImage);
 
 // RUTA PARA OBTENER LOS DATOS DEL USUARIO
 router.get("/getUserProfile", authRequired, getUserProfile);

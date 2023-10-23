@@ -11,6 +11,10 @@ export const sendEmailVerificationCode = (email) =>
 export const emailVerification = (codeEntered) =>
   axios.put("/global/emailVerification", codeEntered);
 
+// PETICIÓN PARA ACTUALIZAR LA IMAGEN DE PERFIL
+export const updateUserImageRequest = (data) =>
+  axios.post("global/updateUserImage", data);
+
 // PETICIÓN PARA OBTENER EL PERFIL DEL USUARIO LOGUEADO
 export const getProfile = () => axios.get("/global/getUserProfile");
 

@@ -14,6 +14,7 @@ import PerfilMenuCliente from "./PerfilMenuCliente";
 import "../../../styles/webapp/Menu.css";
 
 export default function PerfilMenu({
+  setShowModalImage,
   setElementID,
   changeMenu,
   menu,
@@ -46,6 +47,12 @@ export default function PerfilMenu({
       <div className="Main__Profile__Information--Menu--Profile">
         <picture className="Main__Profile__Information--Menu--Profile--Picture">
           <img src={picture} alt="Imagen de perfil" />
+          <button
+            className="Main__Profile__Information--Menu--Profile--Picture--Button"
+            onClick={() => setShowModalImage(true)}
+          >
+            <ion-icon name="brush-outline"></ion-icon>
+          </button>
         </picture>
         <p className="Main__Profile__Information--Menu--Profile--Name">
           {userName}

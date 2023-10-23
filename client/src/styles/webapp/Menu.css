@@ -20,6 +20,7 @@
   border-radius: 15px 15px 0 0;
 }
 .Main__Profile__Information--Menu--Profile--Picture {
+  position: relative;
   min-width: 100px;
   width: 100px;
   min-height: 100px;
@@ -29,6 +30,31 @@
   border-radius: 50%;
   width: 100%;
 }
+.Main__Profile__Information--Menu--Profile--Picture--Button {
+  position: absolute;
+  bottom: -15px;
+  right: calc(50% - 15px);
+  width: 30px;
+  height: 30px;
+  background: var(--MainPurple);
+  border-radius: 50%;
+  transition: 0.3s ease-in-out all;
+  border: 2px solid var(--White);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main__Profile__Information--Menu--Profile--Picture--Button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.Main__Profile__Information--Menu--Profile--Picture--Button ion-icon {
+  font-size: 1.2em;
+  color: var(--White);
+  transition: 0.3s ease-in-out all;
+}
+
 .Main__Profile__Information--Menu--Profile--Name {
   font-size: 2em;
   font-weight: bold;

@@ -30,7 +30,6 @@ const generateCode = () => {
   }
   return code;
 };
-// ERRORES LISTOS
 const sendEmail = async (toEmail, code, role) => {
   const nameFromEmail = toEmail.split("@")[0];
 
@@ -43,22 +42,22 @@ const sendEmail = async (toEmail, code, role) => {
       attachments: [
         {
           filename: "EmailHeader.jpg",
-          path: "./public/EmailHeader.jpg",
+          path: "./src/public/EmailHeader.jpg",
           cid: "EmailHeader",
         },
         {
           filename: "EmailFooter.jpg",
-          path: "./public/EmailFooter.jpg",
+          path: "./src/public/EmailFooter.jpg",
           cid: "EmailFooter",
         },
       ],
     });
     console.log("CORREO ENVIADO");
   } catch (error) {
+    console.log(error);
     console.log("HUBO UN ERROR AL ENVIAR EL CORREO");
   }
 };
-// ERRORES LISTOS
 const registerAndSendVerificationCode = async (res, email, role) => {
   try {
     // OBTENEMOS UN CÓDIGO DE VERIFICACIÓN
@@ -101,7 +100,6 @@ const registerAndSendVerificationCode = async (res, email, role) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const sendEmailVerificationCode = async (req, res) => {
   try {
     const { email, role } = req.body;
@@ -140,7 +138,6 @@ export const sendEmailVerificationCode = async (req, res) => {
       );
   }
 };
-// ERRORES LISTOS
 export const emailVerification = async (req, res) => {
   try {
     const { codeEntered } = req.body;
@@ -184,7 +181,6 @@ export const emailVerification = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const updateUser = async (req, res) => {
   try {
     const { userName, password } = req.body;
@@ -219,7 +215,14 @@ export const updateUser = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
+export const updateUserImage = async (req, res) => {
+  try {
+    console.log(req.file);
+    res.status(200).json("¡Tu imagen ha sido actualizada correctamente!.");
+  } catch (error) {
+    res.status(500).json(error500);
+  }
+};
 export const login = async (req, res) => {
   try {
     // OBTENEMOS LOS DATOS INGRESAMOS POR EL USUARIO
@@ -268,7 +271,6 @@ export const login = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 const startSession = async (req, res, id) => {
   try {
     const userSession = await userModel.findByIdAndUpdate(
@@ -293,7 +295,6 @@ const startSession = async (req, res, id) => {
     res.status(500).json(error500);
   }
 };
-// ERRORES LISTOS
 export const getUserProfile = async (req, res) => {
   try {
     const userInformation = await userModel.findById(req.user._id);
@@ -311,7 +312,6 @@ export const getUserProfile = async (req, res) => {
     res.status(500).json(error500);
   }
 };
-
 export const logout = async (req, res) => {
   try {
     await userModel.findByIdAndUpdate(req.body.id, {
