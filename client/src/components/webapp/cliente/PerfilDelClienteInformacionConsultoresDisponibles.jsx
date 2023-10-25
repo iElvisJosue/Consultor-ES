@@ -40,7 +40,7 @@ export default function PerfilDelClienteInformacionConsultoresDisponibles({
                       // src={
                       //   consultantInformation.pictureConsultant
                       //     ? `http://localhost:4000/usersPictures/${consultantInformation.pictureConsultant}`
-                      //     :  "./CEO.png"
+                      //     : "./CEO.png"
                       // }
                       src={
                         consultantInformation.pictureConsultant

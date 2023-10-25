@@ -1,0 +1,52 @@
+.Main__Profile__Information--Content--Statistics--Users {
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+  display: flex;
+}
+.Main__Profile__Information--Content--Statistics--Users--Details {
+  width: 100%;
+  border-left: 2px solid var(--SecondaryYellow);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.Main__Profile__Information--Content--Statistics--Users--Details--Total {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.Main__Profile__Information--Content--Statistics--Users--Details--Total strong {
+  font-size: 4em;
+  color: var(--Black);
+}
+.Main__Profile__Information--Content--Statistics--Users--Details--Total--Title {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: var(--Black);
+}
+.Main__Profile__Information--Content--Statistics--Users--Details--Users {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  gap: 5px;
+}
+.Main__Profile__Information--Content--Statistics--Users--Details--Users
+  ion-icon {
+  font-size: 0.8em;
+}
+@media (width <= 400px) {
+  .Main__Profile__Information--Content--Statistics--Users {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+  .Main__Profile__Information--Content--Statistics--Users--Details {
+    border: none;
+  }
+}

@@ -18,8 +18,6 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-
-  animation: elementAppear 1s forwards;
 }
 .Main__Login__Form--ContainerInputs {
   position: relative;
@@ -46,12 +44,11 @@
 }
 .Main__Login__Form--ContainerInputs--Inputs {
   font-size: 1.6em;
+  width: 100%;
   height: 65px;
   background-color: var(--Gray);
   border: 2px solid var(--Gray);
   color: var(--MainPurple);
-  width: 100%;
-  height: 100%;
   padding: 10px 50px;
   outline: none;
 

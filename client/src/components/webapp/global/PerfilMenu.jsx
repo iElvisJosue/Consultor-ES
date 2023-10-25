@@ -9,6 +9,7 @@ import useShowMenu from "../../../hooks/useShowMenu";
 // COMPONENTES A USAR
 import PerfilMenuConsultor from "./PerfilMenuConsultor";
 import PerfilMenuCliente from "./PerfilMenuCliente";
+import PerfilMenuAdministrador from "./PerfilMenuAdministrador";
 
 // ESTILOS A USAR
 import "../../../styles/webapp/Menu.css";
@@ -19,6 +20,7 @@ export default function PerfilMenu({
   changeMenu,
   menu,
   picture,
+  btnUpdateImg = true,
 }) {
   const { showMenu, setShowMenu } = useShowMenu();
   const { user } = useGlobal();
@@ -33,7 +35,7 @@ export default function PerfilMenu({
   const profileMenuToRender = {
     Consultor: PerfilMenuConsultor,
     Cliente: PerfilMenuCliente,
-    //   Administrador: <PerfilMenuAdmin />,
+    Administrador: PerfilMenuAdministrador,
   };
   const MenuToRender = profileMenuToRender[role];
 
@@ -59,12 +61,14 @@ export default function PerfilMenu({
             alt="Imagen de perfil"
           />
         </figure>
-        <button
-          className="Main__Profile__Information--Menu--Profile--Picture--Button"
-          onClick={() => setShowModalImage(true)}
-        >
-          <ion-icon name="brush-outline"></ion-icon>
-        </button>
+        {btnUpdateImg && (
+          <button
+            className="Main__Profile__Information--Menu--Profile--Picture--Button"
+            onClick={() => setShowModalImage(true)}
+          >
+            <ion-icon name="brush-outline"></ion-icon>
+          </button>
+        )}
         <p className="Main__Profile__Information--Menu--Profile--Name">
           {userName}
         </p>

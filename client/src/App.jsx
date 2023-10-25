@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GlobalProvider } from "./context/GlobalContext";
+import { AdminProvider } from "./context/AdminContext";
 import { ConsultantProvider } from "./context/ConsultantContext";
 import { ClientProvider } from "./context/ClientContext";
 
@@ -29,67 +30,72 @@ import "./index.css";
 
 function App() {
   return (
-    <GlobalProvider>
-      <ConsultantProvider>
-        <ClientProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Inicio />} />
-              <Route
-                path="/ParaQueUnConsultor"
-                element={<ParaQueUnConsultor />}
-              />
-              <Route
-                path="/QuieresSerUnConsultor"
-                element={<QuieresSerUnConsultor />}
-              />
-              <Route path="/TienesUnProyecto" element={<TienesUnProyecto />} />
-              <Route path="/QuienesSomos" element={<QuienesSomos />} />
-              <Route path="/Preguntanos" element={<Preguntanos />} />
-              <Route path="/MisionVision" element={<MisionVision />} />
-              <Route
-                path="/CodigoDelConsultor"
-                element={<CodigoDelConsultor />}
-              />
-              <Route path="/IniciarSesion" element={<IniciarSesion />} />
-              <Route
-                path="/ClienteVerificacionDeCorreo"
-                element={<VerificacionDeCorreo role="Cliente" />}
-              />
-              <Route
-                path="/ConsultorVerificacionDeCorreo"
-                element={<VerificacionDeCorreo role="Consultor" />}
-              />
-              <Route element={<ProtectedByCookies />}>
-                <Route element={<ProtectedForConsultants />}>
-                  <Route
-                    path="/ConsultorVerificacionDeCodigo"
-                    element={<VerificacionDeCodigo role="Consultor" />}
-                  />
-                  <Route
-                    path="/ConsultorRegistroDeDatos"
-                    element={<RegistroDeDatos role="Consultor" />}
-                  />
+    <AdminProvider>
+      <GlobalProvider>
+        <ConsultantProvider>
+          <ClientProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Inicio />} />
+                <Route
+                  path="/ParaQueUnConsultor"
+                  element={<ParaQueUnConsultor />}
+                />
+                <Route
+                  path="/QuieresSerUnConsultor"
+                  element={<QuieresSerUnConsultor />}
+                />
+                <Route
+                  path="/TienesUnProyecto"
+                  element={<TienesUnProyecto />}
+                />
+                <Route path="/QuienesSomos" element={<QuienesSomos />} />
+                <Route path="/Preguntanos" element={<Preguntanos />} />
+                <Route path="/MisionVision" element={<MisionVision />} />
+                <Route
+                  path="/CodigoDelConsultor"
+                  element={<CodigoDelConsultor />}
+                />
+                <Route path="/IniciarSesion" element={<IniciarSesion />} />
+                <Route
+                  path="/ClienteVerificacionDeCorreo"
+                  element={<VerificacionDeCorreo role="Cliente" />}
+                />
+                <Route
+                  path="/ConsultorVerificacionDeCorreo"
+                  element={<VerificacionDeCorreo role="Consultor" />}
+                />
+                <Route element={<ProtectedByCookies />}>
+                  <Route element={<ProtectedForConsultants />}>
+                    <Route
+                      path="/ConsultorVerificacionDeCodigo"
+                      element={<VerificacionDeCodigo role="Consultor" />}
+                    />
+                    <Route
+                      path="/ConsultorRegistroDeDatos"
+                      element={<RegistroDeDatos role="Consultor" />}
+                    />
+                  </Route>
+                  <Route element={<ProtectedForClients />}>
+                    <Route
+                      path="/ClienteVerificacionDeCodigo"
+                      element={<VerificacionDeCodigo role="Cliente" />}
+                    />
+                    <Route
+                      path="/ClienteRegistroDeDatos"
+                      element={<RegistroDeDatos role="Cliente" />}
+                    />
+                  </Route>
+                  <Route element={<ProtectedByUserStatus />}>
+                    <Route path="/Perfil" element={<Perfil />} />
+                  </Route>
                 </Route>
-                <Route element={<ProtectedForClients />}>
-                  <Route
-                    path="/ClienteVerificacionDeCodigo"
-                    element={<VerificacionDeCodigo role="Cliente" />}
-                  />
-                  <Route
-                    path="/ClienteRegistroDeDatos"
-                    element={<RegistroDeDatos role="Cliente" />}
-                  />
-                </Route>
-                <Route element={<ProtectedByUserStatus />}>
-                  <Route path="/Perfil" element={<Perfil />} />
-                </Route>
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </ClientProvider>
-      </ConsultantProvider>
-    </GlobalProvider>
+              </Routes>
+            </BrowserRouter>
+          </ClientProvider>
+        </ConsultantProvider>
+      </GlobalProvider>
+    </AdminProvider>
   );
 }
 

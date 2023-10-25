@@ -6,6 +6,8 @@ import express from "express";
 import morgan from "morgan";
 // IMPORTAMOS COOKIE PARSER
 import cookieParser from "cookie-parser";
+// IMPORTAMOS LAS RUTAS PARA EL PROCESO DEL ADMINISTRADOR
+import adminRoutes from "./routes/processAdmin.routes.js";
 // IMPORTAMOS LAS RUTAS PARA EL PROCESO DEL CONSULTOR
 import consultantRoutes from "./routes/processConsultant.routes.js";
 // IMPORTAMOS LAS RUTAS PARA EL PROCESO DEL CLIENTE
@@ -50,6 +52,7 @@ app.use(cookieParser());
 app.use(multerConfig);
 
 // DEFINIMOS RUTAS PARA CONSULTORES
+app.use("/api/admin", adminRoutes);
 app.use("/api/consultant", consultantRoutes);
 app.use("/api/client", clientRoutes);
 app.use("/api/global", globalRoutes);

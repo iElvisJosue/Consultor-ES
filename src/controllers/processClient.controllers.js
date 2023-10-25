@@ -18,7 +18,7 @@ import consultantAreasModel from "../models/consultants/consultantAreas.model.js
 import consultantLanguagesModel from "../models/consultants/consultantLanguages.model.js";
 // IMPORTAMOS EL MODELO DE LAS HABILIDADES DEL CONSULTOR
 import consultantSkillsModel from "../models/consultants/consultantSkills.model.js";
-import { boolean } from "zod";
+
 const error500 =
   "Lo sentimos, se ha producido un error interno en el servidor. Nuestro equipo técnico ha sido notificado y está trabajando para resolverlo lo más rápido posible. Por favor, inténtalo de nuevo más tarde.";
 

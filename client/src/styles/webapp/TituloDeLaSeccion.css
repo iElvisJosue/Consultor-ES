@@ -10,11 +10,6 @@
   justify-content: space-between;
   grid-column: span 2;
 }
-.Main__Profile__Information--TitleSection {
-  font-size: 1.8em;
-  padding: 5px 10px 5px 0;
-  border: none;
-}
 .Main__Profile__Information--TitleSection--Container {
   display: flex;
   gap: 10px;
